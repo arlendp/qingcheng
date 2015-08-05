@@ -42,12 +42,16 @@
       }
     },
     watch: {
-      'cafe.slug': function(slug) {
-        if (!slug) return;
-        this.fetchUsers();
-      }
+      'cafe.slug': 'compile',
+    },
+    compiled: function() {
+      this.compile();
     },
     methods: {
+      compile: function() {
+        if (!this.cafe.slug) return;
+        this.fetchUsers();
+      },
       fetchUsers: function(page) {
         api.cafe.users(this.cafe.slug, page, function(resp) {
           this.pagination = resp.pagination;

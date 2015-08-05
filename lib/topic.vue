@@ -30,7 +30,14 @@
       };
     },
     watch: {
-      'params.topicId': function(id) {
+      'params.topicId': 'update',
+    },
+    compiled: function() {
+        this.update();
+    },
+    methods: {
+      update: function() {
+        var id = this.params.topicId;
         if (!id) return;
         this.fetchTopic(id);
 
@@ -38,9 +45,7 @@
         this.comments = [];
         this.cursor = 0;
         this.fetchComments(id);
-      }
-    },
-    methods: {
+      },
       fetchTopic: function(id) {
         // clean
         this.topic = {};

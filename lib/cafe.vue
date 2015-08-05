@@ -53,12 +53,10 @@
       }
     },
     watch: {
-      'params': function(obj) {
-        if (!obj.slug) return;
-        if (this.cafe.slug !== obj.slug) {
-          this.fetchCafe();
-        }
-      }
+      'params': 'compile',
+    },
+    compiled: function() {
+      this.compile();
     },
     computed: {
       showFollowing: function() {
@@ -71,6 +69,12 @@
       }
     },
     methods: {
+      compile: function() {
+        if (!this.params.slug) return;
+        if (this.cafe.slug !== this.params.slug) {
+          this.fetchCafe();
+        }
+      },
       fetchCafe: function() {
         this.cafe = {slug: this.params.slug};
         api.cafe.view(this.params.slug, function(resp) {

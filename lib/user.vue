@@ -22,12 +22,16 @@
       }
     },
     watch: {
-      'params.username': function(username) {
-        if (!username) return;
-        this.fetchUser(username);
-      }
+      'params.username': 'compile'
+    },
+    compiled: function() {
+      this.compile();
     },
     methods: {
+      compile: function() {
+        if (!this.params.username) return;
+        this.fetchUser(this.params.username);
+      },
       fetchUser: function(username) {
         ga('send', 'pageview', {title: username});
         if (this.$root.currentUser.username === username) {

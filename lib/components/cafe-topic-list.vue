@@ -74,13 +74,18 @@
       }
     },
     watch: {
-      'params': function(params) {
-        if (!params.slug) return;
-        this.fetchTopics(params.query.page);
-      }
+      'params': 'compile',
+    },
+    compiled: function() {
+      this.compile();
     },
     methods: {
+      compile: function() {
+        if (!this.params.slug) return;
+        this.fetchTopics();
+      },
       fetchTopics: function(page) {
+        page = page || params.query.page;
         this.fetching = true;
         api.cafe.topics(this.cafe.slug, page, function(resp) {
           if (resp.pagination.pages > 1) {
