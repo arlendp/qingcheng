@@ -1,9 +1,9 @@
 <template>
   <li id="t-{{ topic.id }}" class="topic-item clearfix" v-show="topic.id" v-transition="fade">
     <span class="user-avatar">
-      <user-avatar user="{{user}}" class="small circle tip" aria-label="Published by {{user.username}}"></user-avatar>
+      <user-avatar user="{{user}}" class="small circle tip"></user-avatar>
     </span>
-    <div class="topic-meta">
+    <div class="topic-meta" v-if="cafe">
       <span class="cafe-logo" v-style="cafeStyle"></span>
       <a href="/c/{{ cafe.slug }}" aria-label="Published in {{ cafe.name }}" v-text="cafe.name"></a>
     </div>
@@ -50,7 +50,7 @@
     position: relative;
     border: 1px solid #f0f0f0;
     border-radius: 3px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .topic-item:hover {
     border-color: #dadada;
@@ -81,7 +81,9 @@
     text-decoration: none;
     color: #565655;
     line-height: 1.4;
-    font-size: 18px;
+    font-size: 20px;
+    padding-right: 40px;
+    box-sizing: border-box;
   }
   .topic-item .topic-title:hover {
     color: #010100;
