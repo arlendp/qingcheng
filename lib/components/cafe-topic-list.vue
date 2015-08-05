@@ -85,7 +85,7 @@
         this.fetchTopics();
       },
       fetchTopics: function(page) {
-        page = page || params.query.page;
+        page = page || this.params.query.page;
         this.fetching = true;
         api.cafe.topics(this.cafe.slug, page, function(resp) {
           if (resp.pagination.pages > 1) {
