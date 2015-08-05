@@ -225,6 +225,7 @@
     padding-right: 0.5em;
   }
   .entry-meta .cafe-logo {
+    display: inline-block;
     width: 1.5em;
     height: 1.5em;
     margin-right: 0.2em;

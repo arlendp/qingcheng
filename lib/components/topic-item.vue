@@ -1,27 +1,18 @@
 <template>
   <li id="t-{{ topic.id }}" class="topic-item clearfix" v-show="topic.id" v-transition="fade">
-    <span v-if="cafe" class="cafe-color" v-style="color"></span>
     <span class="user-avatar">
-      <user-avatar user="{{user}}"></user-avatar>
+      <user-avatar user="{{user}}" class="small circle tip" aria-label="Published by {{user.username}}"></user-avatar>
     </span>
-    <div class="topic-info">
-      <a class="topic-title" href="/t/{{topic.id}}">{{topic.title}}</a>
-      <div class="explain">
-        <time datetime="{{ topic.created_at }}">{{ topic.created_at | timeago }}</time>
-        by <a href="/u/{{user.username}}">{{user.username}}</a>
-        <span v-if="cafe"> at <a href="/c/{{cafe.slug}}">{{ cafe.name }}</a></span>
-      </div>
+    <div class="topic-meta">
+      <span class="cafe-logo" v-style="cafeStyle"></span>
+      <a href="/c/{{ cafe.slug }}" aria-label="Published in {{ cafe.name }}" v-text="cafe.name"></a>
     </div>
-    <div class="topic-counts">
-      <div class="count-wrap" v-if="topic.like_count">
-        {{ topic.like_count }}<span class="explain">likes</span>
-      </div>
-      <div class="count-wrap" v-if="!topic.like_count">
-        {{ topic.read_count }}<span class="explain">reads</span>
-      </div>
-      <div class="count-wrap">
-        {{ topic.comment_count }}<span class="explain">replies</span>
-      </div>
+    <a class="topic-title" href="/t/{{topic.id}}">{{topic.title}}</a>
+    <div class="topic-info">
+      <time datetime="{{ topic.created_at }}">{{ topic.created_at | timeago }}</time>
+      <span v-if="topic.view_count">{{ topic.view_count }} views</span>
+      <span v-if="topic.like_count">{{ topic.like_count }} likes</span>
+      <span v-if="topic.comment_count">{{ topic.comment_count }} replies</span>
     </div>
   </li>
 </template>
@@ -37,14 +28,14 @@
       user: function() {
         return this.topic.user;
       },
-      color: function() {
+      cafeStyle: function() {
         var style = this.cafe.style;
-        var rv = {};
-        if (style.color) {
-          rv['background-color'] = style.color;
+        var rv = {'background-color': style.color || '#222221'};
+        if (style.logo) {
+          rv['background-image'] = 'url(' + style.logo + ')';
         }
         return rv;
-      }
+      },
     },
     components: {
       'user-avatar': require('./user-avatar.vue')
@@ -55,31 +46,31 @@
 <style>
   .topic-item {
     list-style-type: none;
-    padding: 10px 0;
+    padding: 10px;
     position: relative;
+    border: 1px solid #f0f0f0;
+    border-radius: 3px;
+    margin-bottom: 10px;
   }
-  .topic-item .cafe-color {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 3px;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-  }
-  .topic-item:hover .cafe-color {
-    opacity: 1;
+  .topic-item:hover {
+    border-color: #dadada;
   }
   .topic-item .user-avatar {
-    display: inline-block;
-    width: 48px;
-    height: 48px;
-    padding: 0 10px 0 12px;
-    vertical-align: top;
+    position: absolute;
+    right: 10px;
+    top: 6px;
   }
-  .topic-item .topic-info {
+  .topic-meta {
+    padding-bottom: 10px;
+    line-height: 1;
+    font-size: 14px;
+  }
+  .topic-meta .cafe-logo {
     display: inline-block;
-    width: 540px;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.2em;
+    vertical-align: text-top;
   }
   .topic-item .topic-title {
     display: inline-block;
@@ -95,29 +86,11 @@
   .topic-item .topic-title:hover {
     color: #010100;
   }
-  .topic-item .topic-counts {
-    float: right;
-    padding: 0 10px;
-    color: #454544;
-  }
-  .topic-counts .count-wrap {
-    display: inline-block;
-    text-align: center;
-    width: 48px;
-  }
-  .topic-item .explain {
-    display: block;
+  .topic-item .topic-info {
     color: #999;
-    line-height: 1;
     font-size: 13px;
   }
-  .topic-item .explain a {
-    color: #999;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 13px;
-  }
-  .topic-item .explain a:hover {
-    color: #666;
+  .topic-item .topic-info span {
+    margin-left: 8px;
   }
 </style>

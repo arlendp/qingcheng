@@ -57,7 +57,7 @@ a.button:hover, button:hover {
   position: absolute;
   top: 100%;
   right: 50%;
-  padding: 2px 10px;
+  padding: 0 10px;
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.9);
   color: #fff;
@@ -67,6 +67,7 @@ a.button:hover, button:hover {
   white-space: pre;
   z-index: 10000;
   margin-top: 5px;
+  line-height: 26px;
   transform: translateX(50%);
 }
 a.tip:hover {
