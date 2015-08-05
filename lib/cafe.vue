@@ -1,5 +1,36 @@
 <template>
-  <cafe-header cafe="{{ cafe }}"></cafe-header>
+  <div class="header">
+    <div class="header-cover cover" v-style="style">
+      <div class="header-intro cover-inner">
+        <div class="container">
+          <h2>{{ cafe.name }}</h2>
+          <p v-html="cafe.description|urlize"></p>
+        </div>
+      </div>
+    </div>
+    <div class="header-nav">
+      <div class="container">
+        <nav v-if="cafe.slug">
+          <a href="/c/{{ cafe.slug }}" v-on="click: changeView('topics')">Topics</a>
+          <a href="/c/{{ cafe.slug }}" v-on="click: changeView('users')">Members</a>
+          <a v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
+        </nav>
+        <div class="header-actions" v-if="showFollowing">
+          <button class="follow-button" v-class="following-button: isFollowing" v-on="click: toggleFollow">
+            <span class="follow-fg">
+              <i class="qc-icon-star-empty"></i>
+              Follow
+            </span>
+            <span class="unfollow-fg">
+              <i class="qc-icon-star-full"></i>
+              Following
+            </span>
+            <span class="unfollow-bg">Unfollow</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <component is="{{subview}}" v-if="cafe.slug"
     cafe="{{cafe}}" params="{{params}}"
     v-transition
@@ -15,13 +46,11 @@
     props: ['params'],
     data: function() {
       return {
-        cafe: {}
+        cafe: {},
+        subview: 'topics',
+        loading: false,
+        isFollowing: false
       }
-    },
-    computed: {
-      subview: function() {
-        return this.params.subview || 'cafe-topic-list';
-      },
     },
     watch: {
       'params': function(obj) {
@@ -29,6 +58,16 @@
         if (this.cafe.slug !== obj.slug) {
           this.fetchCafe();
         }
+      }
+    },
+    computed: {
+      showFollowing: function() {
+        return this.cafe.id && this.$root.currentUser.id;
+      },
+      style: function() {
+        var style = this.cafe.style;
+        if (!style || !style.cover) return {};
+        return {'background-image': 'url(' + style.cover + ')'};
       }
     },
     methods: {
@@ -39,12 +78,63 @@
           document.title = this.$site.name + ' — ' + resp.name;
           ga('send', 'pageview', {title: resp.name});
         }.bind(this));
+      },
+      changeView: function(name) {
+        console.log('change', name);
+        this.subview = name;
+      },
+      follow: function() {
+        this.loading = true;
+        api.cafe.join(this.cafe.slug, function() {
+          this.isFollowing = true;
+          this.loading = false;
+        }.bind(this));
+      },
+      unfollow: function() {
+        this.loading = true;
+        api.cafe.leave(this.cafe.slug, function() {
+          this.isFollowing = false;
+          this.loading = false;
+        }.bind(this));
+      },
+      toggleFollow: function() {
+        if (this.loading) return;
+
+        if (this.isFollowing) {
+          this.unfollow();
+        } else {
+          this.follow();
+        }
       }
     },
     components: {
-      'cafe-topic-list': require('./components/cafe-topic-list.vue'),
-      'cafe-user-list': require('./components/cafe-user-list.vue'),
-      'cafe-header': require('./components/cafe-header.vue')
+      'topics': require('./components/cafe-topic-list.vue'),
+      'users': require('./components/cafe-user-list.vue')
     }
   };
 </script>
+
+<style>
+.follow-button {
+  min-width: 10em;
+  transition: background-color .2s ease;
+}
+.unfollow-bg, .unfollow-fg {
+  display: none;
+}
+.following-button .follow-fg {
+  display: none;
+}
+.following-button .unfollow-fg {
+  display: inline;
+}
+.following-button:hover {
+  background-color: #FF4444;
+}
+.following-button:hover .unfollow-bg {
+  display: inline;
+}
+.following-button:hover .unfollow-fg {
+  display: none;
+}
+</style>
