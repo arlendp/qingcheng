@@ -13,4 +13,7 @@ dist:
 	@cp fonts/* dist/fonts/
 	@uglifyjs build/build.js -m -o dist/qingcheng.js
 
+upload: dist
+	@fab assets
+
 .PHONY: build copy dist

@@ -25,4 +25,10 @@
   .overlay .topic-form .markdown-logo {
     display: none;
   }
+  .hentry .entry-title, .hentry .entry-content {
+    word-break: break-all;
+  }
+  .tip:hover:before, .tip:hover:after {
+    display: none;
+  }
 }
