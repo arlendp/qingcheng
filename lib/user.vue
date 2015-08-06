@@ -3,7 +3,15 @@
   <div class="body">
     <div class="split-view container">
       <div class="main-view">
-        <topic-list topics="{{ topics }}"></topic-list>
+        <div class="topic-list">
+          <ul>
+            <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
+          </ul>
+          <logo-loading class="center" v-if="fetching"></logo-loading>
+          <div class="load-more" v-if="cursor" v-on="click: fetchTopics(username, cursor)">
+            Load More
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -17,6 +25,9 @@
     props: ['params'],
     data: function() {
       return {
+        fetching: true,
+        cursor: 0,
+        topics: [],
         params: {},
         user: {}
       }
@@ -24,13 +35,19 @@
     watch: {
       'params.username': 'compile'
     },
+    computed: {
+      username: function() {
+        return this.params.username;
+      }
+    },
     compiled: function() {
       this.compile();
     },
     methods: {
       compile: function() {
-        if (!this.params.username) return;
-        this.fetchUser(this.params.username);
+        if (!this.username) return;
+        this.fetchUser(this.username);
+        this.fetchTopics(this.username);
       },
       fetchUser: function(username) {
         ga('send', 'pageview', {title: username});
@@ -40,10 +57,20 @@
         api.user.profile(username, function(resp) {
           this.user = resp;
         }.bind(this));
+      },
+      fetchTopics: function(username, cursor) {
+        this.fetching = true;
+        cursor = cursor || this.params.cursor;
+        api.user.topics(username, cursor, function(resp) {
+          this.cursor = resp.cursor;
+          this.topics = this.topics.concat(resp.data);
+          this.fetching = false;
+        }.bind(this));
       }
     },
     components: {
-      'user-header': require('./components/user-header.vue')
+      'user-header': require('./components/user-header.vue'),
+      'topic-item': require('./components/topic-item.vue'),
     }
   };
 </script>
