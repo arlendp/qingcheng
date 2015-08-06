@@ -129,6 +129,7 @@
     width: 460px;
     margin: 120px auto 100px;
     transition: all .15s ease;
+    max-width: 100%;
   }
   .login-social {
     text-align: center;

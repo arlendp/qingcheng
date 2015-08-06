@@ -9,7 +9,7 @@
 
     <div class="section container">
       <h2 class="section-title">Cafes</h2>
-      <div class="cafe-cards">
+      <div class="cafe-cards clearfix">
         <cafe-card v-repeat="cafe: cafes" track-by="id"></cafe-card>
       </div>
     </div>

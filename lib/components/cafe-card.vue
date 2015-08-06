@@ -58,4 +58,9 @@
 .cafe-card .cover {
   height: 120px;
 }
+@media (max-width: 480px) {
+  .cafe-card {
+    width: 100%;
+  }
+}
 </style>
