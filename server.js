@@ -19,7 +19,7 @@ var app = new WebpackDevServer(webpack(config), {
   }
 });
 
-app.listen(9090, 'localhost', function (err, result) {
+app.listen(9090, '0.0.0.0', function (err, result) {
   console.log('http://localhost:9090');
   if (err) {
     console.log(err);
