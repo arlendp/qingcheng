@@ -44,13 +44,10 @@
     </div>
   </div>
 
-  <div class="overlay cafe-overlay" v-if="showCafeCards">
-    <div class="overlay-mask" v-on="click: showCafeCards=false"></div>
-    <div class="overlay-inner">
-      <h3>Choose a cafe</h3>
-      <cafe-card v-repeat="cafe: cafes" track-by="id" query="?new"></cafe-card>
-    </div>
-  </div>
+  <overlay class="cafe-overlay" v-if="showCafeCards" show="{{@ showCafeCards }}">
+    <h3>Choose a cafe</h3>
+    <cafe-card v-repeat="cafe: cafes" track-by="id" query="?new"></cafe-card>
+  </overlay>
 </template>
 
 <script>
@@ -113,7 +110,8 @@
     components: {
       'topic-item': require('./components/topic-item.vue'),
       'cafe-card': require('./components/cafe-card.vue'),
-      'logo-loading': require("./components/logo-loading.vue")
+      'logo-loading': require("./components/logo-loading.vue"),
+      'overlay': require("./components/overlay.vue"),
     }
   };
 </script>
