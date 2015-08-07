@@ -3,7 +3,8 @@ var vue = require("vue-loader");
 
 module.exports = {
   entry: [
-    "./lib/index.js"
+    "./lib/index.js",
+    './lib/css/responsive.css'
   ],
 
   output: {
