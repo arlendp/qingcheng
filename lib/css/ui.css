@@ -224,6 +224,8 @@ a.tip:hover {
   top: 0;
   bottom: 0;
   z-index: 9;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .overlay-mask {
   position: absolute;
