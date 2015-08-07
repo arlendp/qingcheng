@@ -21,6 +21,10 @@
   <div class="body">
     <div class="split-view container">
       <div class="main-view">
+        <div class="tab">
+          <a href="/">My Feed</a>
+          <a href="/?show=all">All Topics</a>
+        </div>
         <div class="topic-list">
           <ul>
             <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
@@ -82,20 +86,29 @@
       }
     },
     methods: {
+      compile: function() {
+        this.cursor = 0;
+        this.topics = [];
+        this.fetchTopics();
+      },
       fetchTopics: function(cursor) {
         this.fetching = true;
-        cursor = cursor || this.params.cursor;
-        api.timeline(cursor, function(resp) {
+        var params = this.params.query || {};
+        if (cursor) params.cursor = cursor;
+        api.timeline(params, function(resp) {
           this.cursor = resp.cursor;
           this.topics = this.topics.concat(resp.data);
           this.fetching = false;
         }.bind(this));
       }
     },
+    watch: {
+      'params.query': 'compile',
+    },
     compiled: function() {
       document.title = this.$site.name;
       ga('send', 'pageview', {title: 'Home'});
-      this.fetchTopics();
+      this.compile();
     },
     components: {
       'topic-item': require('./components/topic-item.vue'),
