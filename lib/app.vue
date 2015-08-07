@@ -45,7 +45,9 @@
   <div id="message" aria-live="assertive">
     <div class="message message-{{type}}" v-repeat="messages" v-text="text" v-transition="fade"></div>
   </div>
-  <login-dialog v-if="showLogin" v-transition="fade"></login-dialog>
+  <overlay v-if="showLogin" v-transition="fade" show="{{@ showLogin }}">
+    <login-form></login-form>
+  </overlay>
 </template>
 
 <script>
@@ -71,8 +73,9 @@
       'user': require('./user.vue'),
       'cafe-list': require('./cafe-list.vue'),
       'user-list': require('./user-list.vue'),
+      'overlay': require('./components/overlay.vue'),
       'user-avatar': require('./components/user-avatar.vue'),
-      'login-dialog': require('./components/login-dialog.vue')
+      'login-form': require('./components/login-form.vue')
     }
   }
 </script>

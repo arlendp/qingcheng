@@ -1,46 +1,41 @@
 <template>
-  <div class="overlay">
-    <div class="login-mask overlay-mask" v-on="click: close"></div>
-    <div class="overlay-inner">
-      <div class="login-form" v-class="shake: error">
-        <div class="login-tab clearfix">
-          <a href="javascript:;" v-class="active: loginTab" v-on="click: loginTab=true">Log In</a>
-          <a href="javascript:;" v-class="active: !loginTab" v-on="click: loginTab=false">Sign Up</a>
-        </div>
+  <div class="login-form" v-class="shake: error">
+    <div class="login-tab clearfix">
+      <a href="javascript:;" v-class="active: loginTab" v-on="click: loginTab=true">Log In</a>
+      <a href="javascript:;" v-class="active: !loginTab" v-on="click: loginTab=false">Sign Up</a>
+    </div>
 
-        <form action="/session" method="post" v-on="submit: login" v-show="loginTab">
-          <div class="form-field">
-            <input type="text" placeholder="Username/Email" aria-label="Username or Email" name="username" v-model="username" required v-el="username">
-          </div>
-          <div class="form-field">
-            <input type="password" placeholder="Password" aria-label="Password" name="password" v-model="password" required>
-          </div>
-          <label class="form-check">
-            <input type="checkbox" name="permanent" v-model="permanent">Remember Me
-          </label>
-          <div class="form-submit">
-            <button>Log In</button>
-            <a href="/account/find-password">Find Password</a>
-          </div>
-        </form>
+    <form action="/session" method="post" v-on="submit: login" v-show="loginTab">
+      <div class="form-field">
+        <input type="text" placeholder="Username/Email" aria-label="Username or Email" name="username" v-model="username" required v-el="username">
+      </div>
+      <div class="form-field">
+        <input type="password" placeholder="Password" aria-label="Password" name="password" v-model="password" required>
+      </div>
+      <label class="form-check">
+        <input type="checkbox" name="permanent" v-model="permanent">Remember Me
+      </label>
+      <div class="form-submit">
+        <button>Log In</button>
+        <a href="/account/find-password">Find Password</a>
+      </div>
+    </form>
 
-        <form action="/session/new" method="post" v-on="submit: signup" v-show="!loginTab">
-          <div class="form-field">
-            <input type="email" placeholder="Email" aria-label="Email" name="email" v-model="email" required>
-          </div>
-          <div class="form-submit">
-            <button>Sign Up</button>
-          </div>
-        </form>
+    <form action="/session/new" method="post" v-on="submit: signup" v-show="!loginTab">
+      <div class="form-field">
+        <input type="email" placeholder="Email" aria-label="Email" name="email" v-model="email" required>
       </div>
-      <div class="login-social" v-if="$site.logins && loginTab">
-        <h3>Login With</h3>
-        <div class="login-buttons">
-          <a class="button login-{{name}}" href="/account/s/{{name}}" v-repeat="name: $site.logins">
-            <i class="qc-icon-{{name}}"></i>{{name}}
-          </a>
-        </div>
+      <div class="form-submit">
+        <button>Sign Up</button>
       </div>
+    </form>
+  </div>
+  <div class="login-social" v-if="$site.logins && loginTab">
+    <h3>Login With</h3>
+    <div class="login-buttons">
+      <a class="button login-{{name}}" href="/account/s/{{name}}" v-repeat="name: $site.logins">
+        <i class="qc-icon-{{name}}"></i>{{name}}
+      </a>
     </div>
   </div>
 </template>
@@ -60,9 +55,6 @@
       };
     },
     methods: {
-      close: function() {
-        this.$root.showLogin = false;
-      },
       shakeError: function() {
         this.error = true;
         setTimeout(function() {
@@ -77,7 +69,7 @@
           permanent: this.permanent
         };
         api.user.login(data, function(resp) {
-          this.close();
+          this.$root.showLogin = false;
         }.bind(this)).error(this.shakeError.bind(this));
       },
       signup: function(e) {
@@ -90,23 +82,17 @@
         }.bind(this));
       }
     },
-    detached: function() {
-      document.body.classList.remove('no-scroll');
-    },
     ready: function() {
       var el = this.$$.username;
       setTimeout(function() {
         el.focus();
       }, 20);
-    },
-    attached: function() {
-      document.body.classList.add('no-scroll');
     }
   };
 </script>
 
 <style>
-  .login-mask {
+  .login-overlay {
     background-color: rgba(255, 255, 255, 0.98);
   }
   .login-tab {
