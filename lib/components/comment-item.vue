@@ -7,6 +7,11 @@
         <time datetime="{{ comment.created_at }}">{{ comment.created_at | timeago }}</time>
         #{{ comment.id }}
         <div class="comment-actions">
+          <span v-show="comment.like_count">{{ comment.like_count }} likes</span>
+          <a class="tip like-comment" role="button" href="javascript:;" aria-label="like this comment"
+          v-if="!isOwner" v-on="click: toggleLike" v-class="liked: comment.liked_by_me">
+            <i class="qc-icon-heart"></i>
+          </a>
           <a role="button" href="javascript:;" v-if="!isOwner" v-on="click: flagComment" aria-label="report spam"><i class="qc-icon-flag"></i></a>
           <a role="button" href="javascript:;" v-if="isOwner" v-on="click: deleteComment" aria-label="delete comment"><i class="qc-icon-bin"></i></a>
         </div>
@@ -50,7 +55,21 @@
         if (confirm('Are you sure to report this comment?')) {
           api.comment.flag(this.comment)
         }
-      }
+      },
+      toggleLike: function() {
+        var comment = this.comment;
+        if (comment.liked_by_me) {
+          api.comment.unlike(comment, function(resp) {
+            comment.liked_by_me = false;
+            comment.like_count -= 1;
+          });
+        } else {
+          api.comment.like(comment, function(resp) {
+            comment.liked_by_me = true;
+            comment.like_count += 1;
+          });
+        }
+      },
     },
     components: {
       'user-avatar': require('./user-avatar.vue')
@@ -78,14 +97,23 @@
     top: 0;
     font-size: 13px;
     transition: all .2s ease;
-    opacity: 0.2;
   }
-  .comment-item:hover .comment-actions {
-    opacity: 1;
-  }
-  .comment-item .comment-actions [role=button] {
+  .comment-actions [role=button] {
     color: #999;
     cursor: pointer;
+  }
+  .comment-actions a {
+    opacity: 0.2;
+  }
+  .comment-actions .like-comment {
+    opacity: 0.6;
+    margin: 0 1em 0 0.5em;
+  }
+  .comment-actions .liked {
+    color: #FF4444;
+  }
+  .comment-actions a:hover {
+    opacity: 1;
   }
   .comment-item .comment-content {
     line-height: 1.4;

@@ -52,7 +52,7 @@ nav a:hover {
   margin-right: 12px;
 }
 .item-container .item-content {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* layout: top-nav */
