@@ -70,6 +70,9 @@ a.button:hover, button:hover {
   line-height: 26px;
   transform: translateX(50%);
 }
+.tip-west:after {
+  transform: translateX(10%);
+}
 a.tip:hover {
   opacity: 1;
 }

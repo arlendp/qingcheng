@@ -8,7 +8,7 @@
         #{{ comment.id }}
         <div class="comment-actions">
           <span v-show="comment.like_count">{{ comment.like_count }} likes</span>
-          <a class="tip like-comment" role="button" href="javascript:;" aria-label="like this comment"
+          <a class="tip tip-west like-comment" role="button" href="javascript:;" aria-label="like this comment"
           v-if="!isOwner" v-on="click: toggleLike" v-class="liked: comment.liked_by_me">
             <i class="qc-icon-heart"></i>
           </a>
@@ -38,7 +38,7 @@
       },
       content: function() {
         var content = this.comment.content;
-        content = content.replace(/(>|\s)@([0-9a-z]+)/, '$1<a href="/u/$2">@$2<\/a>');
+        content = content.replace(/(>|\s)@([0-9a-z]+)/g, '$1<a href="/u/$2">@$2<\/a>');
         return content;
       }
     },
