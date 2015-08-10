@@ -2,8 +2,8 @@
   <div class="header">
     <div class="header-cover cover">
       <div class="header-intro cover-inner">
-        <div class="item-container container">
-          <user-avatar user="{{ user }}" v-if="user.username"></user-avatar>
+        <div class="item-container container" v-if="user.username">
+          <user-avatar user="{{ user }}"></user-avatar>
           <div class="item-content" v-if="!editable">
             <h2>{{ name }}</h2>
             <p v-html="user.description|urlize"></p>
@@ -19,7 +19,6 @@
       <div class="container">
         <nav>
           <a href="/u/{{ username }}" v-on="click: changeView('topics')">Topics</a>
-          <a href="/u/{{ username }}" v-on="click: changeView('cafes')">Cafes</a>
         </nav>
         <div class="header-actions" v-if="isOwn">
           <button class="circle" v-on="click: editable=true" v-if="!editable">Edit Profile</button>
@@ -48,7 +47,6 @@
 
 <script>
   var api = require('./api');
-
   module.exports = {
     replace: true,
     props: ['params'],
@@ -83,6 +81,8 @@
     methods: {
       compile: function() {
         if (!this.username) return;
+        this.topics = [];
+        this.cursor = 0;
         this.fetchUser(this.username);
         this.fetchTopics(this.username);
       },

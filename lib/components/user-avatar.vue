@@ -5,38 +5,46 @@
   var escape = require('../utils').escape;
   var wordColor = require('word-color');
   module.exports = {
-    replace: true,
     props: ['user'],
-    compiled: function() {
-      var user = this.$data.user;
-      var span = '<span style="background-color:#1;color:#2">#3<\/span>';
-      var bg = wordColor.rgb(user.username);
-      var fg = 'white';
-      if ((bg[0] * 299 + bg[1] * 587 + bg[2] * 114) > 200000) {
-        fg = 'black';
+    watch: {
+      'user.username': 'compile'
+    },
+    methods: {
+      compile: function() {
+        console.log('compile');
+        var user = this.user;
+        var span = '<span style="background-color:#1;color:#2">#3<\/span>';
+        var bg = wordColor.rgb(user.username);
+        var fg = 'white';
+        if ((bg[0] * 299 + bg[1] * 587 + bg[2] * 114) > 200000) {
+          fg = 'black';
+        }
+
+        span = span
+          .replace('#1', 'rgb(' + bg.join(',') + ')')
+          .replace('#2', fg)
+          .replace('#3', escape(user.username.charAt(0).toUpperCase()));
+        var el = this.$$.el;
+        el.innerHTML = span;
+        if (!user.avatar_url) return;
+        var key = 'avatar:' + user.avatar_url;
+        // it is marked as 404
+        if (sessionStorage[key]) return;
+
+        var img = new Image();
+        img.src = user.avatar_url;
+        img.alt = user.username;
+        img.onload = function() {
+          el.innerHTML = '';
+          el.appendChild(img);
+        };
+        img.onerror = function() {
+          sessionStorage[key] = '1';
+        };
       }
-
-      span = span
-        .replace('#1', 'rgb(' + bg.join(',') + ')')
-        .replace('#2', fg)
-        .replace('#3', escape(user.username.charAt(0).toUpperCase()));
-      var el = this.$$.el;
-      el.innerHTML = span;
-      if (!user.avatar_url) return;
-      var key = 'avatar:' + user.avatar_url;
-      // it is marked as 404
-      if (sessionStorage[key]) return;
-
-      var img = new Image();
-      img.src = user.avatar_url;
-      img.alt = user.username;
-      img.onload = function() {
-        el.innerHTML = '';
-        el.appendChild(img);
-      };
-      img.onerror = function() {
-        sessionStorage[key] = '1';
-      };
+    },
+    compiled: function() {
+      this.compile();
     }
   };
 </script>
