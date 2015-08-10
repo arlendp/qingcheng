@@ -11,8 +11,8 @@
     },
     methods: {
       compile: function() {
-        console.log('compile');
         var user = this.user;
+        if (!user.username) return;
         var span = '<span style="background-color:#1;color:#2">#3<\/span>';
         var bg = wordColor.rgb(user.username);
         var fg = 'white';
