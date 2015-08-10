@@ -4,10 +4,26 @@
       <div class="header-intro cover-inner">
         <div class="item-container container">
           <user-avatar user="{{ user }}" v-if="user.username"></user-avatar>
-          <div class="item-content">
+          <div class="item-content" v-if="!editable">
             <h2>{{ name }}</h2>
             <p v-html="user.description|urlize"></p>
           </div>
+          <div class="item-content" v-if="editable">
+            <h2 contenteditable v-on="keydown: saveProfile| key 'enter'" v-el="name">{{ name }}</h2>
+            <p v-html="user.description" contenteditable v-on="keydown: saveProfile| key 'enter'" v-el="description"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-nav">
+      <div class="container">
+        <nav>
+          <a href="/u/{{ username }}" v-on="click: changeView('topics')">Topics</a>
+          <a href="/u/{{ username }}" v-on="click: changeView('cafes')">Cafes</a>
+        </nav>
+        <div class="header-actions" v-if="isOwn">
+          <button class="circle" v-on="click: editable=true" v-if="!editable">Edit Profile</button>
+          <button v-on="click: saveProfile" v-if="editable">Save Profile</button>
         </div>
       </div>
     </div>
@@ -42,6 +58,8 @@
         cursor: 0,
         topics: [],
         params: {},
+        editable: false,
+        subview: 'topics',
         user: {}
       }
     },
@@ -54,6 +72,9 @@
       },
       username: function() {
         return this.params.username;
+      },
+      isOwn: function() {
+        return this.$root.currentUser.username == this.username;
       }
     },
     compiled: function() {
@@ -67,6 +88,7 @@
       },
       fetchUser: function(username) {
         ga('send', 'pageview', {title: username});
+        document.title = this.$site.name + ' — ' + username;
         if (this.$root.currentUser.username === username) {
           return this.user = this.$root.currentUser;
         }
@@ -82,6 +104,20 @@
           this.topics = this.topics.concat(resp.data);
           this.fetching = false;
         }.bind(this));
+      },
+      saveProfile: function(e) {
+        e && e.preventDefault();
+        var data = {
+          name: this.$$.name.textContent,
+          description: this.$$.description.textContent,
+        };
+        api.user.save(data, function(resp) {
+          this.user = resp;
+          this.editable = false;
+        }.bind(this));
+      },
+      changeView: function(name) {
+        this.subview = name;
       }
     },
     components: {
