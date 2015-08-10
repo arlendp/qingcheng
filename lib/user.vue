@@ -1,5 +1,18 @@
 <template>
-  <user-header user="{{ user }}"></user-header>
+  <div class="header">
+    <div class="header-cover cover">
+      <div class="header-intro cover-inner">
+        <div class="item-container container">
+          <user-avatar user="{{ user }}" v-if="user.username"></user-avatar>
+          <div class="item-content">
+            <h2>{{ name }}</h2>
+            <p v-html="user.description|urlize"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="body">
     <div class="split-view container">
       <div class="main-view">
@@ -36,6 +49,9 @@
       'params.username': 'compile'
     },
     computed: {
+      name: function() {
+        return this.user.name || this.user.username;
+      },
       username: function() {
         return this.params.username;
       }
@@ -69,8 +85,8 @@
       }
     },
     components: {
-      'user-header': require('./components/user-header.vue'),
       'topic-item': require('./components/topic-item.vue'),
+      'user-avatar': require('./components/user-avatar.vue'),
     }
   };
 </script>
