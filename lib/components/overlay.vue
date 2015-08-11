@@ -27,10 +27,10 @@
     top: 0;
     bottom: 0;
     z-index: 9;
-    overflow: auto;
     height: 100%;
     width: 100%;
     background-color: white;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
   }
   .overlay-mask {
