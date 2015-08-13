@@ -80,6 +80,9 @@
         api.cafe.view(this.params.slug, function(resp) {
           this.cafe = resp;
           document.title = this.$site.name + ' — ' + resp.name;
+          if (resp.membership && resp.membership.label !== 'visitor') {
+            this.isFollowing = true;
+          }
           ga('send', 'pageview', {title: resp.name});
         }.bind(this));
       },
