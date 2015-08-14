@@ -19,6 +19,11 @@
           <button v-on="click: showLogin=true">Log in</button>
         </div>
         <div class="site-account-inner" v-if="currentUser.username">
+          <a v-if="notificationCount" class="tip notification" href="javascript:;"
+          v-on="click: showNotifications=true"
+          aria-label="You have {{ notificationCount }} unread notifications">
+          {{ notificationCount }}
+          </a>
           <button class="circle" v-on="click: logout">Logout</button>
           <user-avatar user="{{currentUser}}" class="tip"></user-avatar>
         </div>
@@ -48,23 +53,40 @@
   <overlay v-if="showLogin" v-transition="fade" show="{{@ showLogin }}">
     <login-form></login-form>
   </overlay>
+  <overlay v-if="showNotifications" v-transition="fade" show="{{@ showNotifications }}">
+    <user-notifications></user-notifications>
+  </overlay>
 </template>
 
 <script>
+  var api = require('./api');
   module.exports = {
     el: '#app',
     data: {
       view: '',
       currentUser: {},
+      notificationCount: 0,
       showLogin: false,
+      showNotifications: false,
       year: new Date().getFullYear(),
       messages: [],
       params: {}
     },
     methods: {
       logout: function() {
-        require('./api').user.logout();
+        api.user.logout();
+      },
+      check: function() {
+        if (!this.currentUser.id) return;
+        api.notification.count(function(resp) {
+          this.notificationCount = resp.count;
+        }.bind(this));
       }
+    },
+    ready: function() {
+      setTimeout(this.check.bind(this), 2000);
+      // check every 5 minutes
+      setInterval(this.check.bind(this), 300000);
     },
     components: {
       'home': require('./home.vue'),
@@ -75,7 +97,8 @@
       'user-list': require('./user-list.vue'),
       'overlay': require('./components/overlay.vue'),
       'user-avatar': require('./components/user-avatar.vue'),
-      'login-form': require('./components/login-form.vue')
+      'login-form': require('./components/login-form.vue'),
+      'user-notifications': require('./components/user-notifications.vue'),
     }
   }
 </script>
