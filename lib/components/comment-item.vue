@@ -38,7 +38,7 @@
       },
       content: function() {
         var content = this.comment.content;
-        content = content.replace(/(>|\s)@([0-9a-z]+)/g, '$1<a href="/u/$2">@$2<\/a>');
+        content = content.replace(/(^|\s)@([0-9a-z]+)/g, '$1<a href="/u/$2">@$2<\/a>');
         return content;
       }
     },
