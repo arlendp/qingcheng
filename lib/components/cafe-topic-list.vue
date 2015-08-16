@@ -11,13 +11,7 @@
             <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
           </ul>
           <logo-loading class="center" v-if="fetching"></logo-loading>
-          <div v-if="pagination" class="pagination clearfix">
-            <a class="pagination-prev" v-if="pagination.prev" href="/c/{{ cafe.slug }}?page={{ pagination.prev }}">Prev</a>
-            <span class="pagination-prev" v-if="!pagination.prev">Prev</span>
-
-            <a class="pagination-next" v-if="pagination.next" href="/c/{{ cafe.slug }}?page={{ pagination.next }}">Next</a>
-            <span class="pagination-next" v-if="!pagination.next">Next</span>
-          </div>
+          <pagination v-if="pagination" pagination="{{ pagination }}" url="/c/{{ cafe.slug }}"></pagination>
         </div>
       </div>
 
@@ -102,7 +96,8 @@
       'topic-item': require('./topic-item.vue'),
       'topic-form': require('./topic-form.vue'),
       'user-avatar': require('./user-avatar.vue'),
-      'logo-loading': require('./logo-loading.vue')
+      'logo-loading': require('./logo-loading.vue'),
+      'pagination': require('./pagination.vue'),
     }
   }
 </script>
