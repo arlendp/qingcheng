@@ -6,15 +6,17 @@
     <div class="form-field">
       <input placeholder="Your topic title" v-model="topic.title" v-el="title">
     </div>
-    <div class="form-field clearfix">
+    <div class="form-field clearfix" v-show="!html">
       <a class="markdown-logo tip" v-class="fade-markdown-logo: hasContent" aria-label="Writing in Markdown" href="http://daringfireball.net/projects/markdown/" tabindex="-1" target="_blank">
         <svg xmlns="http://www.w3.org/2000/svg" width="52" height="32" viewBox="0 0 208 128"><mask id="a"><rect width="100%" height="100%" fill="#fff"/><path d="M30 98v-68h20l20 25 20-25h20v68h-20v-39l-20 25-20-25v39zM155 98l-30-33h20v-35h20v35h20z"/></mask><rect width="100%" height="100%" ry="15" mask="url(#a)"/></svg>
       </a>
       <textarea placeholder="What is in your mind" v-model="topic.content"></textarea>
     </div>
+    <div class="form-field yue" v-show="html" v-html="html" v-on="dblclick: html=''"></div>
     <div class="form-submit" v-if="isLogin">
       <button class="green" v-if="!isUpdate">Create</button>
       <button class="green" v-if="isUpdate">Update</button>
+      <button class="circle" v-on="click: preview">Preview</button>
     </div>
   </form>
 </template>
@@ -27,6 +29,7 @@
     props: ['cafe', 'type', 'topic'],
     data: function() {
       return {
+        'html': '',
         'topic': {
           title: '',
           content: ''
@@ -75,6 +78,15 @@
             topic[key] = resp[key];
           });
           this.dismiss();
+        }.bind(this));
+      },
+      preview: function(e) {
+        e.preventDefault();
+        if (this.html) {
+          return this.html = '';
+        }
+        api.preview(this.topic.content, function(html) {
+          this.html = html;
         }.bind(this));
       },
       formSubmit: function(e) {
