@@ -96,7 +96,7 @@
         return this.topic.user;
       },
       canEdit: function() {
-        return this.topic.permission.write;
+        return this.topic.editable;
       },
       topicStyle: function() {
         var cover = this.topic.info.cover;
