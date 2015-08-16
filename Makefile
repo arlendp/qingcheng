@@ -14,6 +14,7 @@ dist:
 	@uglifyjs build/build.js -m -o dist/qingcheng.js
 
 upload: dist
-	@fab assets
+	@fab upload_assets
+	@fab upload_js -H pythonchina-web-0
 
 .PHONY: build copy dist

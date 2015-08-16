@@ -3,7 +3,10 @@ import os
 import glob
 import hashlib
 import datetime
-from fabric.api import local, put
+from fabric.api import env, local, put
+
+env.use_ssh_config = True
+env.keepalive = 60
 
 
 def _name(filename):
@@ -21,12 +24,12 @@ def upload_qiniu(filename):
     local('qboxrsctl put -c python qingcheng/%s %s' % (name, filename))
 
 
-def upload():
+def upload_assets():
     upload_qiniu('dist/qingcheng.js')
     upload_qiniu('dist/qingcheng.css')
 
 
-def js():
+def upload_js():
     # debug js
     filename = 'dist/qingcheng.js'
     name = _name(filename)
