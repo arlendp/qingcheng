@@ -27,6 +27,13 @@
         <a v-if="user" href="/u/{{ user.username }}" aria-label="Published by @{{ user.username }}">@{{ user.username }}</a>
       </div>
 
+      <section class="entry-webpage" v-if="topic.webpage">
+        <a href="{{ topic.webpage.info.url }}">
+          <h2>{{ topic.webpage.title }}</h2>
+          <p>{{ topic.webpage.description }}</p>
+        </a>
+      </section>
+
       <div class="entry-content yue" v-html="topic.content"></div>
 
       <div class="entry-actions clearfix">
@@ -213,6 +220,22 @@
   .entry-cover .entry-title {
     color: white;
     padding-bottom: 1em;
+  }
+  .entry-webpage {
+    border-radius: 3px;
+    padding: 10px 10px 10px 20px;
+    margin: 10px 0 20px;
+    background-color: #f9f9f9;
+  }
+  .entry-webpage:hover {
+    background-color: #f0f0f0;
+  }
+  .entry-webpage a {
+    display: block;
+    color: #565656;
+  }
+  .entry-webpage h2, .entry-webpage p {
+    margin: 0;
   }
   .entry-meta {
     font-size: 14px;
