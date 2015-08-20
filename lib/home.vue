@@ -11,7 +11,8 @@
     <div class="header-nav">
       <div class="container">
         <nav>
-          <a href="/">Overview</a>
+          <a href="/">Following</a>
+          <a href="/?show=all">Topics</a>
           <a href="/c/">Cafes</a>
         </nav>
       </div>
@@ -21,10 +22,6 @@
   <div class="body">
     <div class="split-view container">
       <div class="main-view">
-        <div class="tab">
-          <a href="/">My Feed</a>
-          <a href="/?show=all">All Topics</a>
-        </div>
         <div class="topic-list">
           <ul>
             <topic-item v-repeat="topic: topics" track-by="id"></topic-item>

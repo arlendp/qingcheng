@@ -282,14 +282,3 @@ a.tip:hover {
 .load-more:hover {
   background-color: #dadada;
 }
-
-.tab {
-  padding-bottom: 4px;
-}
-.tab a {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #454545;
-  margin-right: 1em;
-}

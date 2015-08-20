@@ -1,8 +1,5 @@
 <template>
   <style class="cafe-theme" v-if="cafe.style.color">
-    .entry-content a {
-      color: {{ cafe.style.color }};
-    }
     .entry-content blockquote {
       border-color: {{ cafe.style.color }};
     }
@@ -28,7 +25,7 @@
       </div>
 
       <section class="entry-webpage" v-if="topic.webpage">
-        <a href="{{ topic.webpage.info.url }}">
+        <a href="{{ topic.webpage.link }}">
           <h2>{{ topic.webpage.title }}</h2>
           <p>{{ topic.webpage.description }}</p>
         </a>
