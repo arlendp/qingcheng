@@ -24,8 +24,13 @@
           aria-label="You have {{ notificationCount }} unread notifications">
           {{ notificationCount }}
           </a>
-          <button class="circle" v-on="click: logout">Logout</button>
-          <user-avatar user="{{currentUser}}" class="tip"></user-avatar>
+          <user-avatar user="{{currentUser}}" v-on="click: showUserDropdown=true | preventDefault"></user-avatar>
+          <dropdown v-if="showUserDropdown" show="{{@ showUserDropdown }}">
+            <a class="dropdown-item" href="/u/{{ currentUser.username }}">View Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/account/settings">Settings</a>
+            <a class="dropdown-item" v-on="click: logout|preventDefault" href="/session">Logout</a>
+          </dropdown>
         </div>
       </div>
     </div>
@@ -68,6 +73,7 @@
       notificationCount: 0,
       showLogin: false,
       showNotifications: false,
+      showUserDropdown: false,
       year: new Date().getFullYear(),
       messages: [],
       params: {}
@@ -96,6 +102,7 @@
       'cafe-list': require('./cafe-list.vue'),
       'user-list': require('./user-list.vue'),
       'overlay': require('./components/overlay.vue'),
+      'dropdown': require('./components/dropdown.vue'),
       'user-avatar': require('./components/user-avatar.vue'),
       'login-form': require('./components/login-form.vue'),
       'user-notifications': require('./components/user-notifications.vue'),
