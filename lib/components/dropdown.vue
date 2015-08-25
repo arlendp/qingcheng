@@ -1,14 +1,24 @@
 <template>
   <div class="dropdown">
     <div class="dropdown-mask" v-on="click: show=false"></div>
-    <div class="dropdown-inner">
+    <div class="dropdown-inner" v-on="click: choose">
       <content></content>
     </div>
   </div>
 </template>
 
 <script>
-  module.exports = {props: ['show']};
+  module.exports = {
+    props: ['show'],
+    methods: {
+      choose: function(e) {
+        var el = e.target;
+        if (el.classList.contains('dropdown-item')) {
+          this.show = false;
+        }
+      }
+    }
+  };
 </script>
 
 <style>
