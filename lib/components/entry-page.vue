@@ -41,7 +41,15 @@
           <span>Like it</span>
         </button>
         <div class="more-actions">
-          <button class="circle" v-on="click: editTopic" v-if="canEdit">Edit</button>
+          <span v-if="isOwner">
+            <button class="white tip" aria-label="Show edit options" v-on="click: showEditDropdown=true">
+              <i class="qc-icon-quill"></i>
+            </button>
+            <dropdown v-show="showEditDropdown" show="{{@ showEditDropdown }}">
+              <a class="dropdown-item" v-on="click: editTopic|preventDefault" v-if="canEdit" href="?edit">Edit</a>
+              <a class="dropdown-item" href="/account/delete-topic/{{topic.id}}">Delete</a>
+            </dropdown>
+          </span>
         </div>
       </div>
 
@@ -89,6 +97,7 @@
       return {
         topic: {},
         rawTopic: {},
+        showEditDropdown: false,
         showTopicForm: false
       }
     },
@@ -98,6 +107,9 @@
       },
       user: function() {
         return this.topic.user;
+      },
+      isOwner: function() {
+        return this.topic.user.id === this.$root.currentUser.id;
       },
       canEdit: function() {
         return this.topic.editable;
@@ -188,7 +200,8 @@
     },
     components: {
       'topic-form': require('./topic-form.vue'),
-      'user-avatar': require('./user-avatar.vue')
+      'user-avatar': require('./user-avatar.vue'),
+      'dropdown': require('./dropdown.vue'),
     }
   }
 </script>
