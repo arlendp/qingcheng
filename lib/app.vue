@@ -15,7 +15,7 @@
       </div>
 
       <div class="site-account">
-        <div class="site-account-inner" v-if="!currentUser.username">
+        <div class="nav" v-if="!currentUser.username">
           <button v-on="click: showLogin=true">Log in</button>
         </div>
         <ul class="nav clearfix" v-if="currentUser.username">
