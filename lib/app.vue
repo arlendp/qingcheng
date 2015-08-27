@@ -18,49 +18,51 @@
         <div class="site-account-inner" v-if="!currentUser.username">
           <button v-on="click: showLogin=true">Log in</button>
         </div>
-        <div class="site-account-inner" v-if="currentUser.username">
-          <a v-if="notificationCount" class="tip notification" href="javascript:;"
-          v-on="click: showNotifications=true"
-          aria-label="You have {{ notificationCount }} unread notifications">
-          {{ notificationCount }}
-          </a>
-          <user-avatar user="{{currentUser}}" v-on="click: showUserDropdown=true | preventDefault"></user-avatar>
-          <dropdown v-if="showUserDropdown" show="{{@ showUserDropdown }}">
-            <a class="dropdown-item" href="/u/{{ currentUser.username }}">View Profile</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/account/settings">Settings</a>
-            <a class="dropdown-item" v-on="click: logout|preventDefault" href="/session">Logout</a>
-          </dropdown>
-        </div>
+        <ul class="nav clearfix" v-if="currentUser.username">
+          <li>
+            <a v-if="notificationCount" class="tip notification" href="javascript:;"
+            v-on="click: showNotifications=true"
+            aria-label="You have {{ notificationCount }} unread notifications"></a>
+            <overlay v-if="showNotifications" show="{{@ showNotifications }}">
+              <user-notifications></user-notifications>
+            </overlay>
+          </li>
+          <li>
+            <user-avatar user="{{currentUser}}" v-on="click: showUserDropdown=true | preventDefault"></user-avatar>
+            <dropdown v-show="showUserDropdown" show="{{@ showUserDropdown }}">
+              <a class="dropdown-item" href="/u/{{ currentUser.username }}">View Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/account/settings">Settings</a>
+              <a class="dropdown-item" v-on="click: logout|preventDefault" href="/session">Logout</a>
+            </dropdown>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 
   <component is="{{view}}"
-    params="{{params}}"
-    v-transition
-    transition-mode="out-in">
-  </component>
+  params="{{params}}"
+  v-transition
+  transition-mode="out-in">
+</component>
 
-  <div class="footer">
-    <div class="container">
-      <div style="float: left">Copyright &copy; {{year}} {{$site.name}}</div>
-      <div style="float: right">
-        <a href="https://github.com/lepture/zerqu">ZERQU</a> •
-        <a href="https://github.com/zerqu/qingcheng">青城</a>
-      </div>
+<div class="footer">
+  <div class="container">
+    <div style="float: left">Copyright &copy; {{year}} {{$site.name}}</div>
+    <div style="float: right">
+      <a href="https://github.com/lepture/zerqu">ZERQU</a> •
+      <a href="https://github.com/zerqu/qingcheng">青城</a>
     </div>
   </div>
+</div>
 
-  <div id="message" aria-live="assertive">
-    <div class="message message-{{type}}" v-repeat="messages" v-text="text" v-transition="fade"></div>
-  </div>
-  <overlay v-if="showLogin" v-transition="fade" show="{{@ showLogin }}">
-    <login-form></login-form>
-  </overlay>
-  <overlay v-if="showNotifications" v-transition="fade" show="{{@ showNotifications }}">
-    <user-notifications></user-notifications>
-  </overlay>
+<div id="message" aria-live="assertive">
+  <div class="message message-{{type}}" v-repeat="messages" v-text="text" v-transition="fade"></div>
+</div>
+<overlay v-if="showLogin" v-transition="fade" show="{{@ showLogin }}">
+  <login-form></login-form>
+</overlay>
 </template>
 
 <script>
