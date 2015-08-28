@@ -26,7 +26,7 @@
           <ul>
             <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
           </ul>
-          <logo-loading class="center" v-if="fetching"></logo-loading>
+          <logo class="loading center" v-if="fetching"></logo>
           <div class="load-more" v-if="cursor" v-on="click: fetchTopics(cursor)">
             Load More
           </div>
@@ -106,7 +106,7 @@
     components: {
       'topic-item': require('./components/topic-item.vue'),
       'cafe-card': require('./components/cafe-card.vue'),
-      'logo-loading': require("./components/logo-loading.vue"),
+      'logo': require("./components/logo.vue"),
       'overlay': require("./components/overlay.vue"),
     }
   };

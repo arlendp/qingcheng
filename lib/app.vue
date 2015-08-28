@@ -3,11 +3,7 @@
     <div class="container">
       <div class="site-nav clearfix">
         <a class="site-logo" href="/">
-          <div class="logo" v-if="!$site.logo">
-            <div><span class="left-yellow"></span><span class="right-green"></span></div>
-            <div><span class="full-green"></span></div>
-            <div><span class="left-green"></span><span class="right-red"></span></div>
-          </div>
+          <logo></logo>
         </a>
         <nav>
           <a href="{{url}}" v-repeat="$site.links" v-text="name"></a>
@@ -105,6 +101,7 @@
       'user-list': require('./user-list.vue'),
       'overlay': require('./components/overlay.vue'),
       'dropdown': require('./components/dropdown.vue'),
+      'logo': require('./components/logo.vue'),
       'user-avatar': require('./components/user-avatar.vue'),
       'login-form': require('./components/login-form.vue'),
       'user-notifications': require('./components/user-notifications.vue'),

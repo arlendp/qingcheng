@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <logo-loading class="center" v-if="fetching"></logo-loading>
+  <logo class="loading center" v-if="fetching"></logo>
 </template>
 
 <script>
@@ -41,7 +41,7 @@ module.exports ={
   },
   components: {
     'cafe-card': require('./components/cafe-card.vue'),
-    'logo-loading': require('./components/logo-loading.vue')
+    'logo': require('./components/logo.vue')
   }
 };
 </script>

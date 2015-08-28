@@ -10,7 +10,7 @@
           <ul>
             <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
           </ul>
-          <logo-loading class="center" v-if="fetching"></logo-loading>
+          <logo class="loading center" v-if="fetching"></logo>
           <pagination v-if="pagination" pagination="{{ pagination }}" url="/c/{{ cafe.slug }}"></pagination>
         </div>
       </div>
@@ -96,7 +96,7 @@
       'topic-item': require('./topic-item.vue'),
       'topic-form': require('./topic-form.vue'),
       'user-avatar': require('./user-avatar.vue'),
-      'logo-loading': require('./logo-loading.vue'),
+      'logo': require('./logo.vue'),
       'pagination': require('./pagination.vue'),
     }
   }

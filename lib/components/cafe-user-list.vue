@@ -24,7 +24,7 @@
         </li>
       </ul>
     </div>
-    <logo-loading class="center" v-if="!admins.length"></logo-loading>
+    <logo class="loading center" v-if="!admins.length"></logo>
   </div>
 </template>
 
@@ -62,7 +62,7 @@
     },
     components: {
       'user-avatar': require('./user-avatar.vue'),
-      'logo-loading': require("./logo-loading.vue")
+      'logo': require("./logo.vue")
     }
   }
 </script>

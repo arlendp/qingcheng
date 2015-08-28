@@ -35,7 +35,7 @@
           <ul>
             <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
           </ul>
-          <logo-loading class="center" v-if="fetching"></logo-loading>
+          <logo class="loading center" v-if="fetching"></logo>
           <div class="load-more" v-if="cursor" v-on="click: fetchTopics(username, cursor)">
             Load More
           </div>
@@ -120,6 +120,7 @@
       }
     },
     components: {
+      'logo': require('./components/logo.vue'),
       'topic-item': require('./components/topic-item.vue'),
       'user-avatar': require('./components/user-avatar.vue'),
     }

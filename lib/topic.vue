@@ -12,7 +12,7 @@
       </ul>
     </div>
   </div>
-  <logo-loading class="center" v-if="!topic.id"></logo-loading>
+  <logo class="loading center" v-if="!topic.id"></logo>
 </template>
 
 <script>
@@ -72,7 +72,7 @@
     },
     components: {
       'entry-page': require('./components/entry-page.vue'),
-      'logo-loading': require('./components/logo-loading.vue'),
+      'logo': require('./components/logo.vue'),
       'comment-form': require('./components/comment-form.vue'),
       'comment-item': require('./components/comment-item.vue')
     }

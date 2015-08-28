@@ -124,6 +124,9 @@
   .comment-content p {
     margin: 10px 0;
   }
+  .comment-content img {
+    max-width: 100%;
+  }
   .comment-content blockquote {
     margin: 0 0 1.64em 0;
     border-left: 3px solid #dadada;
