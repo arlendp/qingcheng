@@ -101,7 +101,6 @@
     },
     compiled: function() {
       document.title = this.$site.name;
-      ga('send', 'pageview', {title: 'Home'});
       this.compile();
     },
     components: {

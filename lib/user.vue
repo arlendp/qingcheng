@@ -87,7 +87,6 @@
         this.fetchTopics(this.username);
       },
       fetchUser: function(username) {
-        ga('send', 'pageview', {title: username});
         document.title = this.$site.name + ' — ' + username;
         if (this.$root.currentUser.username === username) {
           return this.user = this.$root.currentUser;

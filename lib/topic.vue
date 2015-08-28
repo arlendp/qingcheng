@@ -54,7 +54,6 @@
         api.topic.view(id, function(resp) {
           document.title = this.$site.name + ' — ' + resp.title;
           this.topic = resp;
-          ga('send', 'pageview', {title: resp.title});
         }.bind(this));
       },
       fetchComments: function(id, cursor) {
