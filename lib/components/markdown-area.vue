@@ -1,12 +1,15 @@
 <template>
   <div class="markdown-area" v-class="active: content.length">
     <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-on="keydown: keybordSubmit" v-el="el"></textarea>
-    <div class="preview-area" v-show="html" v-html="html" v-on="click: focus"></div>
+    <div class="markdown-preview" v-show="html" v-html="html" v-on="click: focus"></div>
     <div class="markdown-actions" v-show="!html">
       <a href="#" v-on="click: image" v-show="!uploading">Image</a>
       <a href="#" v-on="click: preview">Preview</a>
     </div>
-    <input type="file" style="opacity: 0; left: -99999px; position: absolute" v-el="file" accept="image/*">
+    <div class="markdown-actions" v-show="html">
+      <a href="#" v-on="click: focus">Edit</a>
+    </div>
+    <input type="file" style="opacity: 0; left: -99999px; position: absolute" v-el="file" accept="image/*" v-on="change: upload">
   </div>
 </template>
 
@@ -28,7 +31,8 @@
         var mac = /mac/i.test(navigator.userAgent);
         if ((mac && !e.metaKey) || (!mac && !e.ctrlKey)) return;
       },
-      focus: function() {
+      focus: function(e) {
+        e & e.preventDefault();
         this.html = '';
         var el = this.$$.el;
         setTimeout(function() {
@@ -52,21 +56,15 @@
         var files = this.$$.file.files;
         if (!files.length) return;
 
-        var mark = '[uploading image]';
+        var mark = '[uploading image ...]';
         this.uploading = true;
         this.content += '\n' + mark + '\n';
-        api.upload(files[0], function(resp) {
+        api.upload(files[0], null, function(resp) {
           this.content = this.content.replace(mark, '![image](' + resp.value + ')');
           this.focus();
           this.uploading = false;
         }.bind(this));
       }
-    },
-    attached: function() {
-      this.$$.file.addEventListener('change', this.upload);
-    },
-    dettached: function() {
-      this.$$.file.removeEventListener('change', this.upload);
     }
   }
 </script>
@@ -74,6 +72,7 @@
 <style>
   .markdown-area {
     position: relative;
+    padding-top: 1em;
   }
   .markdown-area .markdown-actions {
     position: absolute;
