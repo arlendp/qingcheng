@@ -33,7 +33,7 @@
         this.$emit('submit');
       },
       focus: function(e) {
-        e & e.preventDefault();
+        e && e.preventDefault();
         this.html = '';
         var el = this.$$.el;
         setTimeout(function() {
