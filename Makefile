@@ -16,6 +16,5 @@ dist:
 
 upload: dist
 	@fab upload_assets
-	@fab upload_js -H pythonchina-web-0
 
 .PHONY: build copy dist
