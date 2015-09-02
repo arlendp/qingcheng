@@ -1,16 +1,29 @@
+var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var vue = require("vue-loader");
+
+var plugins = [
+  new ExtractTextPlugin("style.css", {disable: false})
+];
+
+var filename = "qingcheng.js";
+var publicPath = "/build/";
+if (process.env.PRODUCTION) {
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
+  // filename = "qingcheng.js";
+  // publicPath = "/dist/";
+}
 
 module.exports = {
   entry: [
     "./lib/index.js",
-    './lib/css/responsive.css'
+    "./lib/css/responsive.css"
   ],
 
   output: {
-    path: __dirname + "/build/",
-    filename: "build.js",
-    publicPath: '/build/',
+    path: __dirname + publicPath,
+    filename: filename,
+    publicPath: publicPath,
   },
 
   module: {
@@ -24,9 +37,7 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    new ExtractTextPlugin("style.css", {disable: false})
-  ],
+  plugins: plugins,
 
   devtool: "#source-map",
 };
