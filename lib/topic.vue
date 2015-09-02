@@ -1,6 +1,6 @@
 <template>
   <div class="entry-view" v-show="topic.id">
-    <entry-page v-if="topic.id" topic="{{ topic }}"></entry-page>
+    <article-view v-if="topic.id" topic="{{ topic }}"></article-view>
   </div>
   <div class="entry-view comment-box" v-show="topic.id">
     <div class="container">
@@ -71,7 +71,7 @@
       }
     },
     components: {
-      'entry-page': require('./components/entry-page.vue'),
+      'article-view': require('./views/article-view.vue'),
       'logo': require('./components/logo.vue'),
       'comment-form': require('./components/comment-form.vue'),
       'comment-item': require('./components/comment-item.vue')

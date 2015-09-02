@@ -199,9 +199,9 @@
       this.unbind();
     },
     components: {
-      'topic-form': require('./topic-form.vue'),
-      'user-avatar': require('./user-avatar.vue'),
-      'dropdown': require('./dropdown.vue'),
+      'topic-form': require('../components/topic-form.vue'),
+      'user-avatar': require('../components/user-avatar.vue'),
+      'dropdown': require('../components/dropdown.vue'),
     }
   }
 </script>
