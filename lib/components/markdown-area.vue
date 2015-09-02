@@ -1,6 +1,6 @@
 <template>
   <div class="markdown-area" v-class="active: content.length">
-    <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el="el"></textarea>
+    <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el="el" v-on="keydown: keyboardSubmit"></textarea>
     <div class="markdown-preview" v-show="html" v-html="html" v-on="click: focus"></div>
     <div class="markdown-actions" v-show="!html">
       <a href="#" v-on="click: image" v-show="!uploading">Image</a>
@@ -26,6 +26,12 @@
       };
     },
     methods: {
+      keyboardSubmit: function(e) {
+        if (e.keyCode !== 13) return;
+        var mac = /mac/i.test(navigator.userAgent);
+        if ((mac && !e.metaKey) || (!mac && !e.ctrlKey)) return;
+        this.$emit('submit');
+      },
       focus: function(e) {
         e & e.preventDefault();
         this.html = '';

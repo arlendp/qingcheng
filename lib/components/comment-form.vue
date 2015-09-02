@@ -2,10 +2,8 @@
   <form class="comment-form" v-on="submit: formSubmit" v-el="form">
     <div class="comment-form-mask" v-on="click: showLogin" v-if="!user.id"></div>
     <user-avatar user="{{ user }}" v-if="user.id" class="small circle"></user-avatar>
-    <textarea placeholder="Write your response" v-show="!html" v-model='comment' v-on="keydown: keybordSubmit" v-class="active: comment.length" aria-label="Write your response"></textarea>
-    <div class="comment-preview" v-show="html" v-html="html" v-on="dblclick: html=''"></div>
+    <markdown-area class="comment-item" placeholder="Write your response" content="{{@ comment }}" v-ref="textarea"></markdown-area>
     <button v-if="user.id">Reply</button>
-    <button class="circle" v-if="comment" v-on="click: preview">Preview</button>
   </form>
 </template>
 
@@ -34,12 +32,6 @@
       }
     },
     methods: {
-      keybordSubmit: function(e) {
-        if (e.keyCode !== 13) return;
-        var mac = /mac/i.test(navigator.userAgent);
-        if ((mac && !e.metaKey) || (!mac && !e.ctrlKey)) return;
-        this.postComment();
-      },
       formSubmit: function(e) {
         e && e.preventDefault();
         this.postComment();
@@ -60,18 +52,14 @@
       showLogin: function() {
         this.$root.showLogin = true;
       },
-      preview: function(e) {
-        e.preventDefault();
-        if (this.html) {
-          return this.html = '';
-        }
-        api.preview(this.comment, function(html) {
-          this.html = html;
-        }.bind(this));
-      }
+    },
+    ready: function() {
+      var vm = this.$.textarea;
+      vm.$on('submit', this.postComment.bind(this));
     },
     components: {
       'user-avatar': require('./user-avatar.vue'),
+      'markdown-area': require('./markdown-area.vue')
     }
   }
 </script>
