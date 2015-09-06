@@ -8,11 +8,10 @@ build: copy
 
 dist:
 	@mkdir -p dist/fonts
-	@PRODUCTION=1 node_modules/.bin/webpack
+	@node_modules/.bin/webpack
 	@cat icon.css build/style.css | cleancss -o dist/qingcheng.css
 	@cp fonts/* dist/fonts/
-	@mv build/qingcheng.js dist/
-	@mv build/qingcheng.js.map dist/
+	@uglifyjs build/qingcheng.js -m -o dist/qingcheng.js
 
 upload: dist
 	@fab upload_assets

@@ -25,8 +25,9 @@ def upload_qiniu(filename):
 
 
 def upload_assets():
-    upload_js()
+    # upload_js()
     upload_qiniu('dist/qingcheng.css')
+    upload_qiniu('dist/qingcheng.js')
 
 
 def upload_js():
