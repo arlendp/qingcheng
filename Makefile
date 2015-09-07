@@ -6,6 +6,9 @@ copy:
 build: copy
 	@node_modules/.bin/webpack
 
+dev:
+	@DEV_MODE=1 node server.js
+
 dist:
 	@mkdir -p dist/fonts
 	@node_modules/.bin/webpack
