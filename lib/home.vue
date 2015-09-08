@@ -52,8 +52,6 @@
   var zerqu = window.ZERQU || {};
 
   module.exports = {
-    replace: true,
-    props: ['params'],
     data: function() {
       return {
         fetching: true,
@@ -87,7 +85,7 @@
       },
       fetchTopics: function(cursor) {
         this.fetching = true;
-        var params = this.params.query || {};
+        var params = {};
         if (cursor) params.cursor = cursor;
         api.timeline(params, function(resp) {
           this.cursor = resp.cursor;
@@ -95,9 +93,6 @@
           this.fetching = false;
         }.bind(this));
       }
-    },
-    watch: {
-      'params.query': 'compile',
     },
     compiled: function() {
       document.title = this.$site.name;

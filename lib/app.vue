@@ -37,45 +37,41 @@
     </div>
   </div>
 
-  <component is="{{view}}"
-  params="{{params}}"
-  v-transition
-  transition-mode="out-in">
-</component>
+  <router-view></router-view>
 
-<div class="footer">
-  <div class="container">
-    <div style="float: left">Copyright &copy; {{year}} {{$site.name}}</div>
-    <div style="float: right">
-      <a href="https://github.com/lepture/zerqu">ZERQU</a> •
-      <a href="https://github.com/zerqu/qingcheng">青城</a>
+  <div class="footer">
+    <div class="container">
+      <div style="float: left">Copyright &copy; {{year}} {{$site.name}}</div>
+      <div style="float: right">
+        <a href="https://github.com/lepture/zerqu">ZERQU</a> •
+        <a href="https://github.com/zerqu/qingcheng">青城</a>
+      </div>
     </div>
   </div>
-</div>
 
-<div id="message" aria-live="assertive">
-  <div class="message message-{{type}}" v-repeat="messages" v-text="text" v-transition="fade"></div>
-</div>
-<overlay v-if="showLogin" v-transition="fade" show="{{@ showLogin }}">
-  <login-form></login-form>
-</overlay>
+  <div id="message" aria-live="assertive">
+    <div class="message message-{{type}}" v-repeat="messages" v-text="text" v-transition="fade"></div>
+  </div>
+  <overlay v-if="showLogin" v-transition="fade" show="{{@ showLogin }}">
+    <login-form></login-form>
+  </overlay>
 </template>
 
 <script>
   var api = require('./api');
   var clock;
+  var clock, year = new Date().getFullYear();
   module.exports = {
-    el: '#app',
-    data: {
-      view: '',
-      user: {},
-      notificationCount: 0,
-      showLogin: false,
-      showNotifications: false,
-      showUserDropdown: false,
-      year: new Date().getFullYear(),
-      messages: [],
-      params: {}
+    data: function() {
+      return {
+        user: {},
+        notificationCount: 0,
+        showLogin: false,
+        showNotifications: false,
+        showUserDropdown: false,
+        year: year,
+        messages: [],
+      }
     },
     methods: {
       logout: function() {
@@ -107,17 +103,13 @@
       }
     },
     ready: function() {
+      api.register(this);
+      console.log('ready')
       setTimeout(this.check.bind(this), 2000);
       // check every 5 minutes
       setInterval(this.check.bind(this), 300000);
     },
     components: {
-      'home': require('./home.vue'),
-      'cafe': require('./cafe.vue'),
-      'topic': require('./topic.vue'),
-      'user': require('./user.vue'),
-      'cafe-list': require('./cafe-list.vue'),
-      'user-list': require('./user-list.vue'),
       'overlay': require('./components/overlay.vue'),
       'dropdown': require('./components/dropdown.vue'),
       'logo': require('./components/logo.vue'),
@@ -127,9 +119,9 @@
     }
   }
 
-function unique(item, list) {
-  return !list.some(function(data) {
-    return JSON.stringify(data) === JSON.stringify(item);
-  });
-}
+  function unique(item, list) {
+    return !list.some(function(data) {
+      return JSON.stringify(data) === JSON.stringify(item);
+    });
+  }
 </script>
