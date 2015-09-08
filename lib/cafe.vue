@@ -60,7 +60,7 @@
     },
     computed: {
       showFollowing: function() {
-        return this.cafe.id && this.$root.currentUser.id;
+        return this.cafe.id && this.$root.user.id;
       },
       style: function() {
         var style = this.cafe.style;

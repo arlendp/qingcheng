@@ -31,7 +31,7 @@
         return this.comment.user;
       },
       isOwner: function() {
-        return this.$root.currentUser.id === this.user.id;
+        return this.$root.user.id === this.user.id;
       },
       isHide: function() {
         return this.comment.flag_count > 5;

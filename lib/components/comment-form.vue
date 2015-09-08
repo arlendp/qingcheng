@@ -21,7 +21,7 @@
     },
     computed: {
       user: function() {
-        return this.$root.currentUser;
+        return this.$root.user;
       },
       count: function() {
         var num = 480 - this.comment.length;

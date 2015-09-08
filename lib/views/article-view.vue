@@ -109,7 +109,7 @@
         return this.topic.user;
       },
       isOwner: function() {
-        return this.topic.user.id === this.$root.currentUser.id;
+        return this.topic.user.id === this.$root.user.id;
       },
       canEdit: function() {
         return this.topic.editable;
@@ -128,13 +128,13 @@
         return rv;
       },
       shouldBind: function() {
-        if (!this.$root.currentUser.id) return false;
+        if (!this.$root.user.id) return false;
         return this.topic.read_by_me !== '100%';
       }
     },
     methods: {
       toggleLike: function() {
-        if (!this.$root.currentUser.id) {
+        if (!this.$root.user.id) {
           return this.$root.showLogin = true;
         }
         if (this.topic.liked_by_me) {

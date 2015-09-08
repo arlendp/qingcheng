@@ -107,8 +107,6 @@
       }
     },
     ready: function() {
-      api.register(this);
-
       setTimeout(this.check.bind(this), 2000);
       // check every 5 minutes
       setInterval(this.check.bind(this), 300000);

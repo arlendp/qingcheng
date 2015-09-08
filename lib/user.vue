@@ -72,7 +72,7 @@
         return this.params.username;
       },
       isOwn: function() {
-        return this.$root.currentUser.username == this.username;
+        return this.$root.user.username == this.username;
       }
     },
     compiled: function() {
@@ -88,8 +88,8 @@
       },
       fetchUser: function(username) {
         document.title = this.$site.name + ' — ' + username;
-        if (this.$root.currentUser.username === username) {
-          return this.user = this.$root.currentUser;
+        if (this.$root.user.username === username) {
+          return this.user = this.$root.user;
         }
         api.user.profile(username, function(resp) {
           this.user = resp;

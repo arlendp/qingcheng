@@ -56,7 +56,7 @@
     },
     computed: {
       user: function() {
-        return this.$root.currentUser;
+        return this.$root.user;
       },
       canWrite: function() {
         var permission = this.cafe.permission || {};

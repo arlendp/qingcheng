@@ -31,7 +31,7 @@
     },
     computed: {
       isLogin: function() {
-        return this.$root.currentUser.id;
+        return this.$root.user.id;
       },
       isUpdate: function() {
         return this.type === 'update';
