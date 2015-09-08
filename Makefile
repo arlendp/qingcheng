@@ -11,10 +11,11 @@ dev:
 
 dist:
 	@mkdir -p dist/fonts
-	@node_modules/.bin/webpack
+	@PRODUCTION=1 node_modules/.bin/webpack
 	@cat icon.css build/style.css | cleancss -o dist/qingcheng.css
 	@cp fonts/* dist/fonts/
-	@uglifyjs build/qingcheng.js -m -o dist/qingcheng.js
+	@cp build/qingcheng.js dist/
+	@cp build/qingcheng.js.map dist/
 
 upload: dist
 	@fab upload_assets

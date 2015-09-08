@@ -9,7 +9,7 @@ env.use_ssh_config = True
 env.keepalive = 60
 
 
-def _name(filename):
+def hash_name(filename):
     now = datetime.datetime.now()
 
     with open(filename) as f:
@@ -20,19 +20,18 @@ def _name(filename):
 
 
 def upload_qiniu(filename):
-    name = _name(filename)
+    name = hash_name(filename)
     local('qboxrsctl put -c python qingcheng/%s %s' % (name, filename))
 
 
 def upload_assets():
-    # upload_js()
+    upload_js()
     upload_qiniu('dist/qingcheng.css')
-    upload_qiniu('dist/qingcheng.js')
 
 
 def upload_js():
     filename = 'dist/qingcheng.js'
-    name = _name(filename)
+    name = hash_name(filename)
     with open(filename, 'r') as f:
         content = f.read()
         content = content.replace('qingcheng.js.map', name + '.map')

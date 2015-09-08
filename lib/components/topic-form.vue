@@ -1,7 +1,7 @@
 <template>
   <form class="topic-form" v-on="submit: formSubmit" v-el="form">
     <div class="form-description">
-      Topic in <a href="/c/{{ cafe.slug }}"/>{{ cafe.name }}</a>
+      Topic in <a href="/c/{{ cafe.slug }}">{{ cafe.name }}</a>
     </div>
     <div class="form-field form-title">
       <input placeholder="Your topic title" v-model="topic.title" v-el="title">
