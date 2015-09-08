@@ -57,7 +57,8 @@
         var files = this.$$.file.files;
         if (!files.length) return;
 
-        var mark = '[uploading image ...]';
+        var stamp = Date.now().toString(36);
+        var mark = '[uploading image ' + stamp + ' ...]';
         this.uploading = true;
         this.content += '\n' + mark + '\n';
         api.upload(files[0], null, function(resp) {

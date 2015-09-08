@@ -3,7 +3,7 @@
     <div class="form-description">
       Topic in <a href="/c/{{ cafe.slug }}"/>{{ cafe.name }}</a>
     </div>
-    <div class="form-field">
+    <div class="form-field form-title">
       <input placeholder="Your topic title" v-model="topic.title" v-el="title">
     </div>
     <markdown-area class="form-field yue" content="{{@ topic.content }}" placeholder="What is in your mind"></markdown-area>
@@ -135,18 +135,11 @@
 .topic-form {
   padding: 40px 110px 20px;
 }
-.topic-form .markdown-logo {
-  float: left;
-  display: block;
-  margin-left: -75px;
-  opacity: 0.84;
-  transition: all .2s ease;
-}
-.topic-form .fade-markdown-logo {
-  opacity: 0.08;
-}
-.topic-form .markdown-logo:hover {
-  opacity: 1;
+.topic-form .form-title input {
+  border: none;
+  font-size: 36px;
+  font-weight: 600;
+  color: #343433;
 }
 .topic-form .form-field textarea {
   border: none;
