@@ -11,7 +11,6 @@
   var api = require('../api');
   var shake = require('../utils').shake;
   module.exports = {
-    replace: true,
     props: ['topic'],
     data: function() {
       return {

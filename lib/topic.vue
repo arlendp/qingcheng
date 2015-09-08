@@ -20,24 +20,19 @@
 
   module.exports = {
     replace: true,
-    props: ['params'],
     data: function() {
       return {
         topic: {},
         comments: [],
         cursor: 0,
-        params: {}
       };
     },
-    watch: {
-      'params.topicId': 'update',
-    },
-    compiled: function() {
-        this.update();
+    ready: function() {
+      this.update();
     },
     methods: {
       update: function() {
-        var id = this.params.topicId;
+        var id = this.$route.params.topicId;
         if (!id) return;
         this.fetchTopic(id);
 
@@ -50,14 +45,14 @@
         // clean
         this.topic = {};
 
-        id = id || this.params.topicId;
+        id = id || this.$route.params.topicId;
         api.topic.view(id, function(resp) {
           document.title = this.$site.name + ' — ' + resp.title;
           this.topic = resp;
         }.bind(this));
       },
       fetchComments: function(id, cursor) {
-        id = id || this.params.topicId;
+        id = id || this.$route.params.topicId;
         cursor = cursor || this.commentCursor;
         api.topic.comments(id, cursor, function(resp) {
           this.comments = this.comments.concat(resp.data);
