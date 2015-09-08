@@ -63,6 +63,7 @@
 
 <script>
   var api = require('./api');
+  var clock;
   module.exports = {
     el: '#app',
     data: {
@@ -85,6 +86,24 @@
         api.notification.count(function(resp) {
           this.notificationCount = resp.count;
         }.bind(this));
+      },
+      flush: function() {
+        this.messages = [];
+      },
+      clear: function(index) {
+        clearTimeout(clock);
+        this.messages.splice(index, 1);
+        clock = setTimeout(this.flush.bind(this), 4000);
+      },
+      show: function(type, text) {
+        var msg = {type: type, text: text};
+        if (!unique(msg, this.messages)) return;
+
+        this.messages.push(msg);
+        var index = this.messages.length - 1;
+        setTimeout(function() {
+          this.clear(index);
+        }.bind(this), 3000);
       }
     },
     ready: function() {
@@ -109,4 +128,10 @@
       'user-notifications': require('./components/user-notifications.vue'),
     }
   }
+
+function unique(item, list) {
+  return !list.some(function(data) {
+    return JSON.stringify(data) === JSON.stringify(item);
+  });
+}
 </script>

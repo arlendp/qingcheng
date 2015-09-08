@@ -75,9 +75,9 @@
       signup: function(e) {
         e.preventDefault();
         api.user.signup(this.email, function(resp) {
-          this.$root.message.show('info', resp.message);
+          this.$root.show('info', resp.message);
         }.bind(this)).error(function(resp) {
-          this.$root.message.show('error', resp.error_form.email[0]);
+          this.$root.show('error', resp.error_form.email[0]);
           this.shakeError();
         }.bind(this));
       }
