@@ -11,10 +11,10 @@
       </div>
 
       <div class="site-account">
-        <div class="nav" v-if="!currentUser.username">
+        <div class="nav" v-if="!user.username">
           <button v-on="click: showLogin=true">Log in</button>
         </div>
-        <ul class="nav clearfix" v-if="currentUser.username">
+        <ul class="nav clearfix" v-if="user.username">
           <li>
             <a v-if="notificationCount" class="tip notification" href="javascript:;"
             v-on="click: showNotifications=true"
@@ -24,9 +24,9 @@
             </overlay>
           </li>
           <li>
-            <user-avatar user="{{currentUser}}" v-on="click: showUserDropdown=true | preventDefault"></user-avatar>
+            <user-avatar user="{{user}}" v-on="click: showUserDropdown=true | preventDefault"></user-avatar>
             <dropdown v-show="showUserDropdown" show="{{@ showUserDropdown }}">
-              <a class="dropdown-item" href="/u/{{ currentUser.username }}">View Profile</a>
+              <a class="dropdown-item" href="/u/{{ user.username }}">View Profile</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/account/settings">Settings</a>
               <a class="dropdown-item" v-on="click: logout|preventDefault" href="/session">Logout</a>
@@ -67,7 +67,7 @@
     el: '#app',
     data: {
       view: '',
-      currentUser: {},
+      user: {},
       notificationCount: 0,
       showLogin: false,
       showNotifications: false,
@@ -81,13 +81,15 @@
         api.user.logout();
       },
       check: function() {
-        if (!this.currentUser.id) return;
+        if (!this.user.username) return;
         api.notification.count(function(resp) {
           this.notificationCount = resp.count;
         }.bind(this));
       }
     },
     ready: function() {
+      api.register(this);
+
       setTimeout(this.check.bind(this), 2000);
       // check every 5 minutes
       setInterval(this.check.bind(this), 300000);
