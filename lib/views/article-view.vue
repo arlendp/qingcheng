@@ -235,10 +235,10 @@
     border-radius: 3px;
     padding: 10px 10px 10px 20px;
     margin: 10px 0 20px;
-    background-color: #f9f9f9;
+    border: #eee 1px solid;
   }
   .entry-webpage:hover {
-    background-color: #f0f0f0;
+    border-color: #ccc;
   }
   .entry-webpage a {
     display: block;
