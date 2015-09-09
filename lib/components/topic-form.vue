@@ -6,7 +6,10 @@
     <div class="form-field form-title">
       <input placeholder="Your topic title" v-model="topic.title" v-el="title">
     </div>
-    <markdown-area class="form-field yue" content="{{@ topic.content }}" placeholder="What is in your mind"></markdown-area>
+    <div class="form-field form-link">
+      <input placeholder="Source link?" type="url" v-model="topic.link">
+    </div>
+    <markdown-area class="form-field form-content yue" content="{{@ topic.content }}" placeholder="What is in your mind"></markdown-area>
     <div class="form-submit" v-if="isLogin">
       <button class="green" v-if="!isUpdate">Create</button>
       <button class="green" v-if="isUpdate">Update</button>
@@ -22,9 +25,10 @@
     props: ['cafe', 'type', 'topic'],
     data: function() {
       return {
-        'html': '',
-        'topic': {
+        html: '',
+        topic: {
           title: '',
+          link: '',
           content: ''
         }
       };
@@ -102,7 +106,6 @@
     },
     compiled: function() {
       if (this.isUpdate) return;
-
       var cache = localStorage[this.cacheKey];
       if (cache) {
         this.topic = JSON.parse(cache);
@@ -112,11 +115,9 @@
       if (!this.isUpdate) {
         localStorage[this.cacheKey] = JSON.stringify(this.topic);
       }
-      document.body.classList.remove('no-scroll');
       this.$$.form.removeEventListener('keyup', this.esc);
     },
     attached: function() {
-      document.body.classList.add('no-scroll');
       this.$$.form.addEventListener('keyup', this.esc);
     },
     ready: function() {
@@ -141,7 +142,18 @@
   font-weight: 600;
   color: #343433;
 }
-.topic-form .form-field textarea {
+.topic-form .form-link input {
+  font-size: 12px;
+  border: none;
+  padding-right: 140px;
+}
+.topic-form .form-content {
+  padding-top: 0.2em;
+}
+.topic-form .form-content .markdown-actions {
+  top: -36px;
+}
+.topic-form .form-content textarea {
   border: none;
   height: 24em;
 }
