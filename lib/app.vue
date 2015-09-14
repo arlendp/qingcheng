@@ -2,11 +2,11 @@
   <div class="top-nav">
     <div class="container">
       <div class="site-nav clearfix">
-        <a class="site-logo" v-link="/">
+        <a class="site-logo" href="/">
           <logo></logo>
         </a>
         <nav>
-          <a v-link="{{url}}" v-repeat="$site.links" v-text="name"></a>
+          <a href="{{url}}" v-repeat="$site.links" v-text="name"></a>
         </nav>
       </div>
 
@@ -26,7 +26,7 @@
           <li>
             <user-avatar user="{{user}}" v-on="click: showUserDropdown=true | preventDefault"></user-avatar>
             <dropdown v-show="showUserDropdown" show="{{@ showUserDropdown }}">
-              <a class="dropdown-item" v-link="/u/{{ user.username }}">View Profile</a>
+              <a class="dropdown-item" href="/u/{{ user.username }}">View Profile</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/account/settings">Settings</a>
               <a class="dropdown-item" v-on="click: logout|preventDefault" href="/session">Logout</a>
@@ -103,8 +103,6 @@
       }
     },
     ready: function() {
-      api.register(this);
-      console.log('ready')
       setTimeout(this.check.bind(this), 2000);
       // check every 5 minutes
       setInterval(this.check.bind(this), 300000);
