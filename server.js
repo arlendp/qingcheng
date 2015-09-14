@@ -12,8 +12,8 @@ var proxy = {
 };
 if (process.env.DEV_MODE) {
   proxy = {
-    "/api/*": "http://localhost:5000",
-    "/session*": "http://localhost:5000",
+    "/api/*": "http://192.168.30.12:5000",
+    "/session*": "http://192.168.30.12:5000",
   };
 }
 
