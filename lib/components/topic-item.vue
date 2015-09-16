@@ -5,9 +5,9 @@
     </span>
     <div class="topic-meta" v-if="cafe">
       <span class="cafe-logo" v-style="cafeStyle"></span>
-      <a href="/c/{{ cafe.slug }}" aria-label="Published in {{ cafe.name }}" v-text="cafe.name"></a>
+      <a v-link="{name: 'cafe', params: {slug: cafe.slug}}" aria-label="Published in {{ cafe.name }}" v-text="cafe.name"></a>
     </div>
-    <a class="topic-title" href="/t/{{topic.id}}">{{topic.title}}</a>
+    <a class="topic-title" v-link="{name: 'topic', params: {topicId: topic.id}}">{{topic.title}}</a>
     <div class="topic-info">
       <time datetime="{{ topic.created_at }}">{{ topic.created_at | timeago }}</time>
       <span v-if="topic.view_count">{{ topic.view_count }} views</span>

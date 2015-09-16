@@ -61,8 +61,8 @@
       }
     },
     components: {
-      'user-avatar': require('./user-avatar.vue'),
-      'logo': require("./logo.vue")
+      'user-avatar': require('../components/user-avatar.vue'),
+      'logo': require("../components/logo.vue")
     }
   }
 </script>

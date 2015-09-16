@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" v-if="!$loadingRouteData">
     <div class="header-cover cover" v-style="style">
       <div class="header-intro cover-inner">
         <div class="container">
@@ -10,9 +10,9 @@
     </div>
     <div class="header-nav">
       <div class="container">
-        <nav v-if="cafe.slug">
-          <a href="/c/{{ cafe.slug }}" v-on="click: changeView('topics')">Topics</a>
-          <a href="/c/{{ cafe.slug }}" v-on="click: changeView('users')">Members</a>
+        <nav>
+          <a href="/c/{{ cafe.slug }}">Topics</a>
+          <a href="/c/{{ cafe.slug }}/members">Members</a>
           <a v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
         </nav>
         <div class="header-actions" v-if="showFollowing">
@@ -31,32 +31,32 @@
       </div>
     </div>
   </div>
-  <component is="{{subview}}" v-if="cafe.slug"
-    cafe="{{cafe}}" params="{{params}}"
-    v-transition
-    transition-mode="out-in">
-  </component>
+
+  <router-view cafe="{{ cafe }}"></router-view>
 </template>
 
 <script>
   var api = require('./api');
 
   module.exports = {
-    replace: true,
-    props: ['params'],
     data: function() {
+      var slug = this.$route.params.slug;
       return {
-        cafe: {},
-        subview: 'topics',
-        loading: false,
-        isFollowing: false
+        isFollowing: false,
+        cafe: {slug: slug}
+      };
+    },
+    route: {
+      data: function(transition) {
+        var slug = transition.to.params.slug;
+        api.cafe.view(slug, function(resp) {
+          document.title = this.$site.name + ' — ' + resp.name;
+          transition.next({
+            cafe: resp,
+            isFollowing: resp.is_following
+          });
+        }.bind(this));
       }
-    },
-    watch: {
-      'params': 'compile',
-    },
-    compiled: function() {
-      this.compile();
     },
     computed: {
       showFollowing: function() {
@@ -66,27 +66,12 @@
         var style = this.cafe.style;
         if (!style || !style.cover) return {};
         return {'background-image': 'url(' + style.cover + ')'};
+      },
+      params: function() {
+        return this.$route.params;
       }
     },
     methods: {
-      compile: function() {
-        if (!this.params.slug) return;
-        if (this.cafe.slug !== this.params.slug) {
-          this.fetchCafe();
-        }
-      },
-      fetchCafe: function() {
-        this.cafe = {slug: this.params.slug};
-        api.cafe.view(this.params.slug, function(resp) {
-          this.cafe = resp;
-          document.title = this.$site.name + ' — ' + resp.name;
-          this.isFollowing = resp.is_following;
-        }.bind(this));
-      },
-      changeView: function(name) {
-        console.log('change', name);
-        this.subview = name;
-      },
       follow: function() {
         this.loading = true;
         api.cafe.join(this.cafe.slug, function() {
@@ -110,10 +95,6 @@
           this.follow();
         }
       }
-    },
-    components: {
-      'topics': require('./components/cafe-topic-list.vue'),
-      'users': require('./components/cafe-user-list.vue')
     }
   };
 </script>

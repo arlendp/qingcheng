@@ -2,11 +2,11 @@
   <div class="top-nav">
     <div class="container">
       <div class="site-nav clearfix">
-        <a class="site-logo" href="/">
+        <a class="site-logo" v-link="{name: 'home'}">
           <logo></logo>
         </a>
         <nav>
-          <a href="{{url}}" v-repeat="$site.links" v-text="name"></a>
+          <a v-link="url" v-repeat="$site.links" v-text="name"></a>
         </nav>
       </div>
 

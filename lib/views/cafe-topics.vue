@@ -4,14 +4,13 @@
       <div class="main-view">
         <div v-if="canWrite" class="new-topic">
           <user-avatar user="{{ user }}" class="small circle"></user-avatar>
-          <a href="javascript:;" role="button" v-on="click: showTopicForm=true">Create a new topic here</a>
+          <a href="javascript:;" role="button">Create a new topic here</a>
         </div>
         <div class="topic-list">
-          <ul>
+          <ul v-if="!$loadingRouteData">
             <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
           </ul>
-          <logo class="loading center" v-if="fetching"></logo>
-          <pagination v-if="pagination" pagination="{{ pagination }}" url="/c/{{ cafe.slug }}"></pagination>
+          <logo class="loading center" v-if="$loadingRouteData"></logo>
         </div>
       </div>
 
@@ -19,7 +18,6 @@
         <div class="sidebar-notice" v-if="!canWrite">
           You have no permission in writing here.
         </div>
-
         <div class="widget" v-if="isAdmin">
           <h3 class="widget-title">Admin</h3>
           <div class="widget-content">
@@ -30,27 +28,15 @@
       </div>
     </div>
   </div>
-
-  <div class="overlay" v-if="showTopicForm" v-transition="bounce">
-    <div class="overlay-mask" v-on="click: showTopicForm=false"></div>
-    <div class="overlay-inner">
-      <topic-form v-if="cafe.id" cafe="{{cafe}}" type="create"></topic-form>
-    </div>
-  </div>
 </template>
 
 <script>
   var api = require('../api');
   module.exports = {
-    replace: true,
-    props: ['cafe', 'params'],
+    props: ['cafe'],
     data: function() {
-      var showTopicForm = location.href.indexOf('?new') !== -1;
       return {
-        cafe: {},
-        pagination: {},
-        showTopicForm: showTopicForm,
-        fetching: true,
+        pagination: null,
         topics: []
       }
     },
@@ -67,37 +53,23 @@
         return permission.admin;
       }
     },
-    watch: {
-      'params': 'compile',
-    },
-    compiled: function() {
-      this.compile();
-    },
-    methods: {
-      compile: function() {
-        if (!this.params.slug) return;
-        this.fetchTopics();
-      },
-      fetchTopics: function(page) {
-        page = page || this.params.query.page;
-        this.fetching = true;
-        api.cafe.topics(this.cafe.slug, page, function(resp) {
-          if (resp.pagination.pages > 1) {
-            this.pagination = resp.pagination;
-          } else {
-            this.pagination = null;
-          }
-          this.topics = resp.data;
-          this.fetching = false;
-        }.bind(this));
-      },
+    route: {
+      data: function(transition) {
+        var params = transition.to.params;
+        api.cafe.topics(params.slug, params.page, function(resp) {
+          transition.next({
+            pagination: resp.pagination,
+            topics: resp.data,
+          });
+        });
+      }
     },
     components: {
-      'topic-item': require('./topic-item.vue'),
-      'topic-form': require('./topic-form.vue'),
-      'user-avatar': require('./user-avatar.vue'),
-      'logo': require('./logo.vue'),
-      'pagination': require('./pagination.vue'),
+      'topic-item': require('../components/topic-item.vue'),
+      'topic-form': require('../components/topic-form.vue'),
+      'user-avatar': require('../components/user-avatar.vue'),
+      'logo': require('../components/logo.vue'),
+      'pagination': require('../components/pagination.vue'),
     }
   }
 </script>
