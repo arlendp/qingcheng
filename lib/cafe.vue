@@ -1,5 +1,5 @@
 <template>
-  <div class="header" v-if="!$loadingRouteData">
+  <div class="header">
     <div class="header-cover cover" v-style="style">
       <div class="header-intro cover-inner">
         <div class="container">
@@ -11,8 +11,8 @@
     <div class="header-nav">
       <div class="container">
         <nav>
-          <a href="/c/{{ cafe.slug }}">Topics</a>
-          <a href="/c/{{ cafe.slug }}/members">Members</a>
+          <a v-link="{name: 'cafe', params: {slug: cafe.slug}}">Topics</a>
+          <a v-link="{name: 'cafe-members', params: {slug: cafe.slug}}">Members</a>
           <a v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
         </nav>
         <div class="header-actions" v-if="showFollowing">

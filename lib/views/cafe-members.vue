@@ -7,7 +7,7 @@
           <user-avatar user="{{user}}"></user-avatar>
           <div class="member-info">
             <a href="/u/{{ user.username }}">{{ user.username }}</a>
-            <p>{{ user.description|urlize }}</p>
+            <p v-html="user.description|urlize"></p>
           </div>
         </li>
       </ul>
@@ -31,33 +31,24 @@
 <script>
   var api = require('../api');
   module.exports = {
-    replace: true,
     props: ['cafe'],
     data: function() {
       return {
-        cafe: {},
         pagination: {},
         admins: [],
         members: []
       }
     },
-    watch: {
-      'cafe.slug': 'compile',
-    },
-    compiled: function() {
-      this.compile();
-    },
-    methods: {
-      compile: function() {
-        if (!this.cafe.slug) return;
-        this.fetchUsers();
-      },
-      fetchUsers: function(page) {
-        api.cafe.users(this.cafe.slug, page, function(resp) {
-          this.pagination = resp.pagination;
-          this.admins = resp.admins;
-          this.members = resp.data;
-        }.bind(this));
+    route: {
+      data: function(transition) {
+        var params = transition.to.params;
+        api.cafe.users(params.slug, params.page, function(resp) {
+          transition.next({
+              pagination: resp.pagination,
+              admins: resp.admins,
+              members: resp.data,
+          });
+        });
       }
     },
     components: {
