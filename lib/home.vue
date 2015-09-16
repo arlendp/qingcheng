@@ -4,15 +4,15 @@
       <div class="header-intro cover-inner">
         <div class="container">
           <h2>{{ $site.name }}</h2>
-          <p>{{ $site.description }}</p>
+          <p v-html="$site.description|urlize"></p>
         </div>
       </div>
     </div>
     <div class="header-nav">
       <div class="container">
         <nav>
-          <a href="/">Following</a>
-          <a href="/?show=all">Topics</a>
+          <a v-link="'/'">Following</a>
+          <a v-link="'/?show=all'">Topics</a>
           <a href="/c/">Cafes</a>
         </nav>
       </div>
@@ -34,17 +34,12 @@
       </div>
       <div class="sidebar-view">
         <div class="widget">
-          <button class="green" v-on="click: showCafeCards=true" v-if="user.id">New Topic</button>
+          <button class="green" v-if="$root.user.id">New Topic</button>
         </div>
         <div class="site-sidebar" v-html="sidebar" v-if="sidebar"></div>
       </div>
     </div>
   </div>
-
-  <overlay class="cafe-overlay" v-if="showCafeCards" show="{{@ showCafeCards }}">
-    <h3>Choose a cafe</h3>
-    <cafe-card v-repeat="cafe: cafes" track-by="id" query="?new"></cafe-card>
-  </overlay>
 </template>
 
 <script>
@@ -57,24 +52,7 @@
         fetching: true,
         cursor: 0,
         sidebar: zerqu.sidebar,
-        showCafeCards: false,
         topics: []
-      }
-    },
-    computed: {
-      user: function() {
-        return this.$root.user;
-      },
-      cafes: function() {
-        var rv = [];
-        var keys = {};
-        this.topics.forEach(function(t) {
-          if (!keys[t.cafe.slug]) {
-            keys[t.cafe.slug] = 1;
-            rv.push(t.cafe);
-          }
-        });
-        return rv;
       }
     },
     methods: {
@@ -85,7 +63,7 @@
       },
       fetchTopics: function(cursor) {
         this.fetching = true;
-        var params = {};
+        var params = this.$route.query || {};
         if (cursor) params.cursor = cursor;
         api.timeline(params, function(resp) {
           this.cursor = resp.cursor;
@@ -96,25 +74,22 @@
     },
     compiled: function() {
       document.title = this.$site.name;
-      this.compile();
+    },
+    route: {
+      data: function(transition) {
+        var params = transition.to.query || {};
+        api.timeline(params, function(resp) {
+          transition.next({
+            cursor: resp.cursor,
+            topics: resp.data,
+            fetching: false,
+          });
+        });
+      }
     },
     components: {
       'topic-item': require('./components/topic-item.vue'),
-      'cafe-card': require('./components/cafe-card.vue'),
       'logo': require("./components/logo.vue"),
-      'overlay': require("./components/overlay.vue"),
     }
   };
 </script>
-
-<style>
-.cafe-overlay .card {
-  width: 260px;
-}
-.cafe-overlay h3 {
-  color: #999;
-  font-weight: 400;
-  font-size: 18px;
-  margin: 40px 0 30px;
-}
-</style>
