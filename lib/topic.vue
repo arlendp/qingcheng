@@ -1,6 +1,7 @@
 <template>
-  <div class="entry-view" v-show="topic.id">
-    <article-view v-if="topic.id" topic="{{ topic }}"></article-view>
+  <div class="entry-view">
+    <hentry v-if="!$loadingRouteData" topic="{{ topic }}"></hentry>
+    <logo class="loading center" v-if="$loadingRouteData"></logo>
   </div>
   <div class="entry-view comment-box" v-show="topic.id">
     <div class="container">
@@ -8,18 +9,16 @@
       <div class="comment-list-header" v-if="comments.length">{{ topic.comment_count }} responses</div>
       <ul v-if="comments.length">
         <comment-item v-repeat="comment: comments" track-by="id"></comment-item>
-        <li class="load-more" v-if="cursor" v-on="click: fetchComments(null, cursor)">Load More</li>
+        <li class="load-more" v-if="cursor" v-on="click: fetchComments(cursor)">Load More</li>
       </ul>
     </div>
   </div>
-  <logo class="loading center" v-if="!topic.id"></logo>
 </template>
 
 <script>
   var api = require('./api');
 
   module.exports = {
-    replace: true,
     data: function() {
       return {
         topic: {},
@@ -27,33 +26,19 @@
         cursor: 0,
       };
     },
-    ready: function() {
-      this.update();
-    },
-    methods: {
-      update: function() {
-        var id = this.$route.params.topicId;
-        if (!id) return;
-        this.fetchTopic(id);
-
-        // load comments
-        this.comments = [];
-        this.cursor = 0;
-        this.fetchComments(id);
-      },
-      fetchTopic: function(id) {
-        // clean
-        this.topic = {};
-
-        id = id || this.$route.params.topicId;
+    route: {
+      data: function(transition) {
+        var id = transition.to.params.topicId;
+        this.fetchComments(0);
         api.topic.view(id, function(resp) {
           document.title = this.$site.name + ' — ' + resp.title;
-          this.topic = resp;
+          transition.next({topic: resp});
         }.bind(this));
-      },
-      fetchComments: function(id, cursor) {
-        id = id || this.$route.params.topicId;
-        cursor = cursor || this.commentCursor;
+      }
+    },
+    methods: {
+      fetchComments: function(cursor) {
+        var id = this.$route.params.topicId;
         api.topic.comments(id, cursor, function(resp) {
           this.comments = this.comments.concat(resp.data);
           this.cursor = resp.cursor;
@@ -66,7 +51,7 @@
       }
     },
     components: {
-      'article-view': require('./views/article-view.vue'),
+      'hentry': require('./components/hentry.vue'),
       'logo': require('./components/logo.vue'),
       'comment-form': require('./components/comment-form.vue'),
       'comment-item': require('./components/comment-item.vue')
