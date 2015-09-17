@@ -59,6 +59,16 @@ nav a:hover {
   overflow: hidden;
 }
 
+.fullpage {
+  position: absolute;
+  background-color: white;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
 /* layout: top-nav */
 .nav {
   margin: 0;

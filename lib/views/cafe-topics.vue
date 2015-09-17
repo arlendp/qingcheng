@@ -4,7 +4,7 @@
       <div class="main-view">
         <div v-if="canWrite" class="new-topic">
           <user-avatar user="{{ user }}" class="small circle"></user-avatar>
-          <a href="javascript:;" role="button">Create a new topic here</a>
+          <a v-link="{name: 'create-topic', params: {slug: cafe.slug}}" role="button">Create a new topic here</a>
         </div>
         <div class="topic-list">
           <ul v-if="!$loadingRouteData">
