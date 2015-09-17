@@ -1,4 +1,5 @@
 <template>
+  <div class="cafe-view">
   <div class="header">
     <div class="header-cover cover" v-style="style">
       <div class="header-intro cover-inner">
@@ -31,8 +32,8 @@
       </div>
     </div>
   </div>
-
   <router-view cafe="{{ cafe }}"></router-view>
+  </div>
 </template>
 
 <script>

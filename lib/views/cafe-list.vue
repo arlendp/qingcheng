@@ -41,7 +41,7 @@ module.exports ={
     data: function(transition) {
       api.cafe.list(function(resp) {
         transition.next({
-          following: resp.following,
+          following: resp.following || [],
           cafes: resp.data,
           cursor: resp.cursor,
         })

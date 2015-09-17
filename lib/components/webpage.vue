@@ -2,6 +2,7 @@
   <section class="entry-webpage" v-show="webpage.title">
     <a href="{{ webpage.link }}">
       <h2>{{ webpage.title }}</h2>
+      <span class="webpage-domain">{{ webpage.domain }}</span>
       <p>{{ webpage.description }}</p>
     </a>
   </section>

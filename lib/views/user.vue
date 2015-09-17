@@ -1,4 +1,5 @@
 <template>
+<div class="user-view">
   <div class="header">
     <div class="header-cover cover">
       <div class="header-intro cover-inner">
@@ -20,6 +21,7 @@
     </div>
   </div>
   <router-view user="{{ user }}"></router-view>
+</div>
 </template>
 
 <script>

@@ -3,16 +3,8 @@
     <div><span class="left-yellow"></span><span class="right-green"></span></div>
     <div><span class="full-green"></span></div>
     <div><span class="left-green"></span><span class="right-red"></span></div>
-    <strong class="logo-status" v-if="percent">
-      {{ percent }}
-    </strong>
   </div>
 </template>
-<script>
-  module.exports = {
-    props: ['percent']
-  };
-</script>
 <style>
   .logo {
     position: relative;

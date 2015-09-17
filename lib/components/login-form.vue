@@ -29,13 +29,13 @@
         <button>Sign Up</button>
       </div>
     </form>
-  </div>
-  <div class="login-social" v-if="$site.logins && loginTab">
-    <h3>Login With</h3>
-    <div class="login-buttons">
-      <a class="button login-{{name}}" href="/account/s/{{name}}" v-repeat="name: $site.logins">
-        <i class="qc-icon-{{name}}"></i>{{name}}
-      </a>
+    <div class="login-social" v-if="$site.logins && loginTab">
+      <h3>Login With</h3>
+      <div class="login-buttons">
+        <a class="button login-{{name}}" href="/account/s/{{name}}" v-repeat="name: $site.logins">
+          <i class="qc-icon-{{name}}"></i>{{name}}
+        </a>
+      </div>
     </div>
   </div>
 </template>

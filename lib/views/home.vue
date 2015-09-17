@@ -1,4 +1,5 @@
 <template>
+<div class="home-view">
   <div class="header">
     <div class="header-cover cover">
       <div class="header-intro cover-inner">
@@ -40,6 +41,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
