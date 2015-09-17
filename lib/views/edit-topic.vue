@@ -1,6 +1,6 @@
 <template>
   <div class="fullpage">
-    <div class="container" v-if="!$loadingRouteData">
+    <div class="container" v-show="!$loadingRouteData">
       <topic-form cafe="{{cafe}}" topic="{{topic}}" type="update" v-ref="form"></topic-form>
     </div>
   </div>
@@ -27,17 +27,16 @@
             cafe: resp.cafe,
           });
         }.bind(this));
-      },
-      activate: function(transition) {
-        var vm = this.$.form;
-        var router = this.$route.router;
-        vm.$on('submit', function(payload) {
-          api.topic.update(this.topic.id, payload, function(resp) {
-            router.go({name: 'topic', params: {topicId: resp.id}});
-          });
+      }
+    },
+    ready: function() {
+      var vm = this.$.form;
+      var router = this.$route.router;
+      vm.$on('submit', function(payload) {
+        api.topic.update(this.topic.id, payload, function(resp) {
+          router.go({name: 'topic', params: {topicId: resp.id}});
         });
-        transition.next();
-      },
+      });
     },
     components: {
       'topic-form': require('../components/topic-form.vue')

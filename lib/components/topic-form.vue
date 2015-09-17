@@ -46,10 +46,12 @@
         e.preventDefault();
         if (this.disabled) return;
 
-        var payload = this.topic;
-        payload.title = payload.title.trim();
-        payload.content = payload.content.trim();
-
+        var topic = this.topic;
+        var payload = {
+          title: topic.title.trim(),
+          content: topic.content.trim(),
+          link: topic.link.trim()
+        }
         if (!payload.title || !payload.content) {
           return shake(this.$$.form);
         }
