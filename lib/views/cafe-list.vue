@@ -19,7 +19,7 @@
 </template>
 
 <script>
-var api = require('./api');
+var api = require('../api');
 
 module.exports ={
   data: function() {
@@ -41,8 +41,8 @@ module.exports ={
     }
   },
   components: {
-    'cafe-card': require('./components/cafe-card.vue'),
-    'logo': require('./components/logo.vue')
+    'cafe-card': require('../components/cafe-card.vue'),
+    'logo': require('../components/logo.vue')
   }
 };
 </script>

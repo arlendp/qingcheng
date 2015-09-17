@@ -23,14 +23,11 @@
 </template>
 
 <script>
-  var api = require('./api');
+  var api = require('../api');
   module.exports = {
     data: function() {
       return {
-        fetching: true,
         cursor: 0,
-        topics: [],
-        params: {},
         user: {}
       }
     },
@@ -55,7 +52,7 @@
       }
     },
     components: {
-      'user-avatar': require('./components/user-avatar.vue'),
+      'user-avatar': require('../components/user-avatar.vue'),
     }
   };
 </script>

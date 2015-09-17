@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  var api = require('./api');
+  var api = require('../api');
 
   module.exports = {
     data: function() {

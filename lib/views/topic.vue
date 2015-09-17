@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  var api = require('./api');
+  var api = require('../api');
 
   module.exports = {
     data: function() {
@@ -53,10 +53,10 @@
       }
     },
     components: {
-      'hentry': require('./components/hentry.vue'),
-      'logo': require('./components/logo.vue'),
-      'comment-form': require('./components/comment-form.vue'),
-      'comment-item': require('./components/comment-item.vue')
+      'hentry': require('../components/hentry.vue'),
+      'logo': require('../components/logo.vue'),
+      'comment-form': require('../components/comment-form.vue'),
+      'comment-item': require('../components/comment-item.vue')
     }
   };
 </script>

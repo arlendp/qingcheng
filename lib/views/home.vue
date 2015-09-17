@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  var api = require('./api');
+  var api = require('../api');
   var zerqu = window.ZERQU || {};
 
   module.exports = {
@@ -88,8 +88,8 @@
       }
     },
     components: {
-      'topic-item': require('./components/topic-item.vue'),
-      'logo': require("./components/logo.vue"),
+      'topic-item': require('../components/topic-item.vue'),
+      'logo': require('../components/logo.vue'),
     }
   };
 </script>
