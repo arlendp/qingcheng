@@ -5,14 +5,14 @@
     <div class="section container" v-if="following.length">
       <h2 class="section-title">Following</h2>
       <div class="cafe-cards clearfix">
-        <cafe-card v-repeat="cafe: following" track-by="id"></cafe-card>
+        <cafe-card v-repeat="cafe: following" subpath="{{ subpath }}" track-by="id"></cafe-card>
       </div>
     </div>
 
     <div class="section container">
       <h2 class="section-title">Cafes</h2>
       <div class="cafe-cards clearfix">
-        <cafe-card v-repeat="cafe: cafes" track-by="id"></cafe-card>
+        <cafe-card v-repeat="cafe: cafes" subpath="{{ subpath }}" track-by="id"></cafe-card>
       </div>
     </div>
   </div>
@@ -27,6 +27,14 @@ module.exports ={
       cursor: 0,
       following: [],
       cafes: []
+    }
+  },
+  computed: {
+    subpath: function() {
+      if (this.$route.query.show === 'create') {
+        return '/create';
+      }
+      return '';
     }
   },
   route: {

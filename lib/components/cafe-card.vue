@@ -1,6 +1,6 @@
 <template>
   <div id="c-{{ cafe.slug }}" class="cafe-card card">
-    <a class="cover" v-style="color" href="{{ link }}">
+    <a class="cover" v-style="color" v-link="link">
       <div class="cover-inner">
         <h3 class="card-title">{{ cafe.name }}</h3>
       </div>
@@ -15,13 +15,11 @@
 <script>
   module.exports = {
     replace: true,
-    props: ['cafe', 'query'],
+    props: ['cafe', 'subpath'],
     computed: {
       link: function() {
         var url = '/c/' + this.cafe.slug;
-        if (this.query) {
-          url += this.query;
-        }
+        if (this.subpath) url += this.subpath;
         return url;
       },
       color: function() {
