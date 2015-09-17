@@ -13,7 +13,7 @@
         <nav>
           <a v-link="'/'">Following</a>
           <a v-link="'/?show=all'">Topics</a>
-          <a href="/c/">Cafes</a>
+          <a v-link="'/c/'">Cafes</a>
         </nav>
       </div>
     </div>

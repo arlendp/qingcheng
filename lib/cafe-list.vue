@@ -1,5 +1,7 @@
 <template>
-  <div class="body cafe-list" v-if="!fetching">
+  <div class="body cafe-list">
+    <logo class="loading center" v-if="$loadingRouteData"></logo>
+
     <div class="section container" v-if="following.length">
       <h2 class="section-title">Following</h2>
       <div class="cafe-cards clearfix">
@@ -14,30 +16,29 @@
       </div>
     </div>
   </div>
-  <logo class="loading center" v-if="fetching"></logo>
 </template>
 
 <script>
 var api = require('./api');
 
 module.exports ={
-  replace: true,
-  props: ['params'],
   data: function() {
     return {
-      fetching: true,
       cursor: 0,
       following: [],
       cafes: []
     }
   },
-  compiled: function() {
-    api.cafe.list(function(resp) {
-      this.fetching = false;
-      this.following = resp.following || [];
-      this.cafes = this.cafes.concat(resp.data);
-      this.cursor = resp.cursor;
-    }.bind(this));
+  route: {
+    data: function(transition) {
+      api.cafe.list(function(resp) {
+        transition.next({
+          following: resp.following,
+          cafes: resp.data,
+          cursor: resp.cursor,
+        })
+      });
+    }
   },
   components: {
     'cafe-card': require('./components/cafe-card.vue'),
