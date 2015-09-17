@@ -1,17 +1,17 @@
 <template>
-  <form class="topic-form{{ formClass }}" v-on="submit: formSubmit" v-el="form">
+  <form class="topic-form {{ formClass }}" v-on="submit: formSubmit" v-el="form">
     <div class="form-description">
       Topic in <a v-link="{name: 'cafe', params: {slug: cafe.slug }}">{{ cafe.name }}</a>
     </div>
     <div class="form-field form-title">
-      <input placeholder="Your topic title" v-model="topic.title" v-el="title" disabled="{{ disabled }}">
+      <input placeholder="Your topic title" v-model="topic.title" v-el="title" v-attr="disabled: disabled">
     </div>
     <div class="form-field form-link">
       <input placeholder="Source link?" type="url" v-model="topic.link">
     </div>
     <markdown-area class="form-field form-content yue" content="{{@ topic.content }}" placeholder="What is in your mind"></markdown-area>
     <div class="form-submit">
-      <button class="green" disabled="{{ disabled }}">{{ type }}</button>
+      <button class="green" v-attr="disabled: disabled">{{ type }}</button>
     </div>
   </form>
 </template>
@@ -33,7 +33,7 @@
     computed: {
       formClass: function() {
         if (this.disabled) {
-          return ' disabled-form';
+          return 'disabled-form';
         }
         return '';
       },
