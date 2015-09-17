@@ -24,12 +24,12 @@
             </overlay>
           </li>
           <li>
-            <user-avatar user="{{user}}" v-on="click: showUserDropdown=true | preventDefault"></user-avatar>
+            <user-avatar user="{{user}}" v-on="click: viewUserDropdown"></user-avatar>
             <dropdown v-show="showUserDropdown" show="{{@ showUserDropdown }}">
               <a class="dropdown-item" href="/u/{{ user.username }}">View Profile</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/account/settings">Settings</a>
-              <a class="dropdown-item" v-on="click: logout|preventDefault" href="/session">Logout</a>
+              <a class="dropdown-item" v-on="click: logout" href="/session">Logout</a>
             </dropdown>
           </li>
         </ul>
@@ -74,8 +74,13 @@
       }
     },
     methods: {
-      logout: function() {
+      logout: function(e) {
+        e && e.preventDefault();
         api.user.logout();
+      },
+      viewUserDropdown: function(e) {
+        e && e.preventDefault();
+        this.showUserDropdown = true;
       },
       check: function() {
         if (!this.user.username) return;
