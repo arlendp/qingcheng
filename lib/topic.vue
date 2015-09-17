@@ -1,4 +1,5 @@
 <template>
+<div class="body">
   <div class="entry-view">
     <hentry v-if="!$loadingRouteData" topic="{{ topic }}"></hentry>
     <logo class="loading center" v-if="$loadingRouteData"></logo>
@@ -13,6 +14,7 @@
       </ul>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -64,7 +66,7 @@
     max-width: 680px;
   }
   .comment-box {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
   }
   .comment-box ul {
     margin: 0;

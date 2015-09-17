@@ -1,11 +1,10 @@
 <template>
-  <style class="cafe-theme" v-if="cafe.style.color">
-    .entry-content blockquote {
-      border-color: {{ cafe.style.color }};
-    }
-  </style>
-
   <div class="hentry" v-el="el">
+    <style class="cafe-theme" v-if="cafe.style.color">
+      .entry-content blockquote {
+        border-color: {{ cafe.style.color }};
+      }
+    </style>
     <div class="entry-cover cover" v-if="topicStyle" v-style="topicStyle">
       <div class="cover-inner">
         <div class="container">
@@ -41,7 +40,7 @@
               <i class="qc-icon-quill"></i>
             </button>
             <dropdown v-show="showEditDropdown" show="{{@ showEditDropdown }}">
-              <a class="dropdown-item" v-on="click: editTopic|preventDefault" v-if="canEdit" href="?edit">Edit</a>
+              <a class="dropdown-item" v-if="canEdit" v-link="{name: 'edit-topic', params: {topicId: topic.id}}">Edit</a>
               <a class="dropdown-item" href="/account/delete-topic/{{topic.id}}">Delete</a>
             </dropdown>
           </span>
@@ -72,13 +71,6 @@
           <p v-html="user.description|urlize"></p>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="overlay" v-if="showTopicForm" v-transition="bounce">
-    <div class="overlay-mask" v-on="click: showTopicForm=false"></div>
-    <div class="overlay-inner">
-      <topic-form v-if="cafe.id" cafe="{{cafe}}" type="update" topic="{{rawTopic}}"></topic-form>
     </div>
   </div>
 </template>
@@ -194,7 +186,6 @@
       this.unbind();
     },
     components: {
-      'topic-form': require('./topic-form.vue'),
       'user-avatar': require('./user-avatar.vue'),
       'dropdown': require('./dropdown.vue'),
       'webpage': require('./webpage.vue'),
@@ -212,7 +203,7 @@
   }
   .hentry .entry-title {
     margin: 0;
-    padding-top: 60px;
+    padding-top: 40px;
     padding-bottom: 10px;
     font-weight: 400;
     font-size: 42px;
