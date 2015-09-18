@@ -1,22 +1,22 @@
 <template>
   <div class="cafe-view">
   <div class="header">
-    <div class="header-cover cover" v-style="style">
-      <div class="header-intro cover-inner">
+    <div class="header__cover cover" v-style="style">
+      <div class="cover__text">
         <div class="container">
           <h2>{{ cafe.name }}</h2>
           <p v-html="cafe.description|urlize"></p>
         </div>
       </div>
     </div>
-    <div class="header-nav">
+    <div class="header__bottom">
       <div class="container">
-        <nav>
-          <a v-link="{name: 'cafe', params: {slug: cafe.slug}}">Topics</a>
-          <a v-link="{name: 'cafe-members', params: {slug: cafe.slug}}">Members</a>
-          <a v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
+        <nav class="header__nav nav">
+          <a class="nav__item" v-link="{name: 'cafe', params: {slug: cafe.slug}}">Topics</a>
+          <a class="nav__item" v-link="{name: 'cafe-members', params: {slug: cafe.slug}}">Members</a>
+          <amclass="nav__item" v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
         </nav>
-        <div class="header-actions" v-if="showFollowing">
+        <div class="header__button" v-if="showFollowing">
           <button class="follow-button" v-class="following-button: isFollowing" v-on="click: toggleFollow">
             <span class="follow-fg">
               <i class="qc-icon-star-empty"></i>

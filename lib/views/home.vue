@@ -1,20 +1,20 @@
 <template>
 <div class="home-view">
   <div class="header">
-    <div class="header-cover cover">
-      <div class="header-intro cover-inner">
+    <div class="header__cover cover">
+      <div class="cover__text">
         <div class="container">
           <h2>{{ $site.name }}</h2>
           <p v-html="$site.description|urlize"></p>
         </div>
       </div>
     </div>
-    <div class="header-nav">
+    <div class="header__bottom">
       <div class="container">
-        <nav>
-          <a v-link="'/'">Following</a>
-          <a v-link="'/?show=all'">Topics</a>
-          <a v-link="'/c/'">Cafes</a>
+        <nav class="header__nav nav">
+          <a class="nav__item" v-link="'/'">Following</a>
+          <a class="nav__item" v-link="'/?show=all'">Topics</a>
+          <a class="nav__item" v-link="'/c/'">Cafes</a>
         </nav>
       </div>
     </div>

@@ -22,6 +22,7 @@ module.exports = {
   entry: [
     "./lib/index.js",
     "./lib/css/responsive.css",
+    "./css/index.css",
   ],
 
   output: {

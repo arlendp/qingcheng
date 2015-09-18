@@ -1,8 +1,8 @@
 <template>
 <div class="user-view">
   <div class="header">
-    <div class="header-cover cover">
-      <div class="header-intro cover-inner">
+    <div class="header__cover cover">
+      <div class="cover__text">
         <div class="item-container container" v-if="user.username">
           <user-avatar user="{{ user }}"></user-avatar>
           <div class="item-content">
@@ -12,10 +12,10 @@
         </div>
       </div>
     </div>
-    <div class="header-nav">
+    <div class="header__bottom">
       <div class="container">
-        <nav>
-          <a v-link="'/u/' + username">Topics</a>
+        <nav class="header__nav nav">
+          <a class="nav__item" v-link="'/u/' + username">Topics</a>
         </nav>
       </div>
     </div>

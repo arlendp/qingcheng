@@ -6,6 +6,7 @@ var config = require('./webpack.config');
 config.entry.unshift('webpack/hot/dev-server');
 
 config.plugins.push(new webpack.HotModuleReplacementPlugin());
+config.devtool = 'eval';
 
 var proxy = {
   "/api/*": {target: "http://python-china.org", host: "python-china.org"}
