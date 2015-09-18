@@ -2,22 +2,26 @@ var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var vue = require("vue-loader");
 
-var plugins = [
+var postcssImport = require('postcss-import');
+
+var webpackPlugins = [
   new ExtractTextPlugin("style.css", {disable: false})
+];
+
+var postcssPlugins = [
+  require('postcss-custom-properties'),
 ];
 
 var filename = "qingcheng.js";
 var publicPath = "/build/";
 if (process.env.PRODUCTION) {
-  plugins.push(new webpack.optimize.UglifyJsPlugin());
-  // filename = "qingcheng.js";
-  // publicPath = "/dist/";
+  webpackPlugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
 module.exports = {
   entry: [
     "./lib/index.js",
-    "./lib/css/responsive.css"
+    "./lib/css/responsive.css",
   ],
 
   output: {
@@ -30,14 +34,24 @@ module.exports = {
     loaders: [
       {
         test: /\.vue$/, loader: vue.withLoaders({
-          css: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!cssnext-loader")
+          css: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!postcss-loader")
         }),
       },
-      {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!cssnext-loader")}
+      {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!postcss-loader")}
     ]
   },
 
-  plugins: plugins,
+  plugins: webpackPlugins,
+
+  postcss: function () {
+    // use webpack context
+    postcssPlugins.unshift(postcssImport({
+      onImport: function (files) {
+        files.forEach(this.addDependency);
+      }.bind(this)
+    }));
+    return postcssPlugins;
+  },
 
   devtool: "#source-map",
 };
