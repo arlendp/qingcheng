@@ -12,17 +12,6 @@ nav a:hover {
 }
 
 /* basic classes */
-.container {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.container:after, .clearfix:after, .item-container:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
 .item-container .avatar {
   float: left;
   margin-right: 12px;

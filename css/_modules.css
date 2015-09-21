@@ -7,6 +7,9 @@
   padding: 12px;
   transition: box-shadow .2s ease-out;
 }
+.nav__item.v-link-active-exact {
+  box-shadow: 0 -1px 0 #4bd094 inset;
+}
 .nav__item:hover {
   box-shadow: 0 -3px 0 #4bd094 inset;
 }
