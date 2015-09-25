@@ -42,6 +42,7 @@
 
 <script>
   var api = require('../api');
+  var getMessage = require('../utils').errorMessage;
   module.exports = {
     replace: true,
     data: function() {
@@ -77,7 +78,7 @@
         api.user.signup(this.email, function(resp) {
           this.$root.show('info', resp.message);
         }.bind(this)).error(function(resp) {
-          this.$root.show('error', resp.error_form.email[0]);
+          this.$root.show('error', getMessage(resp.error_form));
           this.shakeError();
         }.bind(this));
       }
