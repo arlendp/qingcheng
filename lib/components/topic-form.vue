@@ -11,7 +11,7 @@
     </div>
     <markdown-area class="form-field form-content yue" content="{{@ topic.content }}" placeholder="What is in your mind"></markdown-area>
     <div class="form-submit">
-      <button class="green" v-attr="disabled: disabled">{{ type }}</button>
+      <button class="button buttong--green" v-attr="disabled: disabled">{{ type }}</button>
     </div>
   </form>
 </template>

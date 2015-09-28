@@ -6,7 +6,7 @@
       }
     </style>
     <div class="entry-cover cover" v-if="topicStyle" v-style="topicStyle">
-      <div class="cover-inner">
+      <div class="cover__text">
         <div class="container">
           <h2 class="entry-title">{{ topic.title }}</h2>
         </div>
@@ -30,13 +30,13 @@
       <div class="entry-actions clearfix">
         <span id="like-button-status" v-if="!topic.liked_by_me">Like this topic</span>
         <span id="like-button-status" v-if="topic.liked_by_me">Toggle off like of this topic</span>
-        <button class="white like-button" v-class="liked: topic.liked_by_me" v-on="click: toggleLike" aria-labelledby="like-button-status" aria-pressed="{{topic.liked_by_me|json}}">
+        <button class="button button--white like-button" v-class="liked: topic.liked_by_me" v-on="click: toggleLike" aria-labelledby="like-button-status" aria-pressed="{{topic.liked_by_me|json}}">
           <i class="qc-icon-heart"></i>
           <span>Like it</span>
         </button>
         <div class="more-actions">
           <span v-if="isOwner">
-            <button class="white tip" aria-label="Show edit options" v-on="click: showEditDropdown=true">
+            <button class="button button--white tip" aria-label="Show edit options" v-on="click: showEditDropdown=true">
               <i class="qc-icon-quill"></i>
             </button>
             <dropdown v-show="showEditDropdown" show="{{@ showEditDropdown }}">

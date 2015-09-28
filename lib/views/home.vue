@@ -35,7 +35,7 @@
       </div>
       <div class="sidebar-view">
         <div class="widget">
-          <a v-link="'/c/?show=create'" class="green button" v-if="$root.user.id">New Topic</a>
+          <a v-link="'/c/?show=create'" class="button button--green" v-if="$root.user.id">New Topic</a>
         </div>
         <div class="site-sidebar" v-html="sidebar" v-if="sidebar"></div>
       </div>

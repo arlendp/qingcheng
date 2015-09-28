@@ -16,7 +16,7 @@
         <input type="checkbox" name="permanent" v-model="permanent">Remember Me
       </label>
       <div class="form-submit">
-        <button>Log In</button>
+        <button class="button buttong--green">Log In</button>
         <a href="/account/find-password">Find Password</a>
       </div>
     </form>
@@ -26,7 +26,7 @@
         <input type="email" placeholder="Email" aria-label="Email" name="email" v-model="email" required>
       </div>
       <div class="form-submit">
-        <button>Sign Up</button>
+        <button class="button buttong--green">Sign Up</button>
       </div>
     </form>
     <div class="login-social" v-if="$site.logins && loginTab">

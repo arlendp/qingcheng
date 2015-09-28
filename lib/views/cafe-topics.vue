@@ -22,7 +22,7 @@
           <h3 class="widget-title">Admin</h3>
           <div class="widget-content">
             <p>You are the admin here.</p>
-            <a class="button circle">View Settings</a>
+            <a class="button button--circle">View Settings</a>
           </div>
         </div>
       </div>

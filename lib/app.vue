@@ -12,7 +12,7 @@
 
       <div class="site-account">
         <div class="nav" v-if="!user.username">
-          <button v-on="click: showLogin=true">Log in</button>
+          <button class="button" v-on="click: showLogin=true">Log in</button>
         </div>
         <ul class="nav clearfix" v-if="user.username">
           <li>

@@ -1,7 +1,7 @@
 <template>
   <div id="c-{{ cafe.slug }}" class="cafe-card card">
     <a class="cover" v-style="color" v-link="link">
-      <div class="cover-inner">
+      <div class="cover__text">
         <h3 class="card-title">{{ cafe.name }}</h3>
       </div>
     </a>
