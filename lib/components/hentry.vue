@@ -35,6 +35,14 @@
           <span>Like it</span>
         </button>
         <div class="more-actions">
+          <span class="share-buttons">
+            <button class="button button--white tip" aria-label="Share to Weibo" v-on="click: share('weibo')">
+              <i class="qc-icon-weibo"></i>
+            </button>
+            <button class="button button--white tip" aria-label="Share to Twitter" v-on="click: share('twitter')">
+              <i class="qc-icon-twitter"></i>
+            </button>
+          </span>
           <span v-if="isOwner">
             <button class="button button--white tip" aria-label="Show edit options" v-on="click: showEditDropdown=true">
               <i class="qc-icon-quill"></i>
@@ -120,6 +128,16 @@
       }
     },
     methods: {
+      share: function(site) {
+        var services = {
+          twitter: 'https://twitter.com/intent/tweet?text={text}&url={url}',
+          weibo: 'http://service.weibo.com/share/share.php?title={text}&url={url}'
+        };
+        var url = services[site];
+        url = url.replace('{text}', encodeURIComponent(this.topic.title));
+        url = url.replace('{url}', encodeURIComponent(location.href));
+        window.open(url, '_blank', 'width=615,height=505');
+      },
       toggleLike: function() {
         if (!this.$root.user.id) {
           return this.$root.showLogin = true;
@@ -249,6 +267,10 @@
   }
   .entry-actions .more-actions {
     float: right;
+  }
+  .share-buttons .button {
+    font-size: 18px;
+    margin: 0 4px;
   }
   .entry-footer {
     border-top: 1px solid #ececec;

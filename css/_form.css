@@ -8,6 +8,9 @@
   border-radius: 32px;
   border: none;
 }
+.button:hover {
+  cursor: pointer;
+}
 .button--circle {
   background-color: white;
   line-height: 28px;
