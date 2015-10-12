@@ -1,11 +1,13 @@
 <template>
   <li id="t-{{ topic.id }}" class="topic-item clearfix" v-show="topic.id" v-transition="fade">
     <span class="user-avatar">
-      <user-avatar user="{{user}}" class="small circle tip"></user-avatar>
+      <user-avatar user="{{topic.user}}" class="small circle tip"></user-avatar>
     </span>
-    <div class="topic-meta" v-if="cafe">
-      <span class="cafe-logo" v-style="cafeStyle"></span>
-      <a v-link="{name: 'cafe', params: {slug: cafe.slug}}" aria-label="Published in {{ cafe.name }}" v-text="cafe.name"></a>
+    <div class="topic-meta">
+      <span class="topic-cafe" v-repeat="topic.cafes">
+        <span class="cafe-logo" v-style="style|logo"></span>
+        <a v-link="{name: 'cafe', params: {slug: slug}}" aria-label="Published in {{ name }}" v-text="name"></a>
+      </span>
     </div>
     <a class="topic-title" v-link="{name: 'topic', params: {topicId: topic.id}}">{{topic.title}}</a>
     <div class="topic-info">
@@ -19,23 +21,15 @@
 
 <script>
   module.exports = {
-    replace: true,
     props: ['topic'],
-    computed: {
-      cafe: function() {
-        return this.topic.cafe;
-      },
-      user: function() {
-        return this.topic.user;
-      },
-      cafeStyle: function() {
-        var style = this.cafe.style;
+    filters: {
+      logo: function(style) {
         var rv = {'background-color': style.color || '#222221'};
         if (style.logo) {
           rv['background-image'] = 'url(' + style.logo + ')';
         }
         return rv;
-      },
+      }
     },
     components: {
       'user-avatar': require('./user-avatar.vue')
@@ -64,6 +58,9 @@
     padding-bottom: 10px;
     line-height: 1;
     font-size: 14px;
+  }
+  .topic-meta .topic-cafe {
+    margin-right: 14px;
   }
   .topic-meta .cafe-logo {
     display: inline-block;

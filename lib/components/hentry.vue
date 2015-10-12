@@ -86,7 +86,6 @@
 <script>
   var api = require('../api');
   module.exports = {
-    replace: true,
     props: ['topic'],
     data: function() {
       return {
@@ -98,7 +97,8 @@
     },
     computed: {
       cafe: function() {
-        return this.topic.cafe;
+        var cafes = this.topic.cafes;
+        if (cafes) return cafes[0];
       },
       user: function() {
         return this.topic.user;
