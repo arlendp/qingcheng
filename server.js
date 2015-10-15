@@ -3,9 +3,8 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 
-config.entry.unshift('webpack/hot/dev-server');
+config.entry.unshift("webpack-dev-server/client?http://localhost:9090");
 
-config.plugins.push(new webpack.HotModuleReplacementPlugin());
 config.devtool = 'eval';
 
 var proxy = {
@@ -20,8 +19,6 @@ if (process.env.DEV_MODE) {
 
 var app = new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
-  hot: true,
-  // noInfo: true,
   historyApiFallback: true,
   proxy: proxy,
 });
