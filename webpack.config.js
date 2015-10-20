@@ -1,15 +1,11 @@
 var webpack = require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var vue = require("vue-loader");
 
-var postcssImport = require('postcss-import');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var cssLoader = ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!postcss-loader");
 
 var webpackPlugins = [
   new ExtractTextPlugin("style.css", {disable: false})
-];
-
-var postcssPlugins = [
-  require('postcss-custom-properties'),
 ];
 
 var filename = "qingcheng.js";
@@ -33,12 +29,8 @@ module.exports = {
 
   module: {
     loaders: [
-      {
-        test: /\.vue$/, loader: vue.withLoaders({
-          css: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!postcss-loader")
-        }),
-      },
-      {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!postcss-loader")}
+      {test: /\.vue$/, loader: vue.withLoaders({css: cssLoader})},
+      {test: /\.css$/, loader: cssLoader},
     ]
   },
 
@@ -46,12 +38,17 @@ module.exports = {
 
   postcss: function () {
     // use webpack context
-    postcssPlugins.unshift(postcssImport({
-      onImport: function (files) {
-        files.forEach(this.addDependency);
-      }.bind(this)
-    }));
-    return postcssPlugins;
+    var postcssImport = require('postcss-import');
+
+    return [
+      postcssImport({
+        onImport: function (files) {
+          files.forEach(this.addDependency);
+        }.bind(this)
+      }),
+
+      require('postcss-custom-properties'),
+    ]
   },
 
   devtool: "#source-map",
