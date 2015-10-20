@@ -14,7 +14,7 @@
         <nav class="header__nav nav">
           <a class="nav__item" v-link="{name: 'cafe', params: {slug: cafe.slug}}">Topics</a>
           <a class="nav__item" v-link="{name: 'cafe-members', params: {slug: cafe.slug}}">Members</a>
-          <amclass="nav__item" v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
+          <a class="nav__item" v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
         </nav>
         <div class="header__button" v-if="showFollowing">
           <button class="follow-button button" v-class="following-button: isFollowing" v-on="click: toggleFollow">
