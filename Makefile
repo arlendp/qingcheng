@@ -11,7 +11,7 @@ dev:
 
 dist:
 	@mkdir -p dist/fonts
-	@PRODUCTION=1 node_modules/.bin/webpack
+	@NODE_ENV=production node_modules/.bin/webpack --optimize-dedupe
 	@cat icon.css build/style.css vendors/*.css | cleancss -o dist/qingcheng.css
 	@cp fonts/* dist/fonts/
 	@cp build/qingcheng.js dist/

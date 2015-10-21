@@ -5,21 +5,18 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var cssLoader = ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!postcss-loader");
 
 var webpackPlugins = [
-  new ExtractTextPlugin("style.css", {disable: false})
+  new ExtractTextPlugin("style.css", {disable: false}),
+  new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js"),
 ];
 
 var filename = "qingcheng.js";
 var publicPath = "/build/";
-if (process.env.PRODUCTION) {
-  webpackPlugins.push(new webpack.optimize.UglifyJsPlugin());
-}
 
 module.exports = {
-  entry: [
-    "./lib/index.js",
-    "./lib/css/responsive.css",
-    "./css/index.css",
-  ],
+  entry: {
+    app: ["./lib/index.js", "./lib/css/responsive.css", "./css/index.css"],
+    vendor: ["vue", "vue-router", "word-color"],
+  },
 
   output: {
     path: __dirname + publicPath,
@@ -34,7 +31,10 @@ module.exports = {
     ]
   },
 
-  plugins: webpackPlugins,
+  plugins: [
+      new ExtractTextPlugin("style.css", {disable: false}),
+      new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js"),
+  ],
 
   postcss: function () {
     // use webpack context
