@@ -22,15 +22,6 @@
 <script>
   module.exports = {
     props: ['topic'],
-    filters: {
-      logo: function(style) {
-        var rv = {'background-color': style.color || '#222221'};
-        if (style.logo) {
-          rv['background-image'] = 'url(' + style.logo + ')';
-        }
-        return rv;
-      }
-    },
     components: {
       'user-avatar': require('./user-avatar.vue')
     }
