@@ -1,7 +1,7 @@
 <template>
   <div class="cafe-view">
   <div class="header">
-    <div class="header__cover cover" v-style="style">
+    <div class="header__cover cover" v-bind:style="style">
       <div class="cover__text">
         <div class="container">
           <h2>{{ cafe.name }}</h2>
@@ -17,7 +17,7 @@
           <a class="nav__item" v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
         </nav>
         <div class="header__button" v-if="showFollowing">
-          <button class="follow-button button" v-class="following-button: isFollowing" v-on:click="toggleFollow">
+          <button class="follow-button button" v-bind:class="following-button: isFollowing" v-on:click="toggleFollow">
             <span class="follow-fg">
               <i class="qc-icon-star-empty"></i>
               Follow

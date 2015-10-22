@@ -6,7 +6,7 @@
           <logo></logo>
         </a>
         <nav>
-          <a v-link="url" v-repeat="$site.links" v-text="name"></a>
+          <a v-link="link.url" v-for="link in $site.links" v-text="link.name"></a>
         </nav>
       </div>
 
@@ -50,7 +50,7 @@
   </div>
 
   <div id="message" aria-live="assertive">
-    <div class="message message-{{type}}" v-repeat="messages" v-text="text" transition="fade"></div>
+    <div class="message message-{{type}}" v-for="msg in messages" v-text="msg.text" transition="fade"></div>
   </div>
   <overlay v-if="showLogin" transition="fade" show="{{@ showLogin }}">
     <login-form></login-form>

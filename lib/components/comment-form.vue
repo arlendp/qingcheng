@@ -1,8 +1,8 @@
 <template>
-  <form class="comment-form" v-on="submit: formSubmit" v-el:form>
+  <form class="comment-form" v-on:submit="formSubmit" v-el:form>
     <div class="comment-form-mask" v-on:click="showLogin" v-if="!user.id"></div>
     <user-avatar user="{{ user }}" v-if="user.id" class="small circle"></user-avatar>
-    <markdown-area class="comment-item" placeholder="Write your response" content="{{@ comment }}" v-ref="textarea"></markdown-area>
+    <markdown-area class="comment-item" placeholder="Write your response" content="{{@ comment }}" v-ref:textarea></markdown-area>
     <button class="button" v-if="user.id">Reply</button>
   </form>
 </template>
@@ -53,7 +53,7 @@
       },
     },
     ready: function() {
-      var vm = this.$.textarea;
+      var vm = this.$refs.textarea;
       vm.$on('submit', this.postComment.bind(this));
     },
     components: {

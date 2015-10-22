@@ -5,7 +5,7 @@
     </span>
     <div class="topic-meta">
       <span class="topic-cafe" v-repeat="topic.cafes">
-        <span class="cafe-logo" v-style="style|logo"></span>
+        <span class="cafe-logo" v-bind:style="style|logo"></span>
         <a v-link="{name: 'cafe', params: {slug: slug}}" aria-label="Published in {{ name }}" v-text="name"></a>
       </span>
     </div>

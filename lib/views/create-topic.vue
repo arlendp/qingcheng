@@ -1,7 +1,7 @@
 <template>
   <div class="fullpage">
     <div class="container">
-      <topic-form cafe="{{cafe}}" type="create" v-ref="form"></topic-form>
+      <topic-form cafe="{{cafe}}" type="create" v-ref:form></topic-form>
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
   module.exports = {
     props: ['cafe'],
     ready: function() {
-      var vm = this.$.form;
+      var vm = this.$refs.form;
       var router = this.$route.router;
       var slug = this.cafe.slug;
       vm.$on('submit', function(payload) {

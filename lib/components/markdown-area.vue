@@ -1,6 +1,6 @@
 <template>
-  <div class="markdown-area" v-class="active: content.length">
-    <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el:text v-on="keydown: keyboardSubmit"></textarea>
+  <div class="markdown-area" v-bind:class="active: content.length">
+    <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el:text v-on:keydown="keyboardSubmit"></textarea>
     <div class="markdown-preview" v-show="html" v-html="html" v-on:click="focus"></div>
     <div class="markdown-actions" v-show="!html">
       <a href="#" v-on:click="image" v-show="!uploading">Image</a>

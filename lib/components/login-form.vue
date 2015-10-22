@@ -1,11 +1,11 @@
 <template>
-  <div class="login-form" v-class="shake: error">
+  <div class="login-form" v-bind:class="shake: error">
     <div class="login-tab clearfix">
-      <a href="javascript:;" v-class="active: loginTab" v-on:click="loginTab=true">Log In</a>
-      <a href="javascript:;" v-class="active: !loginTab" v-on:click="loginTab=false">Sign Up</a>
+      <a href="javascript:;" v-bind:class="active: loginTab" v-on:click="loginTab=true">Log In</a>
+      <a href="javascript:;" v-bind:class="active: !loginTab" v-on:click="loginTab=false">Sign Up</a>
     </div>
 
-    <form action="/session" method="post" v-on="submit: login" v-show="loginTab">
+    <form action="/session" method="post" v-on:submit="login" v-show="loginTab">
       <div class="form-field">
         <input type="text" placeholder="Username/Email" aria-label="Username or Email" name="username" v-model="username" required v-el:username>
       </div>
@@ -21,7 +21,7 @@
       </div>
     </form>
 
-    <form action="/session/new" method="post" v-on="submit: signup" v-show="!loginTab">
+    <form action="/session/new" method="post" v-on:submit="signup" v-show="!loginTab">
       <div class="form-field">
         <input type="email" placeholder="Email" aria-label="Email" name="email" v-model="email" required>
       </div>

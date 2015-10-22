@@ -1,5 +1,5 @@
 <template>
-  <li id="c-{{ comment.id }}" class="comment-item item-container" v-show="comment.id" transition="fade" v-class="comment-hide: isHide">
+  <li id="c-{{ comment.id }}" class="comment-item item-container" v-show="comment.id" transition="fade" v-bind:class="comment-hide: isHide">
     <user-avatar user="{{user}}"></user-avatar>
     <div class="comment-main item-content">
       <div class="comment-info">
@@ -9,7 +9,7 @@
         <div class="comment-actions">
           <span v-show="comment.like_count">{{ comment.like_count }} likes</span>
           <a class="tip tip-west like-comment" role="button" href="javascript:;" aria-label="like this comment"
-          v-if="!isOwner" v-on:click="toggleLike" v-class="liked: comment.liked_by_me">
+          v-if="!isOwner" v-on:click="toggleLike" v-bind:class="liked: comment.liked_by_me">
             <i class="qc-icon-heart"></i>
           </a>
           <a role="button" href="javascript:;" v-if="!isOwner" v-on:click="flagComment" aria-label="report spam"><i class="qc-icon-flag"></i></a>

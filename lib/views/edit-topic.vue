@@ -1,7 +1,7 @@
 <template>
   <div class="fullpage">
     <div class="container" v-show="!$loadingRouteData">
-      <topic-form cafe="{{cafe}}" topic="{{topic}}" type="update" v-ref="form"></topic-form>
+      <topic-form cafe="{{cafe}}" topic="{{topic}}" type="update" v-ref:form></topic-form>
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@
       }
     },
     ready: function() {
-      var vm = this.$.form;
+      var vm = this.$refs.form;
       var router = this.$route.router;
       vm.$on('submit', function(payload) {
         api.topic.update(this.topic.id, payload, function(resp) {

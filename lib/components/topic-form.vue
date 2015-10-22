@@ -1,5 +1,5 @@
 <template>
-  <form class="topic-form {{ formClass }}" v-on="submit: formSubmit" v-el:form>
+  <form class="topic-form {{ formClass }}" v-on:submit="formSubmit" v-el:form>
     <div class="form-description">
       Topic in <a v-link="{name: 'cafe', params: {slug: cafe.slug }}">{{ cafe.name }}</a>
     </div>
