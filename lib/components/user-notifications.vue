@@ -5,11 +5,11 @@
       <user-avatar user="{{ sender }}"></user-avatar>
       <div class="item-content">
         <div class="item-info">{{ category|message }}</div>
-        <a class="topic-title" href="/t/{{topic.id}}" v-on="click: hide">{{topic.title}}</a>
+        <a class="topic-title" href="/t/{{topic.id}}" v-on:click="hide">{{topic.title}}</a>
       </div>
     </div>
     <div class="clear-button">
-      <button class="button buttong--green" v-on="click: clear">Clear</button>
+      <button class="button buttong--green" v-on:click="clear">Clear</button>
     </div>
   </div>
 </template>

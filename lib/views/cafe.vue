@@ -17,7 +17,7 @@
           <a class="nav__item" v-if="cafe.intro" href="/t/{{ cafe.intro }}">Introduction</a>
         </nav>
         <div class="header__button" v-if="showFollowing">
-          <button class="follow-button button" v-class="following-button: isFollowing" v-on="click: toggleFollow">
+          <button class="follow-button button" v-class="following-button: isFollowing" v-on:click="toggleFollow">
             <span class="follow-fg">
               <i class="qc-icon-star-empty"></i>
               Follow

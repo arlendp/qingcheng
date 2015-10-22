@@ -10,7 +10,7 @@
       <div class="comment-list-header" v-if="comments.length">{{ topic.comment_count }} responses</div>
       <ul v-if="comments.length">
         <comment-item v-repeat="comment: comments" track-by="id"></comment-item>
-        <li class="load-more" v-if="cursor" v-on="click: fetchComments(cursor)">Load More</li>
+        <li class="load-more" v-if="cursor" v-on:click="fetchComments(cursor)">Load More</li>
       </ul>
     </div>
   </div>

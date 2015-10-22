@@ -1,8 +1,8 @@
 <template>
   <div class="login-form" v-class="shake: error">
     <div class="login-tab clearfix">
-      <a href="javascript:;" v-class="active: loginTab" v-on="click: loginTab=true">Log In</a>
-      <a href="javascript:;" v-class="active: !loginTab" v-on="click: loginTab=false">Sign Up</a>
+      <a href="javascript:;" v-class="active: loginTab" v-on:click="loginTab=true">Log In</a>
+      <a href="javascript:;" v-class="active: !loginTab" v-on:click="loginTab=false">Sign Up</a>
     </div>
 
     <form action="/session" method="post" v-on="submit: login" v-show="loginTab">

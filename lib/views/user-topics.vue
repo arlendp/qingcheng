@@ -7,7 +7,7 @@
             <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
           </ul>
           <logo class="loading center" v-if="$loadingRouteData || loading"></logo>
-          <div class="load-more" v-if="cursor" v-on="click: fetchTopics(cursor)">
+          <div class="load-more" v-if="cursor" v-on:click="fetchTopics(cursor)">
             Load More
           </div>
         </div>
