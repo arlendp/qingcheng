@@ -1,12 +1,12 @@
 <template>
-  <li id="t-{{ topic.id }}" class="topic-item clearfix" v-show="topic.id" transition="fade">
+  <li id="t-{{ topic.id }}" class="topic-item clearfix">
     <span class="user-avatar">
       <user-avatar user="{{topic.user}}" class="small circle tip"></user-avatar>
     </span>
     <div class="topic-meta">
-      <span class="topic-cafe" v-repeat="topic.cafes">
-        <span class="cafe-logo" v-bind:style="style|logo"></span>
-        <a v-link="{name: 'cafe', params: {slug: slug}}" aria-label="Published in {{ name }}" v-text="name"></a>
+      <span class="topic-cafe" v-for="cafe in topic.cafes">
+        <span class="cafe-logo" v-bind:style="cafe.style|logo"></span>
+        <a v-link="{name: 'cafe', params: {slug: cafe.slug}}" aria-label="Published in {{ cafe.name }}" v-text="cafe.name"></a>
       </span>
     </div>
     <a class="topic-title" v-link="{name: 'topic', params: {topicId: topic.id}}">{{topic.title}}</a>

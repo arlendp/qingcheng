@@ -8,7 +8,9 @@
         </div>
         <div class="topic-list">
           <ul v-if="!$loadingRouteData">
-            <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
+            <template v-for="topic in topics" track-by="id">
+              <topic-item v-bind:topic="topic"></topic-item>
+            </template>
           </ul>
           <logo class="loading center" v-if="$loadingRouteData"></logo>
         </div>

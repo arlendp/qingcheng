@@ -4,7 +4,9 @@
       <div class="main-view">
         <div class="topic-list">
           <ul>
-            <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
+            <template v-for="topic in topics" track-by="id">
+              <topic-item v-bind:topic="topic"></topic-item>
+            </template>
           </ul>
           <logo class="loading center" v-if="$loadingRouteData || loading"></logo>
           <div class="load-more" v-if="cursor" v-on:click="fetchTopics(cursor)">

@@ -12,9 +12,9 @@
     <div class="header__bottom">
       <div class="container">
         <nav class="header__nav nav">
-          <a class="nav__item" v-link="'/'">Following</a>
-          <a class="nav__item" v-link="'/?show=all'">Topics</a>
-          <a class="nav__item" v-link="'/c/'">Cafes</a>
+          <a class="nav__item" v-link="{path: '/'}">Following</a>
+          <a class="nav__item" v-link="{path: '/?show=all'}">Topics</a>
+          <a class="nav__item" v-link="{path: '/c/'}">Cafes</a>
         </nav>
       </div>
     </div>
@@ -25,7 +25,9 @@
       <div class="main-view">
         <div class="topic-list">
           <ul>
-            <topic-item v-repeat="topic: topics" track-by="id"></topic-item>
+            <template v-for="topic in topics" track-by="id">
+              <topic-item v-bind:topic="topic"></topic-item>
+            </template>
           </ul>
           <logo class="loading center" v-if="fetching"></logo>
           <div class="load-more" v-if="cursor" v-on:click="fetchTopics(cursor)">
