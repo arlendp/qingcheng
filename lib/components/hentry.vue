@@ -23,7 +23,7 @@
         <a v-if="user" href="/u/{{ user.username }}" aria-label="Published by @{{ user.username }}">@{{ user.username }}</a>
       </div>
 
-      <webpage webpage="{{ topic.webpage }}" v-if="topic.webpage"></webpage>
+      <webpage v-bind:webpage="topic.webpage" v-if="topic.webpage"></webpage>
 
       <div class="entry-content yue" v-html="topic.content"></div>
 
@@ -47,7 +47,7 @@
             <button class="button button--white tip" aria-label="Show edit options" v-on:click="showEditDropdown=true">
               <i class="qc-icon-quill"></i>
             </button>
-            <dropdown v-show="showEditDropdown" show="{{@ showEditDropdown }}">
+            <dropdown v-show="showEditDropdown" v-bind:show.sync="showEditDropdown">
               <a class="dropdown-item" v-if="canEdit" v-link="{name: 'edit-topic', params: {topicId: topic.id}}">Edit</a>
               <a class="dropdown-item" href="/account/delete-topic/{{topic.id}}">Delete</a>
             </dropdown>

@@ -1,5 +1,5 @@
 <template>
-  <div class="markdown-area" v-bind:class="active: content.length">
+  <div class="markdown-area" v-bind:class="{active: content.length}">
     <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el:text v-on:keydown="keyboardSubmit"></textarea>
     <div class="markdown-preview" v-show="html" v-html="html" v-on:click="focus"></div>
     <div class="markdown-actions" v-show="!html">
@@ -16,7 +16,6 @@
 <script>
   var api = require('../api');
   module.exports = {
-    replace: true,
     props: ['placeholder', 'content'],
     data: function() {
       return {
