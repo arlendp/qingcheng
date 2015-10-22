@@ -1,5 +1,5 @@
 <template>
-  <form class="comment-form" v-on="submit: formSubmit" v-el="form">
+  <form class="comment-form" v-on="submit: formSubmit" v-el:form>
     <div class="comment-form-mask" v-on:click="showLogin" v-if="!user.id"></div>
     <user-avatar user="{{ user }}" v-if="user.id" class="small circle"></user-avatar>
     <markdown-area class="comment-item" placeholder="Write your response" content="{{@ comment }}" v-ref="textarea"></markdown-area>
@@ -38,7 +38,7 @@
       postComment: function() {
         var content = this.comment.trim();
         if (!content || 480 - content.length < 0) {
-          return shake(this.$$.form);
+          return shake(this.$els.form);
         }
 
         this.comment = '';

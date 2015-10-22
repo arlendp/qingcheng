@@ -7,7 +7,7 @@
 
     <form action="/session" method="post" v-on="submit: login" v-show="loginTab">
       <div class="form-field">
-        <input type="text" placeholder="Username/Email" aria-label="Username or Email" name="username" v-model="username" required v-el="username">
+        <input type="text" placeholder="Username/Email" aria-label="Username or Email" name="username" v-model="username" required v-el:username>
       </div>
       <div class="form-field">
         <input type="password" placeholder="Password" aria-label="Password" name="password" v-model="password" required>
@@ -84,7 +84,7 @@
       }
     },
     ready: function() {
-      var el = this.$$.username;
+      var el = this.$els.username;
       setTimeout(function() {
         el.focus();
       }, 20);

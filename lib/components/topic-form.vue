@@ -1,10 +1,10 @@
 <template>
-  <form class="topic-form {{ formClass }}" v-on="submit: formSubmit" v-el="form">
+  <form class="topic-form {{ formClass }}" v-on="submit: formSubmit" v-el:form>
     <div class="form-description">
       Topic in <a v-link="{name: 'cafe', params: {slug: cafe.slug }}">{{ cafe.name }}</a>
     </div>
     <div class="form-field form-title">
-      <input placeholder="Your topic title" v-model="topic.title" v-el="title" v-attr="disabled: disabled">
+      <input placeholder="Your topic title" v-model="topic.title" v-el:title v-attr="disabled: disabled">
     </div>
     <div class="form-field form-link">
       <input placeholder="Source link?" type="url" v-model="topic.link">
@@ -53,14 +53,14 @@
           link: topic.link.trim()
         }
         if (!payload.title || !payload.content) {
-          return shake(this.$$.form);
+          return shake(this.$els.form);
         }
         this.disabled = true;
         this.$emit('submit', payload);
       }
     },
     ready: function() {
-      var el = this.$$.title;
+      var el = this.$els.title;
       setTimeout(function() {
         el.focus();
       }, 20);

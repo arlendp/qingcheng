@@ -1,7 +1,7 @@
 <template>
   <section class="webpage" v-show="webpage.title">
-    <a href="{{ webpage.link }}" v-el="sec">
-      <div class="webpage__image" v-el="image"></div>
+    <a href="{{ webpage.link }}" v-el:wrapper>
+      <div class="webpage__image" v-el:image></div>
       <div class="webpage__info">
         <h2>{{ webpage.title }}</h2>
         <p class="webpage__host">{{ webpage.domain }}</p>
@@ -21,8 +21,8 @@
       var img = new Image();
       img.src = src;
 
-      var wrap = this.$$.image;
-      var sec = this.$$.sec;
+      var wrap = this.$els.image;
+      var sec = this.$els.wrapper;
       img.onload = function() {
         wrap.style.backgroundImage = 'url(' + src + ')';
         if (img.width > sec.clientWidth) {

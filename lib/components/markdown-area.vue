@@ -1,6 +1,6 @@
 <template>
   <div class="markdown-area" v-class="active: content.length">
-    <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el="el" v-on="keydown: keyboardSubmit"></textarea>
+    <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el:text v-on="keydown: keyboardSubmit"></textarea>
     <div class="markdown-preview" v-show="html" v-html="html" v-on:click="focus"></div>
     <div class="markdown-actions" v-show="!html">
       <a href="#" v-on:click="image" v-show="!uploading">Image</a>
@@ -9,7 +9,7 @@
     <div class="markdown-actions" v-show="html">
       <a href="#" v-on:click="focus">Edit</a>
     </div>
-    <input type="file" style="opacity: 0; left: -99999px; position: absolute" v-el="file" accept="image/*" v-on="change: upload">
+    <input type="file" style="opacity: 0; left: -99999px; position: absolute" v-el:file accept="image/*" v-on="change: upload">
   </div>
 </template>
 
@@ -35,7 +35,7 @@
       focus: function(e) {
         e && e.preventDefault();
         this.html = '';
-        var el = this.$$.el;
+        var el = this.$els.text;
         setTimeout(function() {
           el.focus();
         }, 10);
@@ -51,10 +51,10 @@
       },
       image: function(e) {
         e.preventDefault();
-        this.$$.file.click();
+        this.$els.file.click();
       },
       upload: function() {
-        var files = this.$$.file.files;
+        var files = this.$els.file.files;
         if (!files.length) return;
 
         var stamp = Date.now().toString(36);

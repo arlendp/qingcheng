@@ -1,5 +1,5 @@
 <template>
-  <a v-link="{name: 'user', params: {username: user.username}}" v-el="el" class="avatar" aria-label="View @{{user.username}} profile"></a>
+  <a v-link="{name: 'user', params: {username: user.username}}" v-el:avatar class="avatar" aria-label="View @{{user.username}} profile"></a>
 </template>
 <script>
   var escape = require('../utils').escape;
@@ -24,7 +24,7 @@
           .replace('#1', 'rgb(' + bg.join(',') + ')')
           .replace('#2', fg)
           .replace('#3', escape(user.username.charAt(0).toUpperCase()));
-        var el = this.$$.el;
+        var el = this.$els.avatar;
         el.innerHTML = span;
         if (!user.avatar_url) return;
         var key = 'avatar:' + user.avatar_url;

@@ -1,5 +1,5 @@
 <template>
-  <div class="hentry" v-el="el">
+  <div class="hentry" v-el:page>
     <style class="cafe-theme" v-if="cafe.style.color">
       .entry-content blockquote {
         border-color: {{ cafe.style.color }};
@@ -164,7 +164,7 @@
           document.documentElement.clientHeight,
           window.innerHeight || 0
         );
-        var height = this.$$.el.clientHeight;
+        var height = this.$els.page.clientHeight;
         var percent = (window.scrollY + viewport * 0.8) / height * 100;
         return Math.min(Math.round(percent), 100);
       },
