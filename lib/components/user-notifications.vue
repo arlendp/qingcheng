@@ -1,11 +1,11 @@
 <template>
   <div class="notification-list">
     <h2>Notifications</h2>
-    <div v-repeat="notifications" class="item-container">
-      <user-avatar :user="sender"></user-avatar>
+    <div v-for="notice in notifications" class="item-container">
+      <user-avatar :user="notice.sender"></user-avatar>
       <div class="item-content">
-        <div class="item-info">{{ category|message }}</div>
-        <a class="topic-title" href="/t/{{topic.id}}" v-on:click="hide">{{topic.title}}</a>
+        <div class="item-info">{{ notice.category|message }}</div>
+        <a class="topic-title" href="/t/{{notice.topic.id}}">{{notice.topic.title}}</a>
       </div>
     </div>
     <div class="clear-button">
