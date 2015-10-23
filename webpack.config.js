@@ -16,6 +16,9 @@ module.exports = {
     path: __dirname + publicPath,
     filename: 'app.js',
     publicPath: publicPath,
+    devtoolModuleFilenameTemplate: function(info) {
+      return info.resource;
+    }
   },
 
   module: {
@@ -45,5 +48,5 @@ module.exports = {
     ]
   },
 
-  devtool: "#source-map",
+  devtool: "source-map",
 };
