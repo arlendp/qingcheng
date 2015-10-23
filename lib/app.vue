@@ -50,9 +50,9 @@
   </div>
 
   <div id="message" aria-live="assertive">
-    <div class="message message-{{type}}" v-for="msg in messages" v-text="msg.text" transition="fade"></div>
+    <div class="message message-{{msg.type}}" v-for="msg in messages" v-text="msg.text" transition="fade"></div>
   </div>
-  <overlay v-if="showLogin" transition="fade" show="{{@ showLogin }}">
+  <overlay v-if="showLogin" transition="fade" v-bind:show.sync="showLogin">
     <login-form></login-form>
   </overlay>
 </template>

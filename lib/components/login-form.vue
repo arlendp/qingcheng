@@ -1,8 +1,8 @@
 <template>
-  <div class="login-form" v-bind:class="shake: error">
+  <div class="login-form" v-bind:class="{shake: error}">
     <div class="login-tab clearfix">
-      <a href="javascript:;" v-bind:class="active: loginTab" v-on:click="loginTab=true">Log In</a>
-      <a href="javascript:;" v-bind:class="active: !loginTab" v-on:click="loginTab=false">Sign Up</a>
+      <a href="javascript:;" v-bind:class="{active: loginTab}" v-on:click="loginTab=true">Log In</a>
+      <a href="javascript:;" v-bind:class="{active: !loginTab}" v-on:click="loginTab=false">Sign Up</a>
     </div>
 
     <form action="/session" method="post" v-on:submit="login" v-show="loginTab">
@@ -32,7 +32,7 @@
     <div class="login-social" v-if="$site.logins && loginTab">
       <h3>Login With</h3>
       <div class="login-buttons">
-        <a class="button login-{{name}}" href="/account/s/{{name}}" v-repeat="name: $site.logins">
+        <a class="button login-{{name}}" href="/account/s/{{name}}" v-for="name in $site.logins">
           <i class="qc-icon-{{name}}"></i>{{name}}
         </a>
       </div>

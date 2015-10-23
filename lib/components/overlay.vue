@@ -2,7 +2,7 @@
   <div class="overlay">
     <div class="overlay-mask" v-on:click="show=false"></div>
     <div class="overlay-inner">
-      <content></content>
+      <slot></slot>
     </div>
   </div>
 </template>
