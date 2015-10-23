@@ -12,24 +12,24 @@
 
       <div class="site-account">
         <div class="nav" v-if="!user.username">
-          <button class="button" v-on:click="showLogin=true">Log in</button>
+          <button class="button" @click="showLogin=true">Log in</button>
         </div>
         <ul class="nav clearfix" v-if="user.username">
           <li>
             <a v-if="notificationCount" class="tip notification" href="javascript:;"
-            v-on:click="showNotifications=true"
+            @click="showNotifications=true"
             aria-label="You have {{ notificationCount }} unread notifications"></a>
             <overlay v-if="showNotifications" :show.sync="showNotifications">
               <user-notifications></user-notifications>
             </overlay>
           </li>
           <li>
-            <user-avatar :user="user" v-on:click="viewUserDropdown"></user-avatar>
+            <user-avatar :user="user" @click="viewUserDropdown"></user-avatar>
             <dropdown v-show="showUserDropdown" :show.sync="showUserDropdown">
               <a class="dropdown-item" href="/u/{{ user.username }}">View Profile</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/account/settings">Settings</a>
-              <a class="dropdown-item" v-on:click="logout" href="/session">Logout</a>
+              <a class="dropdown-item" @click="logout" href="/session">Logout</a>
             </dropdown>
           </li>
         </ul>

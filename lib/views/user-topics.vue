@@ -9,7 +9,7 @@
             </template>
           </ul>
           <logo class="loading center" v-if="$loadingRouteData || loading"></logo>
-          <div class="load-more" v-if="cursor" v-on:click="fetchTopics(cursor)">
+          <div class="load-more" v-if="cursor" @click="fetchTopics(cursor)">
             Load More
           </div>
         </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
-    <div class="dropdown-mask" v-on:click="show=false"></div>
-    <div class="dropdown-inner" v-on:click="choose">
+    <div class="dropdown-mask" @click="show=false"></div>
+    <div class="dropdown-inner" @click="choose">
       <slot></slot>
     </div>
   </div>

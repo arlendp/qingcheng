@@ -1,6 +1,6 @@
 <template>
   <div class="overlay">
-    <div class="overlay-mask" v-on:click="show=false"></div>
+    <div class="overlay-mask" @click="show=false"></div>
     <div class="overlay-inner">
       <slot></slot>
     </div>

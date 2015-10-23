@@ -30,21 +30,21 @@
       <div class="entry-actions clearfix">
         <span id="like-button-status" v-if="!topic.liked_by_me">Like this topic</span>
         <span id="like-button-status" v-if="topic.liked_by_me">Toggle off like of this topic</span>
-        <button class="button button--white like-button" :class="{liked: topic.liked_by_me}" v-on:click="toggleLike" aria-labelledby="like-button-status" aria-pressed="{{topic.liked_by_me|json}}">
+        <button class="button button--white like-button" :class="{liked: topic.liked_by_me}" @click="toggleLike" aria-labelledby="like-button-status" aria-pressed="{{topic.liked_by_me|json}}">
           <i class="qc-icon-heart"></i>
           <span>Like it</span>
         </button>
         <div class="more-actions">
           <span class="share-buttons">
-            <button class="button button--white tip" aria-label="Share to Weibo" v-on:click="share('weibo')">
+            <button class="button button--white tip" aria-label="Share to Weibo" @click="share('weibo')">
               <i class="qc-icon-weibo"></i>
             </button>
-            <button class="button button--white tip" aria-label="Share to Twitter" v-on:click="share('twitter')">
+            <button class="button button--white tip" aria-label="Share to Twitter" @click="share('twitter')">
               <i class="qc-icon-twitter"></i>
             </button>
           </span>
           <span v-if="isOwner">
-            <button class="button button--white tip" aria-label="Show edit options" v-on:click="showEditDropdown=true">
+            <button class="button button--white tip" aria-label="Show edit options" @click="showEditDropdown=true">
               <i class="qc-icon-quill"></i>
             </button>
             <dropdown v-show="showEditDropdown" :show.sync="showEditDropdown">

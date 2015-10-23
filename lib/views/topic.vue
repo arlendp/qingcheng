@@ -12,7 +12,7 @@
         <template v-for="comment in comments" track-by="id">
           <comment-item :comment="comment"></comment-item>
         </template>
-        <li class="load-more" v-if="cursor" v-on:click="fetchComments(cursor)">Load More</li>
+        <li class="load-more" v-if="cursor" @click="fetchComments(cursor)">Load More</li>
       </ul>
     </div>
   </div>

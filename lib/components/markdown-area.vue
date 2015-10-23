@@ -1,15 +1,15 @@
 <template>
   <div class="markdown-area" :class="{active: content.length}">
-    <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el:text v-on:keydown="keyboardSubmit"></textarea>
-    <div class="markdown-preview" v-show="html" v-html="html" v-on:click="focus"></div>
+    <textarea placeholder="{{ placeholder }}" aria-label="{{ placeholder }}" v-show="!html" v-model='content' v-el:text @keydown="keyboardSubmit"></textarea>
+    <div class="markdown-preview" v-show="html" v-html="html" @click="focus"></div>
     <div class="markdown-actions" v-show="!html">
-      <a href="#" v-on:click="image" v-show="!uploading">Image</a>
-      <a href="#" v-on:click="preview">Preview</a>
+      <a href="#" @click="image" v-show="!uploading">Image</a>
+      <a href="#" @click="preview">Preview</a>
     </div>
     <div class="markdown-actions" v-show="html">
-      <a href="#" v-on:click="focus">Edit</a>
+      <a href="#" @click="focus">Edit</a>
     </div>
-    <input type="file" style="opacity: 0; left: -99999px; position: absolute" v-el:file accept="image/*" v-on:change="upload">
+    <input type="file" style="opacity: 0; left: -99999px; position: absolute" v-el:file accept="image/*" @change="upload">
   </div>
 </template>
 

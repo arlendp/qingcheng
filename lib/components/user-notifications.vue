@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="clear-button">
-      <button class="button buttong--green" v-on:click="clear">Clear</button>
+      <button class="button buttong--green" @click="clear">Clear</button>
     </div>
   </div>
 </template>

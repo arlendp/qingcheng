@@ -9,11 +9,11 @@
         <div class="comment-actions">
           <span v-show="comment.like_count">{{ comment.like_count }} likes</span>
           <a class="tip tip-west like-comment" role="button" href="javascript:;" aria-label="like this comment"
-          v-if="!isOwner" v-on:click="toggleLike" :class="{liked: comment.liked_by_me}">
+          v-if="!isOwner" @click="toggleLike" :class="{liked: comment.liked_by_me}">
             <i class="qc-icon-heart"></i>
           </a>
-          <a role="button" href="javascript:;" v-if="!isOwner" v-on:click="flagComment" aria-label="report spam"><i class="qc-icon-flag"></i></a>
-          <a role="button" href="javascript:;" v-if="isOwner" v-on:click="deleteComment" aria-label="delete comment"><i class="qc-icon-bin"></i></a>
+          <a role="button" href="javascript:;" v-if="!isOwner" @click="flagComment" aria-label="report spam"><i class="qc-icon-flag"></i></a>
+          <a role="button" href="javascript:;" v-if="isOwner" @click="deleteComment" aria-label="delete comment"><i class="qc-icon-bin"></i></a>
         </div>
       </div>
       <div class="comment-content" v-html="content"></div>
