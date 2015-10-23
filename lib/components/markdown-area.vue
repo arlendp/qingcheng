@@ -9,19 +9,24 @@
     <div class="markdown-actions" v-show="html">
       <a href="#" v-on:click="focus">Edit</a>
     </div>
-    <input type="file" style="opacity: 0; left: -99999px; position: absolute" v-el:file accept="image/*" v-on="change: upload">
+    <input type="file" style="opacity: 0; left: -99999px; position: absolute" v-el:file accept="image/*" v-on:change="upload">
   </div>
 </template>
 
 <script>
   var api = require('../api');
   module.exports = {
-    props: ['placeholder', 'content'],
+    props: {
+      placeholder: String,
+      content: {
+        type: String,
+        default: ''
+      }
+    },
     data: function() {
       return {
         html: '',
-        uploading: false,
-        content: ''
+        uploading: false
       };
     },
     methods: {
