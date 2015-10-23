@@ -19,13 +19,13 @@
             <a v-if="notificationCount" class="tip notification" href="javascript:;"
             v-on:click="showNotifications=true"
             aria-label="You have {{ notificationCount }} unread notifications"></a>
-            <overlay v-if="showNotifications" show="{{@ showNotifications }}">
+            <overlay v-if="showNotifications" :show.sync="showNotifications">
               <user-notifications></user-notifications>
             </overlay>
           </li>
           <li>
-            <user-avatar user="{{user}}" v-on:click="viewUserDropdown"></user-avatar>
-            <dropdown v-show="showUserDropdown" show="{{@ showUserDropdown }}">
+            <user-avatar v-bind:user="user" v-on:click="viewUserDropdown"></user-avatar>
+            <dropdown v-show="showUserDropdown" :show.sync="showUserDropdown">
               <a class="dropdown-item" href="/u/{{ user.username }}">View Profile</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/account/settings">Settings</a>

@@ -2,7 +2,7 @@
   <div class="dropdown">
     <div class="dropdown-mask" v-on:click="show=false"></div>
     <div class="dropdown-inner" v-on:click="choose">
-      <content></content>
+      <slot></slot>
     </div>
   </div>
 </template>
