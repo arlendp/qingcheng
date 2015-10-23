@@ -4,12 +4,6 @@ var vue = require("vue-loader");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var cssLoader = ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!postcss-loader");
 
-var webpackPlugins = [
-  new ExtractTextPlugin("style.css", {disable: false}),
-  new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js"),
-];
-
-var filename = "qingcheng.js";
 var publicPath = "/build/";
 
 module.exports = {
@@ -20,7 +14,7 @@ module.exports = {
 
   output: {
     path: __dirname + publicPath,
-    filename: filename,
+    filename: 'app.js',
     publicPath: publicPath,
   },
 
@@ -32,7 +26,7 @@ module.exports = {
   },
 
   plugins: [
-      new ExtractTextPlugin("style.css", {disable: false}),
+      new ExtractTextPlugin("app.css", {disable: false}),
       new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js"),
   ],
 

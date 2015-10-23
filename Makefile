@@ -12,11 +12,12 @@ dev:
 dist:
 	@mkdir -p dist/fonts
 	@NODE_ENV=production node_modules/.bin/webpack --optimize-dedupe --optimize-minimize
-	@cat icon.css build/style.css vendors/*.css | cleancss -o dist/qingcheng.css
+	@cat icon.css vendors/*.css | cleancss -o dist/vendor.css
 	@cp fonts/* dist/fonts/
+	@cp build/app.css dist/
 	@cp build/vendor.js dist/
-	@cp build/qingcheng.js dist/
-	@cp build/qingcheng.js.map dist/
+	@cp build/app.js dist/
+	@cp build/app.js.map dist/
 
 upload:
 	@fab upload_assets

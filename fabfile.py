@@ -15,8 +15,9 @@ def hash_name(filename):
     with open(filename) as f:
         hsh = hashlib.md5(f.read()).hexdigest()[:6]
 
-    name = '%s.%s' % (now.strftime('%Y%m%d'), hsh)
-    return name + os.path.splitext(filename)[1]
+    basename = os.path.basename(filename)
+    key, ext = os.path.splitext(basename)
+    return '%s.%s.%s%s' % (now.strftime('%Y%m%d'), key, hsh, ext)
 
 
 def upload_qiniu(filename):
@@ -25,17 +26,18 @@ def upload_qiniu(filename):
 
 
 def upload_assets():
-    upload_qiniu('dist/qingcheng.css')
+    upload_qiniu('dist/vendor.css')
+    upload_qiniu('dist/app.css')
     upload_qiniu('dist/vendor.js')
-    upload_js()
+    upload_app_js()
 
 
-def upload_js():
-    filename = 'dist/qingcheng.js'
+def upload_app_js():
+    filename = 'dist/app.js'
     name = hash_name(filename)
     with open(filename, 'r') as f:
         content = f.read()
-        content = content.replace('qingcheng.js.map', name + '.map')
+        content = content.replace('app.js.map', name + '.map')
 
     with open(filename, 'w') as f:
         f.write(content)
