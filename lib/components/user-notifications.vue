@@ -2,7 +2,7 @@
   <div class="notification-list">
     <h2>Notifications</h2>
     <div v-repeat="notifications" class="item-container">
-      <user-avatar user="{{ sender }}"></user-avatar>
+      <user-avatar :user="sender"></user-avatar>
       <div class="item-content">
         <div class="item-info">{{ category|message }}</div>
         <a class="topic-title" href="/t/{{topic.id}}" v-on:click="hide">{{topic.title}}</a>

@@ -26,7 +26,7 @@
         <div class="topic-list">
           <ul>
             <template v-for="topic in topics" track-by="id">
-              <topic-item v-bind:topic="topic"></topic-item>
+              <topic-item :topic="topic"></topic-item>
             </template>
           </ul>
           <logo class="loading center" v-if="fetching"></logo>

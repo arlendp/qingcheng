@@ -4,7 +4,7 @@
     <div class="header__cover cover">
       <div class="cover__text">
         <div class="item-container container" v-if="user.username">
-          <user-avatar user="{{ user }}"></user-avatar>
+          <user-avatar :user="user"></user-avatar>
           <div class="item-content">
             <h2>{{ name }}</h2>
             <p v-html="user.description|urlize"></p>
@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <router-view user="{{ user }}"></router-view>
+  <router-view :user="user"></router-view>
 </div>
 </template>
 

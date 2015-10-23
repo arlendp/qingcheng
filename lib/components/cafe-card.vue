@@ -1,11 +1,11 @@
 <template>
   <div id="c-{{ cafe.slug }}" class="cafe-card card">
-    <a class="cover" v-bind:style="color" v-link="link">
+    <a class="cover" :style="color" v-link="link">
       <div class="cover__text">
         <h3 class="card-title">{{ cafe.name }}</h3>
       </div>
     </a>
-    <user-avatar user="{{cafe.user}}" class="small circle" v-if="cafe.user"></user-avatar>
+    <user-avatar :user="cafe.user" class="small circle" v-if="cafe.user"></user-avatar>
     <div class="card-footer">
       <div class="card-description" v-html="description|urlize"></div>
     </div>

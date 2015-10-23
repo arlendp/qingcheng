@@ -1,8 +1,8 @@
 <template>
-  <div class="login-form" v-bind:class="{shake: error}">
+  <div class="login-form" :class="{shake: error}">
     <div class="login-tab clearfix">
-      <a href="javascript:;" v-bind:class="{active: loginTab}" v-on:click="loginTab=true">Log In</a>
-      <a href="javascript:;" v-bind:class="{active: !loginTab}" v-on:click="loginTab=false">Sign Up</a>
+      <a href="javascript:;" :class="{active: loginTab}" v-on:click="loginTab=true">Log In</a>
+      <a href="javascript:;" :class="{active: !loginTab}" v-on:click="loginTab=false">Sign Up</a>
     </div>
 
     <form action="/session" method="post" v-on:submit="login" v-show="loginTab">

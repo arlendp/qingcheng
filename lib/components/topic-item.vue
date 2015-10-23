@@ -1,11 +1,11 @@
 <template>
   <li id="t-{{ topic.id }}" class="topic-item clearfix">
     <span class="user-avatar">
-      <user-avatar user="{{topic.user}}" class="small circle tip"></user-avatar>
+      <user-avatar :user="topic.user" class="small circle tip"></user-avatar>
     </span>
     <div class="topic-meta">
       <span class="topic-cafe" v-for="cafe in topic.cafes">
-        <span class="cafe-logo" v-bind:style="cafe.style|logo"></span>
+        <span class="cafe-logo" :style="cafe.style|logo"></span>
         <a v-link="{name: 'cafe', params: {slug: cafe.slug}}" aria-label="Published in {{ cafe.name }}" v-text="cafe.name"></a>
       </span>
     </div>

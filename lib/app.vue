@@ -24,7 +24,7 @@
             </overlay>
           </li>
           <li>
-            <user-avatar v-bind:user="user" v-on:click="viewUserDropdown"></user-avatar>
+            <user-avatar :user="user" v-on:click="viewUserDropdown"></user-avatar>
             <dropdown v-show="showUserDropdown" :show.sync="showUserDropdown">
               <a class="dropdown-item" href="/u/{{ user.username }}">View Profile</a>
               <div class="dropdown-divider"></div>
@@ -52,7 +52,7 @@
   <div id="message" aria-live="assertive">
     <div class="message message-{{msg.type}}" v-for="msg in messages" v-text="msg.text" transition="fade"></div>
   </div>
-  <overlay v-if="showLogin" transition="fade" v-bind:show.sync="showLogin">
+  <overlay v-if="showLogin" transition="fade" :show.sync="showLogin">
     <login-form></login-form>
   </overlay>
 </template>

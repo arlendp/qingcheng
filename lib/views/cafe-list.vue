@@ -4,15 +4,19 @@
 
     <div class="section container" v-if="following.length">
       <h2 class="section-title">Following</h2>
-      <div class="cafe-cards clearfix" v-for="cafe in following">
-        <cafe-card v-bind:subpath="subpath" v-bind:cafe="cafe" track-by="cafe.id"></cafe-card>
+      <div class="cafe-cards clearfix">
+        <template v-for="cafe in following" track-by="id">
+          <cafe-card :subpath="subpath" :cafe="cafe"></cafe-card>
+        </template>
       </div>
     </div>
 
     <div class="section container">
       <h2 class="section-title">Cafes</h2>
-      <div class="cafe-cards clearfix" v-for="cafe in cafes">
-        <cafe-card v-bind:subpath="subpath" v-bind:cafe="cafe" track-by="cafe.id"></cafe-card>
+      <div class="cafe-cards clearfix">
+        <template v-for="cafe in cafes" track-by="id">
+          <cafe-card :subpath="subpath" :cafe="cafe"></cafe-card>
+        </template>
       </div>
     </div>
   </div>

@@ -1,16 +1,16 @@
 <template>
 <div class="body">
   <div class="entry-view">
-    <hentry v-if="!$loadingRouteData" v-bind:topic="topic"></hentry>
+    <hentry v-if="!$loadingRouteData" :topic="topic"></hentry>
     <logo class="loading center" v-if="$loadingRouteData"></logo>
   </div>
   <div class="entry-view comment-box" v-show="topic.id">
     <div class="container">
-      <comment-form v-if="topic.id" v-bind:topic="topic"></comment-form>
+      <comment-form v-if="topic.id" :topic="topic"></comment-form>
       <div class="comment-list-header" v-if="comments.length">{{ topic.comment_count }} responses</div>
       <ul v-if="comments.length">
         <template v-for="comment in comments" track-by="id">
-          <comment-item v-bind:comment="comment"></comment-item>
+          <comment-item :comment="comment"></comment-item>
         </template>
         <li class="load-more" v-if="cursor" v-on:click="fetchComments(cursor)">Load More</li>
       </ul>

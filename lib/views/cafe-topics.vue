@@ -3,13 +3,13 @@
     <div class="split-view container">
       <div class="main-view">
         <div v-if="canWrite" class="new-topic">
-          <user-avatar user="{{ user }}" class="small circle"></user-avatar>
+          <user-avatar :user="user" class="small circle"></user-avatar>
           <a v-link="{name: 'create-topic', params: {slug: cafe.slug}}" role="button">Create a new topic here</a>
         </div>
         <div class="topic-list">
           <ul v-if="!$loadingRouteData">
             <template v-for="topic in topics" track-by="id">
-              <topic-item v-bind:topic="topic"></topic-item>
+              <topic-item :topic="topic"></topic-item>
             </template>
           </ul>
           <logo class="loading center" v-if="$loadingRouteData"></logo>
@@ -68,7 +68,6 @@
     },
     components: {
       'topic-item': require('../components/topic-item.vue'),
-      'topic-form': require('../components/topic-form.vue'),
       'user-avatar': require('../components/user-avatar.vue'),
       'logo': require('../components/logo.vue'),
       'pagination': require('../components/pagination.vue'),

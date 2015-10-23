@@ -1,7 +1,7 @@
 <template>
   <div class="fullpage">
     <div class="container">
-      <topic-form cafe="{{cafe}}" type="create" v-ref:form></topic-form>
+      <topic-form :cafe="cafe" type="create" v-ref:form></topic-form>
     </div>
   </div>
 </template>

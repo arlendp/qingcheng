@@ -5,7 +5,7 @@
         border-color: {{ cafe.style.color }};
       }
     </style>
-    <div class="entry-cover cover" v-if="topicStyle" v-bind:style="topicStyle">
+    <div class="entry-cover cover" v-if="topicStyle" :style="topicStyle">
       <div class="cover__text">
         <div class="container">
           <h2 class="entry-title">{{ topic.title }}</h2>
@@ -17,20 +17,20 @@
       <h2 class="entry-title" v-if="!topicStyle">{{ topic.title }}</h2>
       <div class="entry-meta">
         <a href="/c/{{ cafe.slug }}" aria-label="Published in {{ cafe.name }}">
-          <span class="cafe-logo" v-bind:style="cafeStyle"></span>
+          <span class="cafe-logo" :style="cafeStyle"></span>
         </a>
         <time datetime="{{ topic.created_at }}" title="Updated at {{ topic.updated_at }}">{{ topic.created_at| timeago }}</time>
         <a v-if="user" href="/u/{{ user.username }}" aria-label="Published by @{{ user.username }}">@{{ user.username }}</a>
       </div>
 
-      <webpage v-bind:webpage="topic.webpage" v-if="topic.webpage"></webpage>
+      <webpage :webpage="topic.webpage" v-if="topic.webpage"></webpage>
 
       <div class="entry-content yue" v-html="topic.content"></div>
 
       <div class="entry-actions clearfix">
         <span id="like-button-status" v-if="!topic.liked_by_me">Like this topic</span>
         <span id="like-button-status" v-if="topic.liked_by_me">Toggle off like of this topic</span>
-        <button class="button button--white like-button" v-bind:class="liked: topic.liked_by_me" v-on:click="toggleLike" aria-labelledby="like-button-status" aria-pressed="{{topic.liked_by_me|json}}">
+        <button class="button button--white like-button" :class="{liked: topic.liked_by_me}" v-on:click="toggleLike" aria-labelledby="like-button-status" aria-pressed="{{topic.liked_by_me|json}}">
           <i class="qc-icon-heart"></i>
           <span>Like it</span>
         </button>
@@ -47,7 +47,7 @@
             <button class="button button--white tip" aria-label="Show edit options" v-on:click="showEditDropdown=true">
               <i class="qc-icon-quill"></i>
             </button>
-            <dropdown v-show="showEditDropdown" v-bind:show.sync="showEditDropdown">
+            <dropdown v-show="showEditDropdown" :show.sync="showEditDropdown">
               <a class="dropdown-item" v-if="canEdit" v-link="{name: 'edit-topic', params: {topicId: topic.id}}">Edit</a>
               <a class="dropdown-item" href="/account/delete-topic/{{topic.id}}">Delete</a>
             </dropdown>
@@ -59,7 +59,7 @@
         <div class="topic-cafe column" v-if="cafe.slug">
           <div class="column-title">Published In</div>
           <a href="/c/{{ cafe.slug }}" class="column-header">
-            <span class="cafe-logo" v-bind:style="cafeStyle"></span>
+            <span class="cafe-logo" :style="cafeStyle"></span>
             <div class="column-main">
               <strong>{{ cafe.name }}</strong>
             </div>
@@ -70,7 +70,7 @@
         <div class="topic-author column" v-if="user.username">
           <div class="column-title">Created By</div>
           <div class="column-header">
-            <user-avatar user="{{ user }}"></user-avatar>
+            <user-avatar :user="user"></user-avatar>
             <a class="column-main" href="/u/{{ user.username }}">
               <strong>{{ user.username }}</strong>
               <div>#{{ user.id }}</div>
@@ -86,10 +86,14 @@
 <script>
   var api = require('../api');
   module.exports = {
-    props: ['topic'],
+    props: {
+      topic: {
+        type: Object,
+        default: {},
+      }
+    },
     data: function() {
       return {
-        topic: {},
         rawTopic: {},
         showEditDropdown: false,
         showTopicForm: false

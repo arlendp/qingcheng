@@ -3,8 +3,8 @@
     <div class="section container" v-if="admins.length">
       <h2 class="section-title">Moderators</h2>
       <ul>
-        <li v-repeat="user: admins">
-          <user-avatar user="{{user}}"></user-avatar>
+        <li v-for="user in admins">
+          <user-avatar :user="user"></user-avatar>
           <div class="member-info">
             <a href="/u/{{ user.username }}">{{ user.username }}</a>
             <p v-html="user.description|urlize"></p>
@@ -15,11 +15,11 @@
     <div class="section container" v-if="members.length">
       <h2 class="section-title">Members</h2>
       <ul>
-        <li v-repeat="members">
-          <user-avatar user="{{user}}"></user-avatar>
+        <li v-for="member in members">
+          <user-avatar :user="member.user"></user-avatar>
           <div class="member-info">
-            <a href="/u/{{ user.username }}">{{ user.username }}</a>
-            <div>{{ label }} at <time datetime="{{ created_at }}">{{ created_at|timeago }}</time></div>
+            <a href="/u/{{ member.user.username }}">{{ member.user.username }}</a>
+            <div>{{ member.label }} at <time datetime="{{ member.created_at }}">{{ member.created_at|timeago }}</time></div>
           </div>
         </li>
       </ul>
