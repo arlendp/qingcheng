@@ -4,14 +4,14 @@
       Topic in <a v-link="{name: 'cafe', params: {slug: cafe.slug }}">{{ cafe.name }}</a>
     </div>
     <div class="form-field form-title">
-      <input placeholder="Your topic title" v-model="topic.title" v-el:title v-attr="disabled: disabled">
+      <input placeholder="Your topic title" v-model="topic.title" v-el:title :disabled="disabled">
     </div>
     <div class="form-field form-link">
       <input placeholder="Source link?" type="url" v-model="topic.link">
     </div>
     <markdown-area class="form-field form-content yue" :content.sync="topic.content" placeholder="What is in your mind"></markdown-area>
     <div class="form-submit">
-      <button class="button buttong--green" v-attr="disabled: disabled">{{ type }}</button>
+      <button class="button buttong--green" :disabled="disabled">{{ type }}</button>
     </div>
   </form>
 </template>
@@ -20,14 +20,23 @@
   var shake = require('../utils').shake;
   module.exports = {
     props: ['cafe', 'type', 'topic'],
+    props: {
+      cafe: Object,
+      type: String,
+      topic: {
+        type: Object,
+        default: function() {
+          return {
+            title: '',
+            link: '',
+            content: ''
+          };
+        }
+      }
+    },
     data: function() {
       return {
-        disabled: false,
-        topic: {
-          title: '',
-          link: '',
-          content: ''
-        }
+        disabled: false
       };
     },
     computed: {

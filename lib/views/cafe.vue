@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <router-view cafe="{{ cafe }}"></router-view>
+  <router-view :cafe="cafe"></router-view>
   </div>
 </template>
 
