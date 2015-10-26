@@ -1,5 +1,5 @@
 <template>
-  <form class="topic-form {{ formClass }}" @submit="formSubmit" v-el:form>
+  <form class="topic-form" :class="{'disabled-form': disabled}" @submit.prevent="formSubmit" v-el:form>
     <div class="form-description">
       Topic in <a v-link="{name: 'cafe', params: {slug: cafe.slug }}">{{ cafe.name }}</a>
     </div>
@@ -9,7 +9,7 @@
     <div class="form-field form-link">
       <input placeholder="Source link?" type="url" v-model="topic.link">
     </div>
-    <markdown-area class="form-field form-content yue" :content.sync="topic.content" placeholder="What is in your mind"></markdown-area>
+    <markdown-area class="form-field form-content yue" :content.sync="topic.content" placeholder="What is in your mind" @submit="formSubmit"></markdown-area>
     <div class="form-submit">
       <button class="button buttong--green" :disabled="disabled">{{ type }}</button>
     </div>
@@ -40,19 +40,12 @@
       };
     },
     computed: {
-      formClass: function() {
-        if (this.disabled) {
-          return 'disabled-form';
-        }
-        return '';
-      },
       hasContent: function() {
         return this.topic.title || this.topic.content;
       }
     },
     methods: {
-      formSubmit: function(e) {
-        e.preventDefault();
+      formSubmit: function() {
         if (this.disabled) return;
 
         var topic = this.topic;
