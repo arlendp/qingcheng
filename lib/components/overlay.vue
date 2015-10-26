@@ -9,7 +9,11 @@
 
 <script>
   module.exports = {
-    props: ['show'],
+    props: {
+      show: {
+        twoWay: true
+      }
+    },
     attached: function() {
       document.body.classList.add('no-scroll');
     },

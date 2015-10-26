@@ -9,7 +9,11 @@
 
 <script>
   module.exports = {
-    props: ['show'],
+    props: {
+      show: {
+        twoWay: true
+      }
+    },
     methods: {
       choose: function(e) {
         var el = e.target;
