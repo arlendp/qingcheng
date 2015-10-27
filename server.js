@@ -10,9 +10,9 @@ config.plugins.push(new webpack.HotModuleReplacementPlugin());
 config.devtool = 'eval';
 
 var proxy = {
-  "/api/*": {target: "http://python-china.org", host: "python-china.org"}
+  "/api/*": {target: "http://python-china.org", host: "python-china.org"},
 };
-if (process.env.DEV_MODE) {
+if (process.env.NODE_ENV === 'local') {
   proxy = {
     "/api/*": "http://192.168.30.12:5000",
     "/session*": "http://192.168.30.12:5000",
