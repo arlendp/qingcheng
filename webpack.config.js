@@ -1,15 +1,17 @@
 var webpack = require("webpack");
-var vue = require("vue-loader");
 
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var cssLoader = ExtractTextPlugin.extract("style-loader", "css-loader?sourceMap!postcss-loader");
+var cssLoader = ExtractTextPlugin.extract("style", "css?sourceMap!postcss")
 
 var publicPath = "/build/";
+
+var pkg = require('./package.json')
+var vendor = Object.keys(pkg.dependencies)
 
 module.exports = {
   entry: {
     app: ["./lib/index.js", "./lib/css/responsive.css", "./css/index.css"],
-    vendor: ["vue", "vue-router", "word-color"],
+    vendor: vendor,
   },
 
   output: {
@@ -23,8 +25,9 @@ module.exports = {
 
   module: {
     loaders: [
-      {test: /\.vue$/, loader: vue.withLoaders({css: cssLoader})},
+      {test: /\.vue$/, loader: 'vue'},
       {test: /\.css$/, loader: cssLoader},
+      {test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
     ]
   },
 
@@ -46,6 +49,17 @@ module.exports = {
 
       require('postcss-custom-properties'),
     ]
+  },
+
+  vue: {
+    loaders: {
+      css: cssLoader,
+    }
+  },
+
+  babel: {
+    presets: ['es2015'],
+    plugins: ['transform-runtime'],
   },
 
   devtool: "source-map",
