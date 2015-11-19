@@ -1,6 +1,5 @@
 
-
-function timeago(time) {
+export function timeago(time) {
   time = new Date(time);
   var delta = parseInt((new Date() - time) / 1000, 10);
   if (delta <= 0) return 'just now';
@@ -25,7 +24,7 @@ function timeago(time) {
 }
 
 
-function urlize(text) {
+export function urlize(text) {
   if (!text) return '';
   var pattern = /https?:\/\/[^\s<]+[^<.,:;"')\]\s]/g;
   return text.replace(pattern, function(u) {
@@ -34,7 +33,7 @@ function urlize(text) {
   });
 }
 
-exports.logo = function(style) {
+export function logo(style) {
   style = style || {};
   var rv = {'background-color': style.color || '#222221'};
   if (style.logo) {
@@ -42,6 +41,3 @@ exports.logo = function(style) {
   }
   return rv;
 };
-
-exports.timeago = timeago;
-exports.urlize = urlize;

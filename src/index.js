@@ -4,12 +4,12 @@ require('../lib/css/ui.css');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './app.vue';
-import filters from '../lib/filters';
+import * as filters from './filters';
 
 // site configuration
 var zerqu = window.ZERQU || {};
 if (process.env.NODE_ENV === 'production') {
-  require('../lib/ga');
+  require('./ga');
 } else {
   window.ga = function() {};
   Vue.config.debug = true;
