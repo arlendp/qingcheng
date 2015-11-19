@@ -19,7 +19,6 @@
 <script>
   var shake = require('../utils').shake;
   module.exports = {
-    props: ['cafe', 'type', 'topic'],
     props: {
       cafe: Object,
       type: String,
