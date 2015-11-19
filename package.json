@@ -2,6 +2,9 @@
   "name": "qingcheng",
   "version": "0.0.1",
   "description": "qingcheng is a front end theme for zerqu",
+  "scripts": {
+    "start": "NODE_ENV=development node server.js"
+  },
   "devDependencies": {
     "autoprefixer": "^6.0.3",
     "babel-core": "^6.1.21",

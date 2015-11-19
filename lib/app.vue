@@ -62,6 +62,7 @@
   var clock;
   var clock, year = new Date().getFullYear();
   module.exports = {
+    replace: false,
     data: function() {
       return {
         user: {},
