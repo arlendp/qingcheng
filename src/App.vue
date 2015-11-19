@@ -58,12 +58,19 @@
 </template>
 
 <script>
-  var api = require('./api');
-  var clock;
   var clock, year = new Date().getFullYear();
-  module.exports = {
+
+  import api from '../lib/api';
+  import Overlay from '../lib/components/overlay.vue';
+  import UserAvatar from '../lib/components/user-avatar.vue';
+  import Dropdown from '../lib/components/dropdown.vue';
+  import Logo from '../lib/components/logo.vue';
+  import LoginForm from '../lib/components/login-form.vue';
+  import UserNotifications from '../lib/components/user-notifications.vue';
+
+  export default {
     replace: false,
-    data: function() {
+    data() {
       return {
         user: {},
         notificationCount: 0,
@@ -75,29 +82,29 @@
       }
     },
     methods: {
-      logout: function(e) {
+      logout(e) {
         e && e.preventDefault();
         api.user.logout();
       },
-      viewUserDropdown: function(e) {
+      viewUserDropdown(e) {
         e && e.preventDefault();
         this.showUserDropdown = true;
       },
-      check: function() {
+      check() {
         if (!this.user.username) return;
         api.notification.count(function(resp) {
           this.notificationCount = resp.count;
         }.bind(this));
       },
-      flush: function() {
+      flush() {
         this.messages = [];
       },
-      clear: function(index) {
+      clear(index) {
         clearTimeout(clock);
         this.messages.splice(index, 1);
         clock = setTimeout(this.flush.bind(this), 4000);
       },
-      show: function(type, text) {
+      show(type, text) {
         var msg = {type: type, text: text};
         if (!unique(msg, this.messages)) return;
 
@@ -108,18 +115,18 @@
         }.bind(this), 3000);
       }
     },
-    ready: function() {
+    ready() {
       setTimeout(this.check.bind(this), 2000);
       // check every 5 minutes
       setInterval(this.check.bind(this), 300000);
     },
     components: {
-      'overlay': require('./components/overlay.vue'),
-      'dropdown': require('./components/dropdown.vue'),
-      'logo': require('./components/logo.vue'),
-      'user-avatar': require('./components/user-avatar.vue'),
-      'login-form': require('./components/login-form.vue'),
-      'user-notifications': require('./components/user-notifications.vue'),
+      Overlay,
+      UserAvatar,
+      Dropdown,
+      Logo,
+      LoginForm,
+      UserNotifications,
     }
   }
 

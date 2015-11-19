@@ -10,7 +10,7 @@ var vendor = Object.keys(pkg.dependencies)
 
 module.exports = {
   entry: {
-    app: ["./lib/index.js", "./lib/css/responsive.css", "./css/index.css"],
+    app: ["./src/index.js", "./lib/css/responsive.css", "./css/index.css"],
     vendor: vendor,
   },
 

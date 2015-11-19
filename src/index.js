@@ -1,12 +1,15 @@
-require('./css/base.css');
-require('./css/ui.css');
+require('../lib/css/base.css');
+require('../lib/css/ui.css');
 
-var Vue = require('vue');
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import App from './app.vue';
+import filters from '../lib/filters';
 
 // site configuration
 var zerqu = window.ZERQU || {};
 if (process.env.NODE_ENV === 'production') {
-  require('./ga');
+  require('../lib/ga');
 } else {
   window.ga = function() {};
   Vue.config.debug = true;
@@ -19,25 +22,19 @@ Object.defineProperty(Vue.prototype, '$site', {
 });
 
 // register filters
-var filters = require('./filters');
 Object.keys(filters).forEach(function(k) {
   Vue.filter(k, filters[k]);
 });
 
-// var app = new Vue(require('./app.vue'));
-// require('./api').register(app);
+Vue.use(VueRouter);
 
-var App = Vue.extend(require('./app.vue'));
-var Router = require('vue-router');
-Vue.use(Router);
-
-var router = new Router({
+var router = new VueRouter({
   hashbang: false,
   history: true,
   saveScrollPosition: true
 });
 
-require('./routers')(router);
+require('../lib/routers')(router);
 
 router.start(App, '#app');
-require('./api').register(router.app);
+require('../lib/api').register(router.app);
