@@ -6,7 +6,6 @@
     <div class="topic-meta">
       <span class="topic-cafe" v-for="cafe in topic.cafes">
         <span class="cafe-logo" :style="cafe.style|logo"></span>
-        <a v-link="{name: 'cafe', params: {slug: cafe.slug}}" aria-label="Published in {{ cafe.name }}" v-text="cafe.name"></a>
       </span>
     </div>
     <a class="topic-title" v-link="{name: 'topic', params: {topicId: topic.id}}">{{topic.title}}</a>
