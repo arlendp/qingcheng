@@ -64,7 +64,7 @@
   import Overlay from './components/Overlay.vue';
   import UserAvatar from '../lib/components/user-avatar.vue';
   import Dropdown from '../lib/components/dropdown.vue';
-  import Logo from '../lib/components/logo.vue';
+  import Logo from './components/Logo.vue';
   import LoginForm from '../lib/components/login-form.vue';
   import UserNotifications from '../lib/components/user-notifications.vue';
 

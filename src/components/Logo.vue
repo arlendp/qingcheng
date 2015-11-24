@@ -75,24 +75,24 @@
       opacity: 0.1;
     }
   }
-  .loading.logo span {
+  .logo--loading.logo span {
     opacity: 0.2;
     animation: loading 1.8s cubic-bezier(.2,.68,.18,1.08) infinite;
     animation-fill-mode: both;
   }
-  .loading.logo .right-green {
+  .logo--loading.logo .right-green {
     animation-delay: .2s;
   }
-  .loading.logo .full-green {
+  .logo--loading.logo .full-green {
     animation-delay: .4s;
   }
-  .loading.logo .left-green {
+  .logo--loading.logo .left-green {
     animation-delay: .6s;
   }
-  .loading.logo .right-red {
+  .logo--loading.logo .right-red {
     animation-delay: .8s;
   }
-  .loading.center {
+  .logo--loading.center {
     margin: 100px auto;
   }
 </style>
