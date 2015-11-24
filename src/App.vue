@@ -61,7 +61,7 @@
   var clock, year = new Date().getFullYear();
 
   import api from '../lib/api';
-  import Overlay from '../lib/components/overlay.vue';
+  import Overlay from './components/Overlay.vue';
   import UserAvatar from '../lib/components/user-avatar.vue';
   import Dropdown from '../lib/components/dropdown.vue';
   import Logo from '../lib/components/logo.vue';
