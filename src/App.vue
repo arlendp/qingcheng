@@ -26,10 +26,10 @@
           <li>
             <user-avatar :user="user" @click="viewUserDropdown"></user-avatar>
             <dropdown v-show="showUserDropdown" :show.sync="showUserDropdown">
-              <a class="dropdown-item" href="/u/{{ user.username }}">View Profile</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/account/settings">Settings</a>
-              <a class="dropdown-item" @click="logout" href="/session">Logout</a>
+              <a class="dropdown__item" href="/u/{{ user.username }}">View Profile</a>
+              <div class="dropdown__divider"></div>
+              <a class="dropdown__item" href="/account/settings">Settings</a>
+              <a class="dropdown__item" @click="logout" href="/session">Logout</a>
             </dropdown>
           </li>
         </ul>
@@ -63,7 +63,7 @@
   import api from '../lib/api';
   import Overlay from './components/Overlay.vue';
   import UserAvatar from '../lib/components/user-avatar.vue';
-  import Dropdown from '../lib/components/dropdown.vue';
+  import Dropdown from './components/Dropdown.vue';
   import Logo from './components/Logo.vue';
   import LoginForm from '../lib/components/login-form.vue';
   import UserNotifications from '../lib/components/user-notifications.vue';

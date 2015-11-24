@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
-    <div class="dropdown-mask" @click="show=false"></div>
-    <div class="dropdown-inner" @click="choose">
+    <div class="dropdown__mask" @click="show=false"></div>
+    <div class="dropdown__content" @click="choose">
       <slot></slot>
     </div>
   </div>
@@ -17,7 +17,7 @@
     methods: {
       choose: function(e) {
         var el = e.target;
-        if (el.classList.contains('dropdown-item')) {
+        if (el.classList.contains('dropdown__item')) {
           this.show = false;
         }
       }
@@ -29,7 +29,7 @@
   .dropdown {
     position: relative;
   }
-  .dropdown-mask {
+  .dropdown__mask {
     position: fixed;
     left: 0;
     top: 0;
@@ -38,7 +38,7 @@
     z-index: 9;
     background: transparent;
   }
-  .dropdown-inner {
+  .dropdown__content {
     position: absolute;
     min-width: 180px;
     top: 0;
@@ -53,33 +53,33 @@
     border-radius: 3px;
     z-index: 11;
   }
-  .dropdown-inner:before, .dropdown-inner:after {
+  .dropdown__content:before, .dropdown__content:after {
     position: absolute;
     right: 10px;
     content: '';
     display: inline-block;
     border: 8px solid transparent;
   }
-  .dropdown-inner:before {
+  .dropdown__content:before {
     top: -16px;
     border-bottom-color: rgba(0, 0, 0, 0.18);
   }
-  .dropdown-inner:after {
+  .dropdown__content:after {
     top: -15px;
     border-bottom-color: white;
   }
-  .dropdown-inner .dropdown-item {
+  .dropdown__content .dropdown__item {
     color: #565656;
     display: block;
     font-size: 14px;
     padding: 2px 10px 2px 18px;
     margin-bottom: 3px;
   }
-  .dropdown-inner .dropdown-item:hover {
+  .dropdown__content .dropdown__item:hover {
     background-color: #42B983;
     color: white;
   }
-  .dropdown-inner .dropdown-divider {
+  .dropdown__content .dropdown__divider {
     border-top: 1px solid #ddd;
     margin: 8px 0;
   }
