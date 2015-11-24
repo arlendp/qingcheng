@@ -8,21 +8,21 @@
 </template>
 
 <script>
-  module.exports = {
-    props: {
-      show: {
-        twoWay: true
-      }
-    },
-    methods: {
-      choose: function(e) {
-        var el = e.target;
-        if (el.classList.contains('dropdown__item')) {
-          this.show = false;
-        }
+export default {
+  props: {
+    show: {
+      twoWay: true
+    }
+  },
+  methods: {
+    choose(e) {
+      var el = e.target;
+      if (el.classList.contains('dropdown__item')) {
+        this.show = false;
       }
     }
-  };
+  }
+};
 </script>
 
 <style>
