@@ -14,6 +14,7 @@
         <nav class="header__nav nav">
           <a class="nav__item" v-link="{path: '/'}">Following</a>
           <a class="nav__item" v-link="{path: '/?show=all'}">Topics</a>
+          <a class="nav__item" v-link="{path: '/c/'}">Cafes</a>
         </nav>
       </div>
     </div>
@@ -28,7 +29,7 @@
               <topic-item :topic="topic"></topic-item>
             </template>
           </ul>
-          <logo class="loading center" v-if="fetching"></logo>
+          <logo class="logo--loading center" v-if="fetching"></logo>
           <div class="load-more" v-if="cursor" @click="fetchTopics(cursor)">
             Load More
           </div>

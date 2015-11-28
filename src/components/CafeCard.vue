@@ -13,34 +13,35 @@
 </template>
 
 <script>
-  module.exports = {
-    replace: true,
-    props: ['cafe', 'subpath'],
-    computed: {
-      link: function() {
-        var url = '/c/' + this.cafe.slug;
-        if (this.subpath) url += this.subpath;
-        return url;
-      },
-      color: function() {
-        var style = this.cafe.style;
-        var rv = {};
-        if (style.color) {
-          rv['background-color'] = style.color;
-        }
-        if (style.cover) {
-          rv['background-image'] = 'url(' + style.cover + ')';
-        }
-        return rv;
-      },
-      description: function() {
-        return this.cafe.description || 'No description'
-      }
+import Avatar from './Avatar.vue'
+module.exports = {
+  replace: true,
+  props: ['cafe', 'subpath'],
+  computed: {
+    link: function() {
+      var url = '/c/' + this.cafe.slug;
+      if (this.subpath) url += this.subpath;
+      return url;
     },
-    components: {
-      'user-avatar': require('./user-avatar.vue')
+    color: function() {
+      var style = this.cafe.style;
+      var rv = {};
+      if (style.color) {
+        rv['background-color'] = style.color;
+      }
+      if (style.cover) {
+        rv['background-image'] = 'url(' + style.cover + ')';
+      }
+      return rv;
+    },
+    description: function() {
+      return this.cafe.description || 'No description'
     }
+  },
+  components: {
+    Avatar
   }
+}
 </script>
 
 <style>

@@ -4,7 +4,7 @@ require('../lib/css/ui.css');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import registerRouters from './routers';
-import App from './app.vue';
+import App from './App.vue';
 import * as filters from './filters';
 
 // site configuration
