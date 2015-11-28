@@ -8,6 +8,7 @@ import Topic from './views/Topic.vue'
 import User from './views/User.vue'
 import UserTopics from './views/UserTopics.vue'
 import CreateTopic from './views/CreateTopic.vue'
+import EditTopic from './views/EditTopic.vue'
 
 export default function(router) {
 
@@ -20,6 +21,11 @@ export default function(router) {
     '/t/:topicId': {
       name: 'topic',
       component: Topic,
+    },
+
+    '/t/:topicId/edit': {
+      name: 'edit-topic',
+      component: EditTopic
     },
 
     '/c/': {
