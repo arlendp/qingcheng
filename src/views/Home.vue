@@ -28,7 +28,7 @@
               <topic-item :topic="topic"></topic-item>
             </template>
           </ul>
-          <logo class="loading center" v-if="fetching"></logo>
+          <logo class="logo--loading center" v-if="fetching"></logo>
           <div class="load-more" v-if="cursor" @click="fetchTopics(cursor)">
             Load More
           </div>
