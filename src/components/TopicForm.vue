@@ -17,59 +17,61 @@
 </template>
 
 <script>
-  var shake = require('../utils').shake;
-  module.exports = {
-    props: {
-      cafe: Object,
-      type: String,
-      topic: {
-        type: Object,
-        default: function() {
-          return {
-            title: '',
-            link: '',
-            content: ''
-          };
-        }
-      }
-    },
-    data: function() {
-      return {
-        disabled: false
-      };
-    },
-    computed: {
-      hasContent: function() {
-        return this.topic.title || this.topic.content;
-      }
-    },
-    methods: {
-      formSubmit: function() {
-        if (this.disabled) return;
+import shake from '../utils';
+import MarkdownArea from './MarkdownArea.vue';
 
-        var topic = this.topic;
-        var payload = {
-          title: topic.title.trim(),
-          content: topic.content.trim(),
-          link: topic.link.trim()
-        }
-        if (!payload.title || !payload.content) {
-          return shake(this.$els.form);
-        }
-        this.disabled = true;
-        this.$emit('submit', payload);
+export default {
+  props: {
+    cafe: Object,
+    type: String,
+    topic: {
+      type: Object,
+      default() {
+        return {
+          title: '',
+          link: '',
+          content: ''
+        };
       }
-    },
-    ready: function() {
-      var el = this.$els.title;
-      setTimeout(function() {
-        el.focus();
-      }, 20);
-    },
-    components: {
-      'markdown-area': require('./markdown-area.vue')
     }
+  },
+  data() {
+    return {
+      disabled: false
+    };
+  },
+  computed: {
+    hasContent() {
+      return this.topic.title || this.topic.content;
+    }
+  },
+  methods: {
+    formSubmit() {
+      if (this.disabled) return;
+
+      var topic = this.topic;
+      var payload = {
+        title: topic.title.trim(),
+        content: topic.content.trim(),
+        link: topic.link.trim()
+      }
+      if (!payload.title || !payload.content) {
+        return shake(this.$els.form);
+      }
+      this.disabled = true;
+      this.$emit('submit', payload);
+    }
+  },
+  ready() {
+    var el = this.$els.title;
+    setTimeout(() => {
+      el.focus();
+    }, 20);
+  },
+  components: {
+    MarkdownArea
   }
+}
 </script>
 
 <style>
