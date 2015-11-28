@@ -3,18 +3,18 @@ var defaults = {};
 
 function request(url, options) {
   var req = new XMLHttpRequest();
-  req.error = function(cb) {
+  req.error = cb => {
     options.error = cb;
   };
 
   var method = options.method || 'GET';
   var data = options.data;
   if (method === 'GET' && data) {
-    url += '?' + Object.keys(data).filter(function(k){
-      return k && data[k];
-    }).map(function(k) {
-      return k + '=' + data[k];
-    }).join('&');
+    url += '?' + Object.keys(data).filter(
+      k => k && data[k]
+    ).map(
+      k => k + '=' + data[k]
+    ).join('&');
     data = null;
   }
   req.url = url;
@@ -44,16 +44,16 @@ function request(url, options) {
   }
 
   if (options.headers) {
-    Object.keys(options.headers).forEach(function(k) {
+    Object.keys(options.headers).forEach(k => {
       headers[k] = options.headers[k];
     });
   }
 
-  Object.keys(headers).forEach(function(k) {
+  Object.keys(headers).forEach(k => {
     req.setRequestHeader(k, headers[k]);
   });
 
-  req.onreadystatechange = function(){
+  req.onreadystatechange = () => {
     if (4 === req.readyState) {
       var duration = new Date().getTime() - startTime;
       req.data = parseResponse(req.responseText);
@@ -91,7 +91,7 @@ function parseResponse(text) {
 }
 
 function extend(a, b) {
-  Object.keys(b).forEach(function(k) {
+  Object.keys(b).forEach(k => {
     if (!a[k]) {
       a[k] = b[k];
     }
@@ -113,18 +113,18 @@ exports.defaults = defaults;
 
 exports.http = request;
 
-exports.get = function(url, data, success, options) {
+export function get(url, data, success, options) {
   return request(url, parseParams('GET', data, success, options));
 };
 
-exports.post = function(url, data, success, options) {
+export function post(url, data, success, options) {
   return request(url, parseParams('POST', data, success, options));
 };
 
-exports.del = function(url, data, success, options) {
+export function del(url, data, success, options) {
   return request(url, parseParams('DELETE', data, success, options));
 };
 
-exports.put = function(url, data, success, options) {
+export function put(url, data, success, options) {
   return request(url, parseParams('PUT', data, success, options));
 };
