@@ -4,7 +4,7 @@
       <h2 class="section-title">Moderators</h2>
       <ul>
         <li v-for="user in admins">
-          <user-avatar :user="user"></user-avatar>
+          <avatar :alt="user.username" :src="user.avatar_url"></avatar>
           <div class="member-info">
             <a href="/u/{{ user.username }}">{{ user.username }}</a>
             <p v-html="user.description|urlize"></p>
@@ -16,7 +16,7 @@
       <h2 class="section-title">Members</h2>
       <ul>
         <li v-for="member in members">
-          <user-avatar :user="member.user"></user-avatar>
+          <avatar :alt="member.user.username" :src="member.user.avatar_url"></avatar>
           <div class="member-info">
             <a href="/u/{{ member.user.username }}">{{ member.user.username }}</a>
             <div>{{ member.label }} at <time datetime="{{ member.created_at }}">{{ member.created_at|timeago }}</time></div>
@@ -24,38 +24,41 @@
         </li>
       </ul>
     </div>
-    <logo class="loading center" v-if="!admins.length"></logo>
+    <logo class="logo--loading center" v-if="!admins.length"></logo>
   </div>
 </template>
 
 <script>
-  var api = require('../api');
-  module.exports = {
-    props: ['cafe'],
-    data: function() {
-      return {
-        pagination: {},
-        admins: [],
-        members: []
-      }
-    },
-    route: {
-      data: function(transition) {
-        var params = transition.to.params;
-        api.cafe.users(params.slug, params.page, function(resp) {
-          transition.next({
-              pagination: resp.pagination,
-              admins: resp.admins,
-              members: resp.data,
-          });
-        });
-      }
-    },
-    components: {
-      'user-avatar': require('../components/user-avatar.vue'),
-      'logo': require("../components/logo.vue")
+import api from '../../lib/api';
+import Logo from '../components/Logo.vue';
+import Avatar from '../components/Avatar.vue';
+
+module.exports = {
+  props: ['cafe'],
+  data: function() {
+    return {
+      pagination: {},
+      admins: [],
+      members: []
     }
+  },
+  route: {
+    data: function(transition) {
+      var params = transition.to.params;
+      api.cafe.users(params.slug, params.page, function(resp) {
+        transition.next({
+            pagination: resp.pagination,
+            admins: resp.admins,
+            members: resp.data,
+        });
+      });
+    }
+  },
+  components: {
+    Avatar,
+    Logo
   }
+}
 </script>
 
 <style>
