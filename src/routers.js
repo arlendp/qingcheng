@@ -1,5 +1,6 @@
 
 import Home from './views/Home.vue'
+import CafeList from './views/CafeList.vue'
 
 export default function(router) {
 
@@ -11,6 +12,10 @@ export default function(router) {
 
     '/t/:topicId': {
       name: 'topic',
+    },
+
+    '/c/': {
+      component: CafeList,
     },
 
   });

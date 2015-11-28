@@ -1,6 +1,6 @@
 <template>
   <div class="body cafe-list">
-    <logo class="loading center" v-if="$loadingRouteData"></logo>
+    <logo class="logo--loading center" v-if="$loadingRouteData"></logo>
 
     <div class="section container" v-if="following.length">
       <h2 class="section-title">Following</h2>
@@ -23,7 +23,9 @@
 </template>
 
 <script>
-var api = require('../api');
+import api from '../../lib/api';
+import CafeCard from '../components/CafeCard.vue';
+import Logo from '../components/Logo.vue';
 
 module.exports ={
   data: function() {
@@ -53,8 +55,8 @@ module.exports ={
     }
   },
   components: {
-    'cafe-card': require('../components/cafe-card.vue'),
-    'logo': require('../components/logo.vue')
+    CafeCard,
+    Logo
   }
 };
 </script>
