@@ -71,11 +71,11 @@ export default {
       this.fetching = true;
       var params = this.$route.query || {};
       if (cursor) params.cursor = cursor;
-      api.timeline(params, function(resp) {
+      api.timeline(params, resp => {
         this.cursor = resp.cursor;
         this.topics = this.topics.concat(resp.data);
         this.fetching = false;
-      }.bind(this));
+      });
     }
   },
   compiled() {
@@ -84,7 +84,7 @@ export default {
   route: {
     data(transition) {
       var params = transition.to.query || {};
-      api.timeline(params, function(resp) {
+      api.timeline(params, resp => {
         transition.next({
           cursor: resp.cursor,
           topics: resp.data,

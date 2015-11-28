@@ -33,9 +33,9 @@ import api from '../api';
 import Logo from '../components/Logo.vue';
 import Avatar from '../components/Avatar.vue';
 
-module.exports = {
+export default {
   props: ['cafe'],
-  data: function() {
+  data() {
     return {
       pagination: {},
       admins: [],
@@ -45,7 +45,7 @@ module.exports = {
   route: {
     data: function(transition) {
       var params = transition.to.params;
-      api.cafe.users(params.slug, params.page, function(resp) {
+      api.cafe.users(params.slug, params.page, resp => {
         transition.next({
             pagination: resp.pagination,
             admins: resp.admins,

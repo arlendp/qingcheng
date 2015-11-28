@@ -14,16 +14,16 @@
 
 <script>
 import Avatar from './Avatar.vue'
-module.exports = {
+export default {
   replace: true,
   props: ['cafe', 'subpath'],
   computed: {
-    link: function() {
+    link() {
       var url = '/c/' + this.cafe.slug;
       if (this.subpath) url += this.subpath;
       return url;
     },
-    color: function() {
+    color() {
       var style = this.cafe.style;
       var rv = {};
       if (style.color) {
@@ -34,7 +34,7 @@ module.exports = {
       }
       return rv;
     },
-    description: function() {
+    description() {
       return this.cafe.description || 'No description'
     }
   },

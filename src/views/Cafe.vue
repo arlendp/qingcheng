@@ -39,8 +39,8 @@
 <script>
 import api from '../api';
 
-module.exports = {
-  data: function() {
+export default {
+  data() {
     var slug = this.$route.params.slug;
     return {
       isFollowing: false,
@@ -48,46 +48,46 @@ module.exports = {
     };
   },
   route: {
-    data: function(transition) {
+    data(transition) {
       var slug = transition.to.params.slug;
-      api.cafe.view(slug, function(resp) {
+      api.cafe.view(slug, resp => {
         document.title = this.$site.name + ' — ' + resp.name;
         transition.next({
           cafe: resp,
           isFollowing: resp.is_following
         });
-      }.bind(this));
+      });
     }
   },
   computed: {
-    showFollowing: function() {
+    showFollowing() {
       return this.cafe.id && this.$root.user.id;
     },
-    style: function() {
+    style() {
       var style = this.cafe.style;
       if (!style || !style.cover) return {};
       return {'background-image': 'url(' + style.cover + ')'};
     },
-    params: function() {
+    params() {
       return this.$route.params;
     }
   },
   methods: {
-    follow: function() {
+    follow() {
       this.loading = true;
-      api.cafe.join(this.cafe.slug, function() {
+      api.cafe.join(this.cafe.slug, () => {
         this.isFollowing = true;
         this.loading = false;
-      }.bind(this));
+      });
     },
-    unfollow: function() {
+    unfollow() {
       this.loading = true;
-      api.cafe.leave(this.cafe.slug, function() {
+      api.cafe.leave(this.cafe.slug, () => {
         this.isFollowing = false;
         this.loading = false;
-      }.bind(this));
+      });
     },
-    toggleFollow: function() {
+    toggleFollow() {
       if (this.loading) return;
 
       if (this.isFollowing) {

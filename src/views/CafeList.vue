@@ -27,8 +27,8 @@ import api from '../api';
 import CafeCard from '../components/CafeCard.vue';
 import Logo from '../components/Logo.vue';
 
-module.exports ={
-  data: function() {
+export default {
+  data() {
     return {
       cursor: 0,
       following: [],
@@ -36,7 +36,7 @@ module.exports ={
     }
   },
   computed: {
-    subpath: function() {
+    subpath() {
       if (this.$route.query.show === 'create') {
         return '/create';
       }
@@ -44,8 +44,8 @@ module.exports ={
     }
   },
   route: {
-    data: function(transition) {
-      api.cafe.list(function(resp) {
+    data(transition) {
+      api.cafe.list(resp => {
         transition.next({
           following: resp.following || [],
           cafes: resp.data,

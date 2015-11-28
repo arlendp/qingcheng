@@ -39,31 +39,31 @@ import Avatar from '../components/Avatar.vue';
 import Logo from '../components/Logo.vue';
 import Pagination from '../components/Pagination.vue';
 
-module.exports = {
+export default {
   props: ['cafe'],
-  data: function() {
+  data() {
     return {
       pagination: null,
       topics: []
     }
   },
   computed: {
-    user: function() {
+    user() {
       return this.$root.user;
     },
-    canWrite: function() {
+    canWrite() {
       var permission = this.cafe.permission || {};
       return permission.write;
     },
-    isAdmin: function() {
+    isAdmin() {
       var permission = this.cafe.permission || {};
       return permission.admin;
     }
   },
   route: {
-    data: function(transition) {
+    data(transition) {
       var params = transition.to.params;
-      api.cafe.topics(params.slug, params.page, function(resp) {
+      api.cafe.topics(params.slug, params.page, resp => {
         transition.next({
           pagination: resp.pagination,
           topics: resp.data,
