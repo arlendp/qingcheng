@@ -60,7 +60,7 @@
 <script>
   var clock, year = new Date().getFullYear();
 
-  import api from '../lib/api';
+  import api from './api';
   import Overlay from './components/Overlay.vue';
   import UserAvatar from '../lib/components/user-avatar.vue';
   import Dropdown from './components/Dropdown.vue';

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import api from '../../lib/api';
+import api from '../api';
 
 module.exports = {
   data: function() {

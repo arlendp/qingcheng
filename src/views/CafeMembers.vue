@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import api from '../../lib/api';
+import api from '../api';
 import Logo from '../components/Logo.vue';
 import Avatar from '../components/Avatar.vue';
 

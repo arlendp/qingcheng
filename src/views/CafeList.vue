@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import api from '../../lib/api';
+import api from '../api';
 import CafeCard from '../components/CafeCard.vue';
 import Logo from '../components/Logo.vue';
 
