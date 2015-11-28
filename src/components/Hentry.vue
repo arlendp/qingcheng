@@ -70,7 +70,7 @@
         <div class="topic-author column" v-if="user.username">
           <div class="column-title">Created By</div>
           <div class="column-header">
-            <user-avatar :user="user"></user-avatar>
+            <avatar :alt="user.username" :src="user.avatar_url" class="v-avatar--squared"></avatar>
             <a class="column-main" href="/u/{{ user.username }}">
               <strong>{{ user.username }}</strong>
               <div>#{{ user.id }}</div>
