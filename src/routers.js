@@ -4,6 +4,8 @@ import CafeList from './views/CafeList.vue'
 import Cafe from './views/Cafe.vue'
 import CafeTopics from './views/CafeTopics.vue'
 import CafeMembers from './views/CafeMembers.vue'
+import User from './views/User.vue'
+import UserTopics from './views/UserTopics.vue'
 
 export default function(router) {
 
@@ -33,7 +35,17 @@ export default function(router) {
           component: CafeMembers
         },
 			}
-		}
+		},
+
+    '/u/:username': {
+      name: 'user',
+      component: User,
+      subRoutes: {
+        '/': {
+          component: UserTopics
+        }
+      }
+    },
 
   });
 
