@@ -7,6 +7,7 @@ import CafeMembers from './views/CafeMembers.vue'
 import Topic from './views/Topic.vue'
 import User from './views/User.vue'
 import UserTopics from './views/UserTopics.vue'
+import CreateTopic from './views/CreateTopic.vue'
 
 export default function(router) {
 
@@ -36,6 +37,10 @@ export default function(router) {
           name: 'cafe-members',
           component: CafeMembers
         },
+        '/create': {
+          name: 'create-topic',
+          component: CreateTopic
+        }
 			}
 		},
 
