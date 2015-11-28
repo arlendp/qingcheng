@@ -4,6 +4,7 @@ import CafeList from './views/CafeList.vue'
 import Cafe from './views/Cafe.vue'
 import CafeTopics from './views/CafeTopics.vue'
 import CafeMembers from './views/CafeMembers.vue'
+import Topic from './views/Topic.vue'
 import User from './views/User.vue'
 import UserTopics from './views/UserTopics.vue'
 
@@ -17,6 +18,7 @@ export default function(router) {
 
     '/t/:topicId': {
       name: 'topic',
+      component: Topic,
     },
 
     '/c/': {

@@ -10,6 +10,7 @@
 <script>
 import api from '../api';
 import shake from '../utils';
+import Avatar from './Avatar.vue';
 import MarkdownArea from './MarkdownArea.vue';
 
 export default {
