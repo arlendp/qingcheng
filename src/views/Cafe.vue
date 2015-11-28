@@ -37,67 +37,67 @@
 </template>
 
 <script>
-  var api = require('../api');
+import api from '../../lib/api';
 
-  module.exports = {
-    data: function() {
-      var slug = this.$route.params.slug;
-      return {
-        isFollowing: false,
-        cafe: {slug: slug}
-      };
+module.exports = {
+  data: function() {
+    var slug = this.$route.params.slug;
+    return {
+      isFollowing: false,
+      cafe: {slug: slug}
+    };
+  },
+  route: {
+    data: function(transition) {
+      var slug = transition.to.params.slug;
+      api.cafe.view(slug, function(resp) {
+        document.title = this.$site.name + ' — ' + resp.name;
+        transition.next({
+          cafe: resp,
+          isFollowing: resp.is_following
+        });
+      }.bind(this));
+    }
+  },
+  computed: {
+    showFollowing: function() {
+      return this.cafe.id && this.$root.user.id;
     },
-    route: {
-      data: function(transition) {
-        var slug = transition.to.params.slug;
-        api.cafe.view(slug, function(resp) {
-          document.title = this.$site.name + ' — ' + resp.name;
-          transition.next({
-            cafe: resp,
-            isFollowing: resp.is_following
-          });
-        }.bind(this));
-      }
+    style: function() {
+      var style = this.cafe.style;
+      if (!style || !style.cover) return {};
+      return {'background-image': 'url(' + style.cover + ')'};
     },
-    computed: {
-      showFollowing: function() {
-        return this.cafe.id && this.$root.user.id;
-      },
-      style: function() {
-        var style = this.cafe.style;
-        if (!style || !style.cover) return {};
-        return {'background-image': 'url(' + style.cover + ')'};
-      },
-      params: function() {
-        return this.$route.params;
-      }
+    params: function() {
+      return this.$route.params;
+    }
+  },
+  methods: {
+    follow: function() {
+      this.loading = true;
+      api.cafe.join(this.cafe.slug, function() {
+        this.isFollowing = true;
+        this.loading = false;
+      }.bind(this));
     },
-    methods: {
-      follow: function() {
-        this.loading = true;
-        api.cafe.join(this.cafe.slug, function() {
-          this.isFollowing = true;
-          this.loading = false;
-        }.bind(this));
-      },
-      unfollow: function() {
-        this.loading = true;
-        api.cafe.leave(this.cafe.slug, function() {
-          this.isFollowing = false;
-          this.loading = false;
-        }.bind(this));
-      },
-      toggleFollow: function() {
-        if (this.loading) return;
+    unfollow: function() {
+      this.loading = true;
+      api.cafe.leave(this.cafe.slug, function() {
+        this.isFollowing = false;
+        this.loading = false;
+      }.bind(this));
+    },
+    toggleFollow: function() {
+      if (this.loading) return;
 
-        if (this.isFollowing) {
-          this.unfollow();
-        } else {
-          this.follow();
-        }
+      if (this.isFollowing) {
+        this.unfollow();
+      } else {
+        this.follow();
       }
     }
-  };
+  }
+};
 </script>
 
 <style>

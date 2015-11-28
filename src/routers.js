@@ -1,6 +1,9 @@
 
 import Home from './views/Home.vue'
 import CafeList from './views/CafeList.vue'
+import Cafe from './views/Cafe.vue'
+import CafeTopics from './views/CafeTopics.vue'
+import CafeMembers from './views/CafeMembers.vue'
 
 export default function(router) {
 
@@ -17,6 +20,20 @@ export default function(router) {
     '/c/': {
       component: CafeList,
     },
+
+    '/c/:slug': {
+      name: 'cafe',
+      component: Cafe,
+      subRoutes: {
+        '/': {
+          component: CafeTopics
+        },
+        '/members': {
+          name: 'cafe-members',
+          component: CafeMembers
+        },
+			}
+		}
 
   });
 
