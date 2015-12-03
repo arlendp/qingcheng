@@ -70,7 +70,7 @@
         <div class="topic-author column" v-if="user.username">
           <div class="column-title">Created By</div>
           <div class="column-header">
-            <user-avatar :user="user"></user-avatar>
+            <avatar :alt="user.username" :src="user.avatar_url" class="v-avatar--squared"></avatar>
             <a class="column-main" href="/u/{{ user.username }}">
               <strong>{{ user.username }}</strong>
               <div>#{{ user.id }}</div>
@@ -84,135 +84,139 @@
 </template>
 
 <script>
-  var api = require('../api');
-  module.exports = {
-    props: {
-      topic: {
-        type: Object,
-        default: {},
-      }
-    },
-    data: function() {
-      return {
-        rawTopic: {},
-        showEditDropdown: false,
-        showTopicForm: false
-      }
-    },
-    computed: {
-      cafe: function() {
-        var cafes = this.topic.cafes;
-        if (cafes) return cafes[0];
-      },
-      user: function() {
-        return this.topic.user;
-      },
-      isOwner: function() {
-        return this.topic.user.id === this.$root.user.id;
-      },
-      canEdit: function() {
-        return this.topic.editable;
-      },
-      topicStyle: function() {
-        var cover = this.topic.info.cover;
-        if (!cover) return null;
-        return {'background-image': 'url(' + cover + ')'};
-      },
-      cafeStyle: function() {
-        var style = this.cafe.style;
-        var rv = {'background-color': style.color || '#222221'};
-        if (style.logo) {
-          rv['background-image'] = 'url(' + style.logo + ')';
-        }
-        return rv;
-      },
-      shouldBind: function() {
-        if (!this.$root.user.id) return false;
-        return this.topic.read_by_me !== '100%';
-      }
-    },
-    methods: {
-      share: function(site) {
-        var services = {
-          twitter: 'https://twitter.com/intent/tweet?text={text}&url={url}',
-          weibo: 'http://service.weibo.com/share/share.php?title={text}&url={url}'
-        };
-        var url = services[site];
-        url = url.replace('{text}', encodeURIComponent(this.topic.title));
-        url = url.replace('{url}', encodeURIComponent(location.href));
-        window.open(url, '_blank', 'width=615,height=505');
-      },
-      toggleLike: function() {
-        if (!this.$root.user.id) {
-          return this.$root.showLogin = true;
-        }
-        if (this.topic.liked_by_me) {
-          api.topic.unlike(this.topic.id, function() {
-            this.topic.liked_by_me = false;
-          }.bind(this));
-        } else {
-          api.topic.like(this.topic.id, function() {
-            this.topic.liked_by_me = true;
-          }.bind(this));
-        }
-      },
-      editTopic: function() {
-        if (!this.canEdit) return;
-        api.topic.viewRaw(this.topic.id, function(resp) {
-          this.rawTopic = resp;
-          this.showTopicForm = true;
-        }.bind(this));
-      },
-      progress: function() {
-        var viewport = Math.max(
-          document.documentElement.clientHeight,
-          window.innerHeight || 0
-        );
-        var height = this.$els.page.clientHeight;
-        var percent = (window.scrollY + viewport * 0.8) / height * 100;
-        return Math.min(Math.round(percent), 100);
-      },
-      bind: function() {
-        var me = this;
-        if (!me.shouldBind) return;
+import api from '../api';
+import Avatar from './Avatar.vue';
+import Webpage from './Webpage.vue';
+import Dropdown from './Dropdown.vue';
 
-        var clock;
-        var record = function(e) {
-          clearTimeout(clock);
-          if (!me.shouldBind) {
-            return me.unbind();
-          }
-
-          clock = setTimeout(function() {
-            var percent = me.progress();
-            api.topic.read(me.topic.id, percent, function(resp) {
-              me.topic.read_by_me = resp.percent;
-            });
-          }, 1000);
-        };
-
-        me._bindFunc = record;
-        window.addEventListener('scroll', record)
-      },
-      unbind: function() {
-        if (this._bindFunc) {
-          window.removeEventListener('scroll', this._bindFunc);
-          this._bindFunc = null;
-        }
-      }
-    },
-    attached: function() {
-      this.bind();
-    },
-    detached: function() {
-      this.unbind();
-    },
-    components: {
-      'user-avatar': require('./user-avatar.vue'),
-      'dropdown': require('./dropdown.vue'),
-      'webpage': require('./webpage.vue'),
+export default {
+  props: {
+    topic: {
+      type: Object,
+      default: {},
     }
+  },
+  data() {
+    return {
+      rawTopic: {},
+      showEditDropdown: false,
+      showTopicForm: false
+    }
+  },
+  computed: {
+    cafe() {
+      var cafes = this.topic.cafes;
+      if (cafes) return cafes[0];
+    },
+    user() {
+      return this.topic.user;
+    },
+    isOwner() {
+      return this.topic.user.id === this.$root.user.id;
+    },
+    canEdit() {
+      return this.topic.editable;
+    },
+    topicStyle() {
+      var cover = this.topic.info.cover;
+      if (!cover) return null;
+      return {'background-image': 'url(' + cover + ')'};
+    },
+    cafeStyle() {
+      var style = this.cafe.style;
+      var rv = {'background-color': style.color || '#222221'};
+      if (style.logo) {
+        rv['background-image'] = 'url(' + style.logo + ')';
+      }
+      return rv;
+    },
+    shouldBind() {
+      if (!this.$root.user.id) return false;
+      return this.topic.read_by_me !== '100%';
+    }
+  },
+  methods: {
+    share(site) {
+      var services = {
+        twitter: 'https://twitter.com/intent/tweet?text={text}&url={url}',
+        weibo: 'http://service.weibo.com/share/share.php?title={text}&url={url}'
+      };
+      var url = services[site];
+      url = url.replace('{text}', encodeURIComponent(this.topic.title));
+      url = url.replace('{url}', encodeURIComponent(location.href));
+      window.open(url, '_blank', 'width=615,height=505');
+    },
+    toggleLike() {
+      if (!this.$root.user.id) {
+        return this.$root.showLogin = true;
+      }
+      if (this.topic.liked_by_me) {
+        api.topic.unlike(this.topic.id, () => {
+          this.topic.liked_by_me = false;
+        });
+      } else {
+        api.topic.like(this.topic.id, () => {
+          this.topic.liked_by_me = true;
+        });
+      }
+    },
+    editTopic() {
+      if (!this.canEdit) return;
+      api.topic.viewRaw(this.topic.id, resp => {
+        this.rawTopic = resp;
+        this.showTopicForm = true;
+      });
+    },
+    progress() {
+      var viewport = Math.max(
+        document.documentElement.clientHeight,
+        window.innerHeight || 0
+      );
+      var height = this.$els.page.clientHeight;
+      var percent = (window.scrollY + viewport * 0.8) / height * 100;
+      return Math.min(Math.round(percent), 100);
+    },
+    bind() {
+      var me = this;
+      if (!me.shouldBind) return;
+
+      var clock;
+      var record = e => {
+        clearTimeout(clock);
+        if (!me.shouldBind) {
+          return me.unbind();
+        }
+
+        clock = setTimeout(() => {
+          var percent = me.progress();
+          api.topic.read(me.topic.id, percent, resp => {
+            me.topic.read_by_me = resp.percent;
+          });
+        }, 1000);
+      };
+
+      me._bindFunc = record;
+      window.addEventListener('scroll', record)
+    },
+    unbind() {
+      if (this._bindFunc) {
+        window.removeEventListener('scroll', this._bindFunc);
+        this._bindFunc = null;
+      }
+    }
+  },
+  attached() {
+    this.bind();
+  },
+  detached() {
+    this.unbind();
+  },
+  components: {
+    Avatar,
+    Dropdown,
+    Webpage,
   }
+}
 </script>
 
 <style>

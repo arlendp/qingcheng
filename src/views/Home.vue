@@ -37,6 +37,7 @@
       </div>
       <div class="sidebar-view">
         <div class="widget">
+          <a v-link="{path: '/c/?show=create'}" class="button button--green" v-if="$root.user.id">New Topic</a>
         </div>
         <div class="site-sidebar" v-html="sidebar" v-if="sidebar"></div>
       </div>
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import api from '../../lib/api';
+import api from '../api';
 import TopicItem from '../components/TopicItem.vue';
 import Logo from '../components/Logo.vue';
 
@@ -71,11 +72,11 @@ export default {
       this.fetching = true;
       var params = this.$route.query || {};
       if (cursor) params.cursor = cursor;
-      api.timeline(params, function(resp) {
+      api.timeline(params, resp => {
         this.cursor = resp.cursor;
         this.topics = this.topics.concat(resp.data);
         this.fetching = false;
-      }.bind(this));
+      });
     }
   },
   compiled() {
@@ -84,7 +85,7 @@ export default {
   route: {
     data(transition) {
       var params = transition.to.query || {};
-      api.timeline(params, function(resp) {
+      api.timeline(params, resp => {
         transition.next({
           cursor: resp.cursor,
           topics: resp.data,

@@ -3,7 +3,7 @@
     <div class="split-view container">
       <div class="main-view">
         <div v-if="canWrite" class="new-topic">
-          <user-avatar :user="user" class="small circle"></user-avatar>
+          <avatar :alt="user.username" :src="user.avatar_url" class="tip"></user-avatar>
           <a v-link="{name: 'create-topic', params: {slug: cafe.slug}}" role="button">Create a new topic here</a>
         </div>
         <div class="topic-list">
@@ -12,7 +12,7 @@
               <topic-item :topic="topic"></topic-item>
             </template>
           </ul>
-          <logo class="loading center" v-if="$loadingRouteData"></logo>
+          <logo class="logo--loading center" v-if="$loadingRouteData"></logo>
         </div>
       </div>
 
@@ -33,46 +33,51 @@
 </template>
 
 <script>
-  var api = require('../api');
-  module.exports = {
-    props: ['cafe'],
-    data: function() {
-      return {
-        pagination: null,
-        topics: []
-      }
-    },
-    computed: {
-      user: function() {
-        return this.$root.user;
-      },
-      canWrite: function() {
-        var permission = this.cafe.permission || {};
-        return permission.write;
-      },
-      isAdmin: function() {
-        var permission = this.cafe.permission || {};
-        return permission.admin;
-      }
-    },
-    route: {
-      data: function(transition) {
-        var params = transition.to.params;
-        api.cafe.topics(params.slug, params.page, function(resp) {
-          transition.next({
-            pagination: resp.pagination,
-            topics: resp.data,
-          });
-        });
-      }
-    },
-    components: {
-      'topic-item': require('../components/topic-item.vue'),
-      'user-avatar': require('../components/user-avatar.vue'),
-      'logo': require('../components/logo.vue'),
-      'pagination': require('../components/pagination.vue'),
+import api from '../api';
+import TopicItem from '../components/TopicItem.vue';
+import Avatar from '../components/Avatar.vue';
+import Logo from '../components/Logo.vue';
+import Pagination from '../components/Pagination.vue';
+
+export default {
+  props: ['cafe'],
+  data() {
+    return {
+      pagination: null,
+      topics: []
     }
+  },
+  computed: {
+    user() {
+      return this.$root.user;
+    },
+    canWrite() {
+      var permission = this.cafe.permission || {};
+      return permission.write;
+    },
+    isAdmin() {
+      var permission = this.cafe.permission || {};
+      return permission.admin;
+    }
+  },
+  route: {
+    data(transition) {
+      var params = transition.to.params;
+      api.cafe.topics(params.slug, params.page, resp => {
+        transition.next({
+          pagination: resp.pagination,
+          topics: resp.data,
+        });
+      });
+    }
+  },
+  components: {
+    TopicItem,
+    Avatar,
+    Logo,
+    Pagination,
   }
+}
 </script>
 
 <style>

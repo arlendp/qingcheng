@@ -41,55 +41,56 @@
 </template>
 
 <script>
-  var api = require('../api');
-  var getMessage = require('../utils').errorMessage;
-  module.exports = {
-    replace: true,
-    data: function() {
-      return {
-        username: '',
-        password: '',
-        email: '',
-        loginTab: true,
-        error: false,
-        permanent: true
+import api from '../api';
+import errorMessage from '../utils';
+
+export default {
+  replace: true,
+  data() {
+    return {
+      username: '',
+      password: '',
+      email: '',
+      loginTab: true,
+      error: false,
+      permanent: true
+    };
+  },
+  methods: {
+    shakeError() {
+      this.error = true;
+      setTimeout(() => {
+        this.error = false;
+      }, 1000);
+    },
+    login(e) {
+      e.preventDefault();
+      var data = {
+        username: this.username,
+        password: this.password,
+        permanent: this.permanent
       };
+      api.user.login(data, resp => {
+        this.$root.showLogin = false;
+      }).error(this.shakeError.bind(this));
     },
-    methods: {
-      shakeError: function() {
-        this.error = true;
-        setTimeout(function() {
-          this.error = false;
-        }.bind(this), 1000);
-      },
-      login: function(e) {
-        e.preventDefault();
-        var data = {
-          username: this.username,
-          password: this.password,
-          permanent: this.permanent
-        };
-        api.user.login(data, function(resp) {
-          this.$root.showLogin = false;
-        }.bind(this)).error(this.shakeError.bind(this));
-      },
-      signup: function(e) {
-        e.preventDefault();
-        api.user.signup(this.email, function(resp) {
-          this.$root.show('info', resp.message);
-        }.bind(this)).error(function(resp) {
-          this.$root.show('error', getMessage(resp.error_form));
-          this.shakeError();
-        }.bind(this));
-      }
-    },
-    ready: function() {
-      var el = this.$els.username;
-      setTimeout(function() {
-        el.focus();
-      }, 20);
+    signup(e) {
+      e.preventDefault();
+      api.user.signup(this.email, resp => {
+        this.$root.show('info', resp.message);
+      }).error(resp => {
+        this.$root.show('error', errorMessage(resp.error_form));
+        this.shakeError();
+      });
     }
-  };
+  },
+  ready() {
+    var el = this.$els.username;
+    setTimeout(() => {
+      el.focus();
+    }, 20);
+  }
+};
 </script>
 
 <style>

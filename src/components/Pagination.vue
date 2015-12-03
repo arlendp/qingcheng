@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-  module.exports = {
-    props: ['url', 'pagination']
-  };
+export default {
+  props: ['url', 'pagination']
+};
 </script>

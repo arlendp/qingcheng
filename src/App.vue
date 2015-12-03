@@ -24,7 +24,7 @@
             </overlay>
           </li>
           <li>
-            <user-avatar :user="user" @click="viewUserDropdown"></user-avatar>
+            <avatar :alt="user.username" :src="user.avatar_url" @click="viewUserDropdown"></avatar>
             <dropdown v-show="showUserDropdown" :show.sync="showUserDropdown">
               <a class="dropdown__item" href="/u/{{ user.username }}">View Profile</a>
               <div class="dropdown__divider"></div>
@@ -60,13 +60,13 @@
 <script>
   var clock, year = new Date().getFullYear();
 
-  import api from '../lib/api';
+  import api from './api';
   import Overlay from './components/Overlay.vue';
-  import UserAvatar from '../lib/components/user-avatar.vue';
+  import Avatar from './components/Avatar.vue';
   import Dropdown from './components/Dropdown.vue';
   import Logo from './components/Logo.vue';
-  import LoginForm from '../lib/components/login-form.vue';
-  import UserNotifications from '../lib/components/user-notifications.vue';
+  import LoginForm from './components/LoginForm.vue';
+  import UserNotifications from './components/UserNotifications.vue';
 
   export default {
     replace: false,
@@ -92,9 +92,9 @@
       },
       check() {
         if (!this.user.username) return;
-        api.notification.count(function(resp) {
+        api.notification.count(resp => {
           this.notificationCount = resp.count;
-        }.bind(this));
+        });
       },
       flush() {
         this.messages = [];
@@ -110,9 +110,9 @@
 
         this.messages.push(msg);
         var index = this.messages.length - 1;
-        setTimeout(function() {
+        setTimeout(() => {
           this.clear(index);
-        }.bind(this), 3000);
+        }, 3000);
       }
     },
     ready() {
@@ -122,7 +122,7 @@
     },
     components: {
       Overlay,
-      UserAvatar,
+      Avatar,
       Dropdown,
       Logo,
       LoginForm,
@@ -131,7 +131,7 @@
   }
 
   function unique(item, list) {
-    return !list.some(function(data) {
+    return !list.some(data => {
       return JSON.stringify(data) === JSON.stringify(item);
     });
   }

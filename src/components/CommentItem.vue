@@ -1,6 +1,6 @@
 <template>
   <li id="c-{{ comment.id }}" class="comment-item item-container" v-show="comment.id" transition="fade" :class="{'comment-hide': isHide}">
-    <user-avatar :user="user"></user-avatar>
+    <avatar :alt="user.username" :src="user.avatar_url"></avatar>
     <div class="comment-main item-content">
       <div class="comment-info">
         <a href="/u/{{user.username}}">{{user.username}}</a>
@@ -22,60 +22,62 @@
 </template>
 
 <script>
-  var api = require('../api');
-  module.exports = {
-    replace: true,
-    props: ['comment'],
-    computed: {
-      user: function() {
-        return this.comment.user;
-      },
-      isOwner: function() {
-        return this.$root.user.id === this.user.id;
-      },
-      isHide: function() {
-        return this.comment.flag_count > 5;
-      },
-      content: function() {
-        var content = this.comment.content;
-        // > is for end of the tag: `<p>`
-        content = content.replace(/(>|\s)@([0-9a-z]+)/g, '$1<a href="/u/$2">@$2<\/a>');
-        return content;
+import api from '../api';
+import Avatar from './Avatar.vue'
+
+export default {
+  replace: true,
+  props: ['comment'],
+  computed: {
+    user() {
+      return this.comment.user;
+    },
+    isOwner() {
+      return this.$root.user.id === this.user.id;
+    },
+    isHide() {
+      return this.comment.flag_count > 5;
+    },
+    content() {
+      var content = this.comment.content;
+      // > is for end of the tag: `<p>`
+      content = content.replace(/(>|\s)@([0-9a-z]+)/g, '$1<a href="/u/$2">@$2<\/a>');
+      return content;
+    }
+  },
+  methods: {
+    deleteComment() {
+      if (confirm('Are you sure to delete this comment?')) {
+        api.comment.delete(this.comment, () => {
+          this.comment.id = null;
+          this.$parent.topic.comment_count -= 1;
+        });
       }
     },
-    methods: {
-      deleteComment: function() {
-        if (confirm('Are you sure to delete this comment?')) {
-          api.comment.delete(this.comment, function() {
-            this.comment.id = null;
-            this.$parent.topic.comment_count -= 1;
-          }.bind(this));
-        }
-      },
-      flagComment: function() {
-        if (confirm('Are you sure to report this comment?')) {
-          api.comment.flag(this.comment)
-        }
-      },
-      toggleLike: function() {
-        var comment = this.comment;
-        if (comment.liked_by_me) {
-          api.comment.unlike(comment, function(resp) {
-            comment.liked_by_me = false;
-            comment.like_count -= 1;
-          });
-        } else {
-          api.comment.like(comment, function(resp) {
-            comment.liked_by_me = true;
-            comment.like_count += 1;
-          });
-        }
-      },
+    flagComment() {
+      if (confirm('Are you sure to report this comment?')) {
+        api.comment.flag(this.comment)
+      }
     },
-    components: {
-      'user-avatar': require('./user-avatar.vue')
-    }
+    toggleLike() {
+      var comment = this.comment;
+      if (comment.liked_by_me) {
+        api.comment.unlike(comment, resp => {
+          comment.liked_by_me = false;
+          comment.like_count -= 1;
+        });
+      } else {
+        api.comment.like(comment, resp => {
+          comment.liked_by_me = true;
+          comment.like_count += 1;
+        });
+      }
+    },
+  },
+  components: {
+    Avatar
   }
+}
 </script>
 
 <style>
