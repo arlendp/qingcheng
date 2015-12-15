@@ -59,7 +59,6 @@
 
 <script>
   var api = require('./api');
-  var clock;
   var clock, year = new Date().getFullYear();
   module.exports = {
     data: function() {
