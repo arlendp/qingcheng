@@ -16,7 +16,7 @@ export function timeago(time) {
   if (days < 1) return Math.round(hours) + ' hours ago';
   if (days < 7) return parseInt(days, 10) + ' days ago';
 
-  var month = time.getMonth();
+  var month = time.getMonth() + 1;
   if (month < 10) month = '0' + month;
   var date = time.getDate();
   if (date < 10) date = '0' + date;
