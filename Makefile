@@ -13,7 +13,7 @@ dev:
 
 dist:
 	@mkdir -p dist/fonts
-	@NODE_ENV=production ${webpack} --optimize-dedupe --optimize-minimize --hide-modules
+	@npm run build
 	@cat icon.css vendors/*.css | cleancss -o dist/vendor.css
 	@cp fonts/* dist/fonts/
 	@cp build/app.css dist/
