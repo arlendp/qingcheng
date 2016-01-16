@@ -9,17 +9,7 @@ import wc from "word-color"
 var failed = {}
 
 export default {
-  props: {
-    alt: {
-      type: String,
-    },
-    src: {
-      type: String,
-    },
-    size: {
-      type: String,
-    }
-  },
+  props: ['alt', 'src', 'size'],
   data() {
     return {image: false}
   },

@@ -12,9 +12,9 @@
     <div class="header__bottom">
       <div class="container">
         <nav class="header__nav nav">
-          <a class="nav__item" v-link="{path: '/'}">Following</a>
-          <a class="nav__item" v-link="{path: '/?show=all'}">Topics</a>
-          <a class="nav__item" v-link="{path: '/c/'}">Cafes</a>
+          <a class="nav__item" v-link="'/'">Following</a>
+          <a class="nav__item" v-link="'/?show=all'">Topics</a>
+          <a class="nav__item" v-link="'/c/'">Cafes</a>
         </nav>
       </div>
     </div>

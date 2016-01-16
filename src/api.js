@@ -3,10 +3,6 @@ var TRY_CURRENT_USER_KEY = 'zq:try:me';
 
 var http = require('./xhr');
 
-if (ZERQU.GA) {
-  ga('create', ZERQU.GA);
-}
-
 http.defaults.afterRequest = function(req, duration) {
   ga('send', 'timing', 'AJAX', req.url, duration, req.status);
 };

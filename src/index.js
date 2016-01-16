@@ -1,20 +1,21 @@
-require('../lib/css/base.css');
-require('../lib/css/ui.css');
-
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import registerRouters from './routers';
-import App from './App.vue';
-import * as filters from './filters';
 
-// site configuration
 var zerqu = window.ZERQU || {};
+
 if (process.env.NODE_ENV === 'production') {
   require('./ga');
 } else {
   window.ga = function() {};
   Vue.config.debug = true;
 }
+
+require('../lib/css/base.css');
+require('../lib/css/ui.css');
+
+import VueRouter from 'vue-router';
+import registerRouters from './routers';
+import App from './App.vue';
+import * as filters from './filters';
 
 Object.defineProperty(Vue.prototype, '$site', {
   get: function() {
@@ -38,4 +39,4 @@ var router = new VueRouter({
 registerRouters(router);
 
 router.start(App, '#app');
-require('../lib/api').register(router.app);
+require('./api').register(router.app);
