@@ -2,9 +2,7 @@ import Vue from 'vue';
 
 var zerqu = window.ZERQU || {};
 
-if (process.env.NODE_ENV === 'production') {
-  require('./ga');
-} else {
+if (process.env.NODE_ENV === 'development') {
   window.ga = function() {};
   Vue.config.debug = true;
 }
