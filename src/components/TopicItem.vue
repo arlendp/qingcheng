@@ -1,8 +1,8 @@
 <template>
   <li :id="'t-'+topic.id" class="topic-item clearfix">
-    <span class="user-avatar">
+    <a class="user-avatar" href="/u/{{ topic.user.username }}">
       <avatar :alt="topic.user.username" :src="topic.user.avatar_url" size="36" class="tip"></avatar>
-    </span>
+    </a>
     <div class="topic-meta">
       <span class="topic-cafe" v-for="cafe in topic.cafes">
         <span class="cafe-logo" :style="cafe.style|logo"></span>

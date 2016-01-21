@@ -3,7 +3,7 @@
     <div class="split-view container">
       <div class="main-view">
         <div v-if="canWrite" class="new-topic">
-          <avatar :alt="user.username" :src="user.avatar_url" class="tip"></user-avatar>
+          <avatar :alt="user.username" :src="user.avatar_url" class="tip" size="36"></avatar>
           <a v-link="{name: 'create-topic', params: {slug: cafe.slug}}" role="button">Create a new topic here</a>
         </div>
         <div class="topic-list">

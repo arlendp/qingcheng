@@ -24,7 +24,7 @@
             </overlay>
           </li>
           <li>
-            <avatar :alt="user.username" :src="user.avatar_url" @click="viewUserDropdown"></avatar>
+            <avatar :alt="user.username" :src="user.avatar_url" size="28" class="v-avatar--squared" @click="viewUserDropdown"></avatar>
             <dropdown v-show="showUserDropdown" :show.sync="showUserDropdown">
               <a class="dropdown__item" href="/u/{{ user.username }}">View Profile</a>
               <div class="dropdown__divider"></div>
