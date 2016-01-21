@@ -4,7 +4,9 @@
     <div class="header__cover cover">
       <div class="cover__text">
         <div class="item-container container" v-if="user.username">
-          <avatar :alt="user.username" :src="user.avatar_url"></avatar>
+          <span class="avatar">
+              <avatar :alt="user.username" :src="user.avatar_url" class="v-avatar--squared"></avatar>
+          </span>
           <div class="item-content">
             <h2>{{ name }}</h2>
             <p v-html="user.description|urlize"></p>

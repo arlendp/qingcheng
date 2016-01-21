@@ -5,7 +5,9 @@
         <h3 class="card-title">{{ cafe.name }}</h3>
       </div>
     </a>
-    <user-avatar :user="cafe.user" class="small circle" v-if="cafe.user"></user-avatar>
+    <a class="avatar" href="/u/{{ cafe.user.username }}">
+        <avatar :alt="cafe.user.username" :src="cafe.user.avatar_url"  size="36" class="tip" v-if="cafe.user"></avatar>
+    </a>
     <div class="card-footer">
       <div class="card-description" v-html="description|urlize"></div>
     </div>

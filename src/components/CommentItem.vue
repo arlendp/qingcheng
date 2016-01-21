@@ -1,6 +1,8 @@
 <template>
   <li id="c-{{ comment.id }}" class="comment-item item-container" v-show="comment.id" transition="fade" :class="{'comment-hide': isHide}">
-    <avatar :alt="user.username" :src="user.avatar_url"></avatar>
+    <span class="avatar">
+        <avatar :alt="user.username" :src="user.avatar_url" class="v-avatar--squared"></avatar>
+    </span>
     <div class="comment-main item-content">
       <div class="comment-info">
         <a href="/u/{{user.username}}">{{user.username}}</a>

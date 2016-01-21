@@ -2,7 +2,7 @@
   <div class="notification-list">
     <h2>Notifications</h2>
     <div v-for="notice in notifications" class="item-container">
-      <avatar :alt="notice.sender.username" :src="notice.sender.avatar_url"></user-avatar>
+      <avatar :alt="notice.sender.username" :src="notice.sender.avatar_url"></avatar>
       <div class="item-content">
         <div class="item-info">{{ notice.category|message }}</div>
         <a class="topic-title" href="/t/{{notice.topic.id}}">{{notice.topic.title}}</a>
