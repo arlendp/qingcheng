@@ -58,6 +58,15 @@ export default {
   components: {
     Avatar,
     MarkdownArea
+  },
+  created () {
+    this.$on('comment-at-user', username => {
+      if (this.comment === '') {
+        this.comment = this.comment + '@' + username + ' '
+      } else {
+        this.comment = this.comment + ' @' + username + ' '
+      }
+    })
   }
 }
 </script>

@@ -63,6 +63,15 @@ export default {
     Logo,
     CommentForm,
     CommentItem
+  },
+  events: {
+    'reply-comment': username => {
+      if (this.$root.user.id) {
+        this.$broadcast('comment-at-user', username)
+      } else {
+        this.$root.showLogin = true
+      }
+    }
   }
 };
 </script>

@@ -10,6 +10,7 @@
         #{{ comment.id }}
         <div class="comment-actions">
           <span v-show="comment.like_count">{{ comment.like_count }} likes</span>
+          <a role="button" href="javascript:;" v-if="!isOwner" @click="reply(user.username)" aria-label="reply {{ user.username }}">Reply</a>
           <a class="tip tip-west like-comment" role="button" href="javascript:;" aria-label="like this comment"
           v-if="!isOwner" @click="toggleLike" :class="{liked: comment.liked_by_me}">
             <i class="qc-icon-heart"></i>
@@ -60,6 +61,9 @@ export default {
       if (confirm('Are you sure to report this comment?')) {
         api.comment.flag(this.comment)
       }
+    },
+    reply(username) {
+      this.$dispatch('reply-comment', username)
     },
     toggleLike() {
       var comment = this.comment;
