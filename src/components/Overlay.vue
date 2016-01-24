@@ -36,7 +36,7 @@ export default {
     this.close()
   },
   watch: {
-    'show': function(val) {
+    'show': val => {
       if (val) {
         this.open()
       } else {

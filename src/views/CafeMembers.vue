@@ -43,7 +43,7 @@ export default {
     }
   },
   route: {
-    data: function(transition) {
+    data(transition) {
       var params = transition.to.params;
       api.cafe.users(params.slug, params.page, resp => {
         transition.next({

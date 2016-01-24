@@ -60,11 +60,11 @@ export default {
     img.alt = this.alt
 
     var me = this;
-    img.onload = function() {
+    img.onload = () => {
       me.image = true
       me.$el.appendChild(img)
     }
-    img.onerror = function() {
+    img.onerror = () => {
       failed[key] = 1
     }
   }
