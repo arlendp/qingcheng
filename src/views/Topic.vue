@@ -65,7 +65,7 @@ export default {
     CommentItem
   },
   events: {
-    'reply-comment': username => {
+    'reply-comment': function(username) {
       if (this.$root.user.id) {
         this.$broadcast('comment-at-user', username)
       } else {
