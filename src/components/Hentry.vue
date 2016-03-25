@@ -48,8 +48,8 @@
               <i class="qc-icon-quill"></i>
             </button>
             <dropdown v-show="showEditDropdown" :show.sync="showEditDropdown">
-              <a class="dropdown-item" v-if="canEdit" v-link="{name: 'edit-topic', params: {topicId: topic.id}}">Edit</a>
-              <a class="dropdown-item" href="/account/delete-topic/{{topic.id}}">Delete</a>
+              <a class="dropdown__item" v-if="canEdit" v-link="{name: 'edit-topic', params: {topicId: topic.id}}">Edit</a>
+              <a class="dropdown__item" href="/account/delete-topic/{{topic.id}}">Delete</a>
             </dropdown>
           </span>
         </div>
