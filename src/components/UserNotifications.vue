@@ -85,4 +85,8 @@ export default {
   padding: 30px 0;
   text-align: center;
 }
+.notification-list .v-avatar {
+  float: left;
+  margin-right: 10px;
+}
 </style>
