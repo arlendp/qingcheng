@@ -59,12 +59,11 @@ export default {
     img.src = this.src
     img.alt = this.alt
 
-    var me = this;
-    img.onload = function() {
-      me.image = true
-      me.$el.appendChild(img)
+    img.onload = () => {
+      this.image = true
+      this.$el.appendChild(img)
     }
-    img.onerror = function() {
+    img.onerror = () => {
       failed[key] = 1
     }
   }

@@ -23,7 +23,7 @@ export default {
 
     var wrap = this.$els.image;
     var sec = this.$els.wrapper;
-    img.onload = function() {
+    img.onload = () => {
       wrap.style.backgroundImage = 'url(' + src + ')';
       if (img.width > sec.clientWidth) {
         sec.className = 'webpage--cover';
