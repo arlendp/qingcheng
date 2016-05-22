@@ -1,7 +1,7 @@
 var webpack = require("webpack");
 
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var cssLoader = ExtractTextPlugin.extract("style", "css?sourceMap!postcss")
+var cssLoader = ExtractTextPlugin.extract("vue-style", "css?sourceMap!postcss")
 
 var publicPath = "/build/";
 
@@ -36,18 +36,10 @@ module.exports = {
       new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js"),
   ],
 
-  postcss: function () {
-    // use webpack context
-    var postcssImport = require('postcss-import');
-
+  postcss: function (pack) {
     return [
-      postcssImport({
-        onImport: function (files) {
-          files.forEach(this.addDependency);
-        }.bind(this)
-      }),
-
-      require('postcss-custom-properties'),
+      require('postcss-import')({path: './css', addDependencyTo: pack}),
+      require('postcss-css-variables'),
     ]
   },
 
