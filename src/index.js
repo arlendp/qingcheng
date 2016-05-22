@@ -11,7 +11,6 @@ require('../lib/css/base.css');
 require('../lib/css/ui.css');
 
 import VueRouter from 'vue-router';
-import registerRouters from './routers';
 import App from './App.vue';
 import * as filters from './filters';
 
@@ -34,7 +33,8 @@ var router = new VueRouter({
   saveScrollPosition: true
 });
 
-registerRouters(router);
+import views from './views';
+router.map(views)
 
 router.start(App, '#app');
 require('./api').register(router.app);
