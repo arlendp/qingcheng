@@ -1,12 +1,18 @@
-var webpack = require("webpack");
+var webpack = require("webpack")
 
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require("extract-text-webpack-plugin")
 var cssLoader = ExtractTextPlugin.extract("vue-style", "css?sourceMap!postcss")
 
-var publicPath = "/build/";
+var publicPath = "/build/"
 
 var pkg = require('./package.json')
 var vendor = Object.keys(pkg.dependencies)
+
+var proxy = {
+  "/api/*": {target: "http://python-china.org", host: "python-china.org"},
+  "/session*": {target: "http://python-china.org", host: "python-china.org"},
+}
+
 
 module.exports = {
   entry: {
@@ -54,5 +60,11 @@ module.exports = {
     plugins: ['transform-runtime'],
   },
 
+  devServer: {
+    historyApiFallback: true,
+    host: '0.0.0.0',
+    proxy: proxy
+  },
+
   devtool: "source-map",
-};
+}
