@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import api from '../api';
+import {Cafe} from '../store/api';
 import TopicItem from '../components/TopicItem.vue';
 import Avatar from '../components/Avatar.vue';
 import Logo from '../components/Logo.vue';
@@ -63,10 +63,12 @@ export default {
   route: {
     data(transition) {
       var params = transition.to.params;
-      api.cafe.topics(params.slug, params.page, resp => {
+      var api = new Cafe(params.slug)
+      api.topics(params.page, (err, resp) => {
+        var body = resp.body
         transition.next({
-          pagination: resp.pagination,
-          topics: resp.data,
+          pagination: body.pagination,
+          topics: body.data,
         });
       });
     }
