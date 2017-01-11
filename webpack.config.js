@@ -9,8 +9,8 @@ var pkg = require('./package.json')
 var vendor = Object.keys(pkg.dependencies)
 
 var proxy = {
-  "/api/*": {target: "http://python-china.org", host: "python-china.org"},
-  "/session*": {target: "http://python-china.org", host: "python-china.org"},
+  "/api/*": {target: "http://python-china.org", host: "python-china.org", secure: false, changeOrigin: true},
+  "/session*": {target: "http://python-china.org", host: "python-china.org", secure: false, changeOrigin: true},
 }
 
 
